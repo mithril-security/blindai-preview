@@ -42,9 +42,9 @@ jobs:
         id: version
         run: echo value=$(echo ${{ github.ref }} | cut -f 3 -d / | tr -d 'v' ) >> $GITHUB_OUTPUT
       
-      - name: Extract binary
+      - name: Build trusted binary
         run: |
-          docker build -f .github/sgxs-release.dockerfile --tag blindaiv2-enclave:latest .
+          docker build -f .github/sgxs-release.dockerfile --target build-sgxs --tag blindaiv2-enclave:latest .
           id=$(docker create blindaiv2-enclave:latest)
           docker cp "$id:/blindai-preview/target/x86_64-fortanix-unknown-sgx/release/blindai_server.sgxs" .
           docker cp "$id:/blindai-preview/manifest.toml" .
@@ -67,3 +67,4 @@ jobs:
           docker build -f .github/pypi-release.dockerfile --tag blindaiv2-pypi:latest .
           docker rm --force blindaiv2-pypi
           docker run --name blindaiv2-pypi  -e API_TOKEN_PYPI=${{ secrets.API_TOKEN_PYPI }} blindaiv2-pypi:latest
+
