@@ -67,4 +67,18 @@ jobs:
           docker build -f .github/pypi-release.dockerfile --tag blindaiv2-pypi:latest .
           docker rm --force blindaiv2-pypi
           docker run --name blindaiv2-pypi  -e API_TOKEN_PYPI=${{ secrets.API_TOKEN_PYPI }} blindaiv2-pypi:latest
+      
+      - name: dockerhub login
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+      
+      - name: dockerhub push
+        uses: docker/build-push-action@v3
+        with:
+          push: true
+          context: .
+          file: .github/sgxs-release.dockerfile
+          tags: mithrilsecuritysas/blindai_server:latest,mithrilsecuritysas/blindai_server:${{steps.version.outputs.value}}
 
