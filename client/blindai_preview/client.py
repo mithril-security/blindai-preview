@@ -742,4 +742,5 @@ def connect(
         attested_port,
         hazmat_manifest_path,
         hazmat_http_on_untrusted_port,
+        simulation
     )
