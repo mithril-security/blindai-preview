@@ -118,14 +118,28 @@ fn main() -> Result<()> {
     let mut report_data = [0u8; 64];
     report_data[0..32].copy_from_slice(report_binding.as_ref());
 
+    #[cfg(target_env = "sgx")]
     let target_info = get_target_info()?;
-    debug!("target info = {:?} ", &target_info);
-    let report = Report::for_target(&target_info, &report_data);
+    #[cfg(not(target_env = "sgx"))]
+    let target_info = Targetinfo::default();
 
+    debug!("target info = {:?} ", &target_info);
+
+    #[cfg(target_env = "sgx")]
+    let report = Report::for_target(&target_info, &report_data);
+    #[cfg(not(target_env = "sgx"))]
+    let report = Report::default();
+
+    #[cfg(target_env = "sgx")]
     let quote = get_quote(report)?;
+    #[cfg(not(target_env = "sgx"))]
+    let quote: Vec<u8> = Vec::new();
     debug!("Attestation : Quote is {:?} ", &quote);
 
+    #[cfg(target_env = "sgx")]
     let collateral = get_collateral(&quote)?;
+    #[cfg(not(target_env = "sgx"))]
+    let collateral: Vec<u8> = Vec::new();
     debug!("Attestation : Collateral is {:?} ", collateral);
 
     let router = {

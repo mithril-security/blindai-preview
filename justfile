@@ -68,11 +68,11 @@ check *args:
 
 # Build for a Linux target (no SGX)
 build-no-sgx *args:
-  cargo build {{args}}
+  cargo build --target x86_64-unknown-linux-gnu {{args}}
 
 # Run on a Linux target (no SGX)
 run-no-sgx *args:
-  cargo run {{args}}
+  cargo run --target x86_64-unknown-linux-gnu {{args}}
 
 # Run in the simulator
 run-simu *args:
