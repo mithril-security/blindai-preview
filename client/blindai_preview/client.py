@@ -536,7 +536,7 @@ class BlindAiConnection(contextlib.AbstractContextManager):
 
         cert = cbor.loads(s.get(self._untrusted_url).content)
 
-        if (simulation is not False):
+        if simulation is not False:
             quote = cbor.loads(s.get(f"{self._untrusted_url}/quote").content)
             collateral = cbor.loads(s.get(f"{self._untrusted_url}/collateral").content)
 
