@@ -36,5 +36,5 @@ setup(
     long_description=LONG_DESCRIPTION,
     author="Mithril Security",
     author_email="contact@mithrilsecurity.io",
-    classifiers=["Programming Language :: Python :: 3"]
+    classifiers=["Programming Language :: Python :: 3"],
 )
