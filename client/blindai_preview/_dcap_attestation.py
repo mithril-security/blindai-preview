@@ -116,6 +116,11 @@ def validate_attestation(
         __package__, "Intel_SGX_Provisioning_Certification_RootCA.pem"
     )
 
+    if len(collateral) != 7:
+        raise QuoteValidationError(
+            f"Collateral data is invalid"
+        )
+
     attestation_result = sgx_dcap_quote_verify.verify(
         trusted_root_ca_certificate=trusted_root_ca_certificate,
         pck_certificate=collateral["pck_certificate"],
