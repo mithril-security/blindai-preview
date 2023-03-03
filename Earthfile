@@ -231,6 +231,20 @@ build-release-client:
         && poetry build
     SAVE ARTIFACT client/dist
 
+release-python-server:
+    FROM python:3.10.9-alpine3.17
+    WORKDIR blindai-preview
+
+    RUN pip install twine
+
+    COPY python-wheel python-wheel
+    RUN cd python-wheel \
+        && sh create_wheel.sh
+
+    RUN --push --secret API_TOKEN_PYPI \ 
+        cd python-wheel \
+        && TWINE_USERNAME="__token__" TWINE_PASSWORD="$API_TOKEN_PYPI" twine upload dist/*
+
 publish-client-release:
     FROM +build-release-client
 
@@ -378,4 +392,4 @@ build-simulation-mode:
 
     RUN zip blindai-linux.zip bin/blindai_server
     
-    SAVE ARTIFACT  blindai-linux.zip
+    SAVE ARTIFACT blindai-linux.zip

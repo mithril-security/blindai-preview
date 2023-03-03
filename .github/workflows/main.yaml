@@ -63,6 +63,10 @@ jobs:
           --push +publish \
           --TAG="$VERSION_TAG"
 
+        ./earthly \
+          --secret API_TOKEN_PYPI=${{ secrets.API_TOKEN_PYPI }} \
+          --push +release-python-server
+
         ./earthly --artifact +build-release-enclave/* outdir/
         ./earthly --artifact +build-release-runner/runner outdir/
         ./earthly --artifact +build-simulation-mode/* outdir/
