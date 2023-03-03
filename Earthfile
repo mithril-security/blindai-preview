@@ -342,3 +342,40 @@ test-docker-image:
             && cd tests \
             && bash run_all_end_to_end_tests.sh
     END
+
+build-simulation-mode:
+    # Manylinux2014 will be used to ensure the compatibility with Google Colab platforms and most of the linux distributions
+    FROM quay.io/pypa/manylinux2014_x86_64
+    WORKDIR blindai-preview
+
+    # Install dependencies and pre-install the rust toolchain declared via rust-toolchain.toml 
+    # for better caching
+    RUN curl -4 'https://static.rust-lang.org/rustup/dist/x86_64-unknown-linux-gnu/rustup-init' --output /root/rustup-init && \
+        chmod +x /root/rustup-init && \
+        echo '1' | /root/rustup-init --default-toolchain nightly-2023-01-11-x86_64-unknown-linux-gnu && \
+        echo 'source /root/.cargo/env' >> /root/.bashrc && \
+        rm /root/rustup-init
+    ENV PATH="/root/.cargo/bin:$PATH"
+
+    RUN yum install zip -y
+
+    COPY rust-toolchain.toml Cargo.toml Cargo.lock ./
+    COPY .cargo .cargo
+    COPY src src
+    COPY tar-rs-sgx tar-rs-sgx
+    COPY tract tract
+    COPY ring-fortanix ring-fortanix
+    COPY tiny-http tiny-http
+    COPY rouille rouille
+
+    RUN sed -i 's/x86_64-fortanix-unknown-sgx/x86_64-unknown-linux-gnu/g' rust-toolchain.toml
+
+    RUN cargo build --locked --release
+
+    RUN mkdir bin
+
+    RUN cp target/release/blindai_server bin/blindai_server
+
+    RUN zip blindai-linux.zip bin/blindai_server
+    
+    SAVE ARTIFACT  blindai-linux.zip

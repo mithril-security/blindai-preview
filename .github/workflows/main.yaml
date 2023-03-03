@@ -65,9 +65,11 @@ jobs:
 
         ./earthly --artifact +build-release-enclave/* outdir/
         ./earthly --artifact +build-release-runner/runner outdir/
+        ./earthly --artifact +build-simulation-mode/* outdir/
         pushd outdir
         tar czf blindai_server-$VERSION_TAG.tgz blindai_server.sgxs blindai_server.sig runner
+        mv blindai-linux.zip blindai-$VERSION_TAG-linux.zip
         popd
 
-        GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} gh release create --verify-tag v$VERSION_TAG outdir/manifest.toml outdir/blindai_server-$VERSION_TAG.tgz
+        GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} gh release create --verify-tag v$VERSION_TAG outdir/manifest.toml outdir/blindai_server-$VERSION_TAG.tgz outdir/blindai-$VERSION_TAG-linux.zip
 
