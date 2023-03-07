@@ -21,9 +21,8 @@
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
   <p align="center">
-    <b>BlindAI</b> helps deploy AI models with an added <b>privacy layer</b>,
-    <br />
-    protecting both the data sent to be analysed by the model and the model's IP. 
+    <b>BlindAI</b> helps deploy AI models with an added <b>privacy layer</b>, 
+    protecting the data sent to be analysed by the model and the model's IP. 
     <br />
     <a href="https://blindai.mithrilsecurity.io/en/latest/"><strong>Explore the docs »</strong></a>
     <br />
@@ -43,54 +42,54 @@
   <summary>Table of Contents</summary>
   <ol>
     <li>
-      <a href="#about-the-project">About The Project</a>
+      <a href="#-about-the-project">About The Project</a>
       <ul>
         <li><a href="#built-with">Built With</a></li>
       </ul>
     </li>
     <li>
-      <a href="#getting-started">Getting Started</a>
+      <a href="#-getting-started">Getting Started</a>
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#disclaimer">Disclaimer</a></li>
+    <li><a href="#-usage">Usage</a></li>
+    <li><a href="#-roadmap">Roadmap</a></li>
+    <li><a href="#-contributing">Contributing</a></li>
+    <li><a href="#-license">License</a></li>
+    <li><a href="#-contact">Contact</a></li>
+    <li><a href="#-disclaimer">Disclaimer</a></li>
   </ol>
 </details>
 
 
 
 <!-- ABOUT THE PROJECT -->
-## About The Project
+## 🔒 About The Project
 
 BlindAI is a **confidential AI inference server**. It works like any regular AI inference solutions by helping AI engineers serve models for end-users to benefit from their predictions, but **with an added privacy layer**. 
 
 Data sent by users to the AI model is kept confidential at all times, from the transfer to the analysis. This way, users can benefit from AI models without ever having to expose their data in clear to anyone: neither the AI service provider, nor the Cloud provider (if any), can see the data.
 
-Confidentiality is assured by using special hardware-enforced Trusted Execution Environments. To read more about those, read our blog series [here](https://blog.mithrilsecurity.io/confidential-computing-explained-part-1-introduction/).
+Confidentiality is assured by using special hardware-enforced Trusted Execution Environments, and more specifically, Intel SGX. To know more about those, you can read our dedicated page [in the documentation](https://blindai.mithrilsecurity.io/en/latest/).
 
 Our solution comes in two parts:
 
-- A **secure inference server** to deploy AI models with privacy guarantees
+- A **secure inference server** to deploy AI models with privacy guarantees **in Rust**
 - A **Python client SDK** to securely consume the remote AI models
 
 
 ### Built With 
 
-[![Rust][Rust]][Rust-url] [![Python][Python]][Python-url] [![Intel-SGX][Intel-SGX]][Intel-sgx-url]
+[![Rust][Rust]][Rust-url] [![Python][Python]][Python-url] [![Intel-SGX][Intel-SGX]][Intel-sgx-url] [![Tract][Tract]][tract-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
 <!-- GETTING STARTED -->
-## Getting Started
+## 🚀 Getting Started
 
 This is an example of how you may give instructions on setting up your project locally.
 To get a local copy up and running follow these simple example steps.
@@ -123,7 +122,7 @@ This is an example of how to list things you need to use the software and how to
 
 
 <!-- USAGE EXAMPLES -->
-## Usage
+## 🔆 Usage
 
 Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
 
@@ -134,7 +133,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 
 <!-- ROADMAP -->
-## Roadmap
+## 🎯 Roadmap
 
 - [ ] Feature 1
 - [ ] Feature 2
@@ -148,7 +147,7 @@ See the [open issues](https://github.com/mithril-security/blindai/issues) for a 
 
 
 <!-- CONTRIBUTING -->
-## Contributing
+## 👥 Contributing
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
@@ -166,7 +165,7 @@ Don't forget to give the project a star! Thanks again!
 
 
 <!-- LICENSE -->
-## License
+## 📜 License
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
 
@@ -175,7 +174,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 
 <!-- CONTACT -->
-## Contact
+## 📇 Contact
 
 Mithril Security - [@MithrilSecurity](https://twitter.com/MithrilSecurity) - contact@mithrilsecurity.io
 
@@ -186,7 +185,7 @@ Project Link: [https://github.com/mithril-security/blindai](https://github.com/m
 
 
 <!-- DISCLAIMER -->
-## Disclaimer
+## 📢 Disclaimer
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -217,5 +216,7 @@ Project Link: [https://github.com/mithril-security/blindai](https://github.com/m
 [Rust-url]: https://www.rust-lang.org/fr
 [Intel-SGX]: https://img.shields.io/badge/SGX-FFD43B?style=for-the-badge&logo=intel&logoColor=black
 [Intel-sgx-url]: https://www.intel.fr/content/www/fr/fr/architecture-and-technology/software-guard-extensions.html
+[Tract]: https://img.shields.io/badge/Tract-FFD43B?style=for-the-badge
+[tract-url]: https://github.com/mithril-security/tract/tree/6e4620659837eebeaba40ab3eeda67d33a99c7cf
 
 <!-- Done using https://github.com/othneildrew/Best-README-Template -->
