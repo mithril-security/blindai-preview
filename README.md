@@ -131,7 +131,7 @@ But here’s a taste of what using BlindAI could look like 🍒
 
 PUT ONE EXAMPLE (ALSO SOME LINE FROM QUICK TOUR I GUESS)
 
-_For more examples, please refer to the [Documentation]([https://example.com](https://blindai.mithrilsecurity.io/en/latest/))_
+_For more examples, please refer to the [Documentation](https://blindai.mithrilsecurity.io/en/latest/)_
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -165,7 +165,7 @@ WE CAN ALSO RENAME THAT PART **KEY FEATURES**
 <!-- LICENSE -->
 ## 📜 License
 
-Distributed under the Aoache License. See [`LICENSE.md`](https://github.com/mithril-security/blindai-preview/blob/main/LICENSE.md) for more information.
+Distributed under the Apache License, version 2.0. See [`LICENSE.md`](https://www.apache.org/licenses/LICENSE-2.0) for more information.
 
 
 <!-- CONTACT -->
