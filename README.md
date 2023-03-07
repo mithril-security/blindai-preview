@@ -80,15 +80,10 @@ Our solution comes in two parts:
 - A **secure inference server** to deploy AI models with privacy guarantees
 - A **Python client SDK** to securely consume the remote AI models
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+### Built With 
 
-
-### Built With
-
-* [![Rust][Rust]][Rust-url]
-* [![Python][Python]][Python-url]
-* [![Intel-SGX][Intel-SGX]][Intel-sgx-url]
+[![Rust][Rust]][Rust-url] [![Python][Python]][Python-url] [![Intel-SGX][Intel-SGX]][Intel-sgx-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
