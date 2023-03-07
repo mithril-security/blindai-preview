@@ -72,7 +72,9 @@ BlindAI is a **confidential AI inference server**. It works like any regular AI 
 
 AI solutions tend to be deployed in one of two ways: on the Cloud or on-premise. Cloud deployment offers users ease-of-use and a wide offer of AI models but it puts users' data at risk. On-premise deployment is a secure alternative, but the increased privacy comes at a great cost in terms of ease-of-use. 
 
-BlindAI aims to offer the best of both worlds: the **ease-of-use** and wide offer of Cloud deployment with the **security** of on-premise solutions. We take advantage of the power of confidential computing, and more specifically Intel Software Guard Extension (Intel SGX), to enable user data to be processed remotely without the risk of unauthorized access or tampering. The code running inside Intel SGX cannot be tampered with by the host operating system, hypervisor, and even its BIOS. *(You can learn more about Intel SGX, Trusted Execution Environements and how they work [in our documentation](LINK).)*
+BlindAI aims to offer the best of both worlds: the **ease-of-use** and wide offer of Cloud deployment with the **security** of on-premise solutions. We take advantage of the power of confidential computing, and more specifically Intel Software Guard Extension (Intel SGX), to enable user data to be processed remotely without the risk of unauthorized access or tampering. The code running inside Intel SGX cannot be tampered with by the host operating system, hypervisor, and even its BIOS. 
+
+>*You can learn more about Intel SGX, Trusted Execution Environements and how they work [in our documentation](LINK).*
 
 Our solution comes in two parts:
 
