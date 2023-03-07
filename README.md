@@ -21,7 +21,9 @@
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
   <p align="center">
-    <b>BlindAI</b> helps deploy AI models with an added <b>privacy layer</b>, protecting both the data sent to be analysed by the model and the model's IP. 
+    <b>BlindAI</b> helps deploy AI models with an added <b>privacy layer</b>,
+    <br />
+    protecting both the data sent to be analysed by the model and the model's IP. 
     <br />
     <a href="https://blindai.mithrilsecurity.io/en/latest/"><strong>Explore the docs »</strong></a>
     <br />
