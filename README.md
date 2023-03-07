@@ -56,7 +56,7 @@
     </li>
     <li><a href="#-usage">Usage</a></li>
     <li><a href="#-roadmap">Roadmap</a></li>
-    <li><a href="#-contributing">Contributing</a></li>
+    <li><a href="#-getting-help">Getting Help</a></li>
     <li><a href="#-license">License</a></li>
     <li><a href="#-contact">Contact</a></li>
     <li><a href="#-disclaimer">Disclaimer</a></li>
@@ -91,12 +91,13 @@ Our solution comes in two parts:
 <!-- GETTING STARTED -->
 ## 🚀 Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+HERE I'LL NEED YOUR HELP + QUICK TOUR
+
+FOR NOW I COPY/PASTED BLINDAI-PREVIEW BUT I DON'T THINK IT'S FINE
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
+I'M GUESSING PYTHON
 * npm
   ```sh
   npm install npm@latest -g
@@ -124,9 +125,13 @@ This is an example of how to list things you need to use the software and how to
 <!-- USAGE EXAMPLES -->
 ## 🔆 Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+You can go try out our [Quick tour](LIEN) in the documentation to discover BlindAI with a hands-on example using [COVID-Net](https://github.com/lindawangg/COVID-Net).
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+But here’s a taste of what using BlindAI could look like 🍒
+
+PUT ONE EXAMPLE (ALSO SOME LINE FROM QUICK TOUR I GUESS)
+
+_For more examples, please refer to the [Documentation]([https://example.com](https://blindai.mithrilsecurity.io/en/latest/))_
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -135,42 +140,32 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <!-- ROADMAP -->
 ## 🎯 Roadmap
 
+WRITE DOWN THE FEATURES WE **ALREADY** IMPLEMENTED. NOTHING SATISFYING LIKE A LIST WITH CHECKED BOXES.
+
+WE CAN ALSO RENAME THAT PART **KEY FEATURES**
+
 - [ ] Feature 1
 - [ ] Feature 2
 - [ ] Feature 3
     - [ ] Nested Feature
 
-See the [open issues](https://github.com/mithril-security/blindai/issues) for a full list of proposed features (and known issues).
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+<!-- GETTING HELO -->
 
+## 🙋 Getting help
 
-<!-- CONTRIBUTING -->
-## 👥 Contributing
-
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
-Don't forget to give the project a star! Thanks again!
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+* Go to our [Discord](https://discord.com/invite/TxEHagpWd4) #support channel
+* Report bugs by [opening an issue on our BlindAI GitHub](https://github.com/mithril-security/blindai/issues)
+* [Book a meeting](https://calendly.com/contact-mithril-security/15mins?month=2023-03) with us
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 
 <!-- LICENSE -->
 ## 📜 License
 
-Distributed under the MIT License. See `LICENSE.txt` for more information.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
+Distributed under the Aoache License. See [`LICENSE.md`](https://github.com/mithril-security/blindai-preview/blob/main/LICENSE.md) for more information.
 
 
 <!-- CONTACT -->
@@ -180,12 +175,11 @@ Mithril Security - [@MithrilSecurity](https://twitter.com/MithrilSecurity) - con
 
 Project Link: [https://github.com/mithril-security/blindai](https://github.com/mithril-security/blindai)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 
 <!-- DISCLAIMER -->
 ## 📢 Disclaimer
+
+IF WE NEED TO SAY STUFF ABOUT PRODUCTION READINESS OF BLINDAI
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
