@@ -213,9 +213,9 @@ Project Link: [https://github.com/mithril-security/blindai](https://github.com/m
 [product-screenshot]: images/screenshot.png
 [Python]: https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=blue
 [Python-url]: https://www.python.org/
-[Rust]: https://img.shields.io/badge/rust-000000?style=for-the-badge&logo=rust&logoColor=white
+[Rust]: https://img.shields.io/badge/rust-FFD43B?style=for-the-badge&logo=rust&logoColor=black
 [Rust-url]: https://www.rust-lang.org/fr
-[Intel-SGX]: https://img.shields.io/badge/SGX-000000?style=for-the-badge&logo=intel&logoColor=white
+[Intel-SGX]: https://img.shields.io/badge/SGX-FFD43B?style=for-the-badge&logo=intel&logoColor=black
 [Intel-sgx-url]: https://www.intel.fr/content/www/fr/fr/architecture-and-technology/software-guard-extensions.html
 
 <!-- Done using https://github.com/othneildrew/Best-README-Template -->
