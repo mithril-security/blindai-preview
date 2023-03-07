@@ -221,3 +221,5 @@ Project Link: [https://github.com/mithril-security/blindai](https://github.com/m
 [Rust-url]: https://www.rust-lang.org/fr
 [Intel-SGX]: https://img.shields.io/badge/SGX-000000?style=for-the-badge&logo=intel&logoColor=white
 [Intel-sgx-url]: https://www.intel.fr/content/www/fr/fr/architecture-and-technology/software-guard-extensions.html
+
+<!-- Done using https://github.com/othneildrew/Best-README-Template -->
