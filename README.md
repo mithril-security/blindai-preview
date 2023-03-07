@@ -108,18 +108,17 @@ This is an example of how to list things you need to use the software and how to
 
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Clone the repo with the submodules
    ```sh
-   git clone https://github.com/mithril-security/blindai.git
+   git clone --recursive git@github.com:mithril-security/blindai-preview.git 
    ```
-3. Install NPM packages
+2. If you are in an Azure machine <br>
+   Replace the `.devcontainer` folder by the `devcontainer-azure/.devcontainer` folder. Open it in your code editor and reopen in Container.
+3. At the root of the project, create a virtual environment and install the Client SDK
    ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
+   cd client
+   poetry install
+   poetry shell
    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
