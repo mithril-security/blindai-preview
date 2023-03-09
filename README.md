@@ -91,7 +91,7 @@ Our solution comes in two parts:
 <!-- GETTING STARTED -->
 ## 🚀 Getting Started
 
-### Finding your deployment method [NOTE TO OPHELIE: If this is too much info for the readme let's link to this on a separate page? But I think it's really useful]
+### Finding the right deployment method for your use case [NOTE TO OPHELIE: If this is too much info for the readme let's link to this on a separate page? But I think it's really useful]
 
 The first thing to establish is which of the following three cases you fall under:
 
