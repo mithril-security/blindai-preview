@@ -88,40 +88,108 @@ Our solution comes in two parts:
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
 <!-- GETTING STARTED -->
 ## 🚀 Getting Started
 
-HERE I'LL NEED YOUR HELP + QUICK TOUR
+### Finding your deployment method
 
-FOR NOW I COPY/PASTED BLINDAI-PREVIEW BUT I DON'T THINK IT'S FINE
+The first thing to establish is which of the following three cases you fall under:
 
-### Prerequisites
+### Case one: Testing BlindAI without hardware security guarantees
+[TODO: difficulty 1/3 stars 1/5 sticker ]
 
-I'M GUESSING PYTHON
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
+Pros:
+- Quick and easy.
+- Works on any device. Very few pre-requisites.
+- Demos available on BlindAI Github.
 
-### Installation
+Cons:
+- This option does not offer the hardware security guarantees of Intel SGX. It is not suitable for production.
 
-1. Clone the repo with the submodules
-   ```sh
-   git clone --recursive git@github.com:mithril-security/blindai-preview.git 
-   ```
-2. If you are in an Azure machine <br>
-   Replace the `.devcontainer` folder by the `devcontainer-azure/.devcontainer` folder. Open it in your code editor and reopen in Container.
-3. At the root of the project, create a virtual environment and install the Client SDK
-   ```sh
-   cd client
-   poetry install
-   poetry shell
-   ```
+[TODO: find recommended sticker ]
+### Case two: Deploying BlindAI on Azure DCsv3 VM
+[TODO: difficulty rating 2/3 stars or 2/5 sticker ]
+
+Pros:
+- Straight-forward deployment. Intel SGX is already installed on this VM.
+- No requirement to have your own Intel SGX-ready device or a particular distribution. 
+- Secure. Hardware security guarantees protect your data and model from any third-party access.
+
+Cons:
+- More expensive than local production.
+
+### Case three: On-premise deployment
+[ TODO: difficulty rating 3/3 stars or 4/5 sticker ]
+
+Pros:
+- Secure. Hardware security guarantees protect your data and model from any third-party access.
+- Can be less costly than paying for access to VM.
+
+Cons:
+- You must have an Intel SGX-ready device with `SGX+FLC` support.
+- Depending on your specific requirements, we would usually only recommend this option if you have SGX2, which has a better performance and much more memory available. The physical protected memory for SGX1 is limited to 128mb.
+- You need to install all the pre-requisites.
+
+>How can I check if I have an Intel SGX-ready device with `SGX+FLC` support?
+`git clone https://github.com/ayeks/SGX-hardware`
+`cd SGX-hardware`
+`gcc test-sgx.c -o test-sgx`
+`./test-sgx | grep "sgx launch control"`
+- If your output is `sgx launch control: 1`, you have an Intel SGX-ready device with `SGX+FLC` support.
+- If your output is `sgx launch control: 0`, you do not have an Intel SGX-ready device with `SGX+FLC` support.
+
+
+>How can I check if I have SGX1 or SGX2?
+`git clone https://github.com/ayeks/SGX-hardware`
+`cd SGX-hardware`
+`gcc test-sgx.c -o test-sgx`
+`./test-sgx | grep "sgx 1 supported"`
+
+- If your output is `sgx 1 supported: 1`, you have SGX1.
+- If your output is `sgx 1 supported: 0`, you do not have SGX1.
+
+`./test-sgx | grep "sgx 2 supported"`
+
+- If your output is `sgx 2 supported: 1`, you have SGX2.
+- If your output is `sgx 2 supported: 0`, you do not have SGX2.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+### Installation
+
+Skip to your relevant case for installation instructions.
+
+### Case one: Testing BlindAI without hardware security guarantees
+
+1. Check out our [quick tour notebook](link). This will show you how you can install and use BlindAI's client and server testing packages.
+2. Feel free to test your own Python scripts or notebooks using the `blindai_preview` and `blindai_preview_server` PyPi packages.
+If you have any trouble with these your test programs, compare your usage against our [example notebooks](link) or contact us via Discord or Github!
+
+### Case two: Deploying BlindAI on Azure DCsv3 VM
+TODO: UPDATE THE CLOUD-DEPLOYMENT AND ON-PREMISE GUIDES NEXT
+
+The first step is to follow our [Azure DCsv3 set-up guide](https://github.com/mithril-security/blindai-preview/blob/main/docs/docs/cloud-deployment.md) for a step-by-step guide of how to set up your Azure DCsv3 VM.
+
+Now that you are now connected to your Azure DCsv3 VM via SSH in VSCode. You can set-up BlindAI with the following steps:
+-  Select ‘re-open in container’ in vscode bottom right options (this takes quite a long time) -> This will set-up the blindai_preview .devcontainer which installs all the tools needed to run blindai_preview
+- Open a new terminal- do not touch the dev-containers one as need to leave https server running on port 8081 in this terminal
+- Cd client + poetry install + poetry shell
+
+You can now use our justfile to:
+- Launch the server: `just run –release`
+- Run our tests: `just test`
+
+You are now ready to create your own scripts or notebooks. You can check out our [how-to using github repo instead of PyPI packages](link) as an example of the full workflow.
+
+### Case three: On-premise deployment
+1. Follow our [On-premise set-up guide](https://github.com/mithril-security/blindai-preview/blob/main/docs/docs/deploy-on-premise.md) to guide you through the process of downloading our pre-requisites.
+2. Clone blindai github repo –recursive
+3. vscode and connect to mithril-icelake as host + open blindai_preview folder (important to have blindai_preview folder as working directory so we can do step 5: re-open in our .devcontainer)
+4. Add user to docker group: sudo usermod -aG docker $USER + newgrp docker + (to check is working) docker run hello-world
+5. Select ‘re-open in container’ in vscode bottom right options (this takes quite a long time) -> This will set-up the blindai_preview .devcontainer which installs all the tools needed to run blindai_preview
+6. Open a new terminal- do not touch the dev-containers one as need to leave https server running on port 8081 in this terminal
+7. Cd client + poetry install + poetry shell
+8. Cd .. && just run –release (launch server)
 
 
 <!-- USAGE EXAMPLES -->
