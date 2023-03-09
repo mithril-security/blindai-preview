@@ -91,7 +91,7 @@ Our solution comes in two parts:
 <!-- GETTING STARTED -->
 ## 🚀 Getting Started
 
-### Finding your deployment method
+### Finding your deployment method [NOTE TO OPHELIE: If this is too much info for the readme let's link to this on a separate page? But I think it's really useful]
 
 The first thing to establish is which of the following three cases you fall under:
 
@@ -138,7 +138,6 @@ Cons:
 - If your output is `sgx launch control: 1`, you have an Intel SGX-ready device with `SGX+FLC` support.
 - If your output is `sgx launch control: 0`, you do not have an Intel SGX-ready device with `SGX+FLC` support.
 
-
 >How can I check if I have SGX1 or SGX2?
 `git clone https://github.com/ayeks/SGX-hardware`
 `cd SGX-hardware`
@@ -168,28 +167,69 @@ If you have any trouble with these your test programs, compare your usage agains
 ### Case two: Deploying BlindAI on Azure DCsv3 VM
 TODO: UPDATE THE CLOUD-DEPLOYMENT AND ON-PREMISE GUIDES NEXT
 
-The first step is to follow our [Azure DCsv3 set-up guide](https://github.com/mithril-security/blindai-preview/blob/main/docs/docs/cloud-deployment.md) for a step-by-step guide of how to set up your Azure DCsv3 VM.
-
 Now that you are now connected to your Azure DCsv3 VM via SSH in VSCode. You can set-up BlindAI with the following steps:
--  Select ‘re-open in container’ in vscode bottom right options (this takes quite a long time) -> This will set-up the blindai_preview .devcontainer which installs all the tools needed to run blindai_preview
-- Open a new terminal- do not touch the dev-containers one as need to leave https server running on port 8081 in this terminal
-- Cd client + poetry install + poetry shell
+
+1. The first step is to follow our [Azure DCsv3 set-up guide](https://github.com/mithril-security/blindai-preview/blob/main/docs/docs/cloud-deployment.md) for a step-by-step guide of how to set up your Azure DCsv3 VM.
+
+2. Clone blindai github repo and submodules
+- `git clone https://github.com/mithril-security/blindai-preview --recursive`
+
+3. Open the `blindai-preview` folder in VSCode- make sure to do this in your VSCode window where you are connected to your VM by SSH.   
+
+4. Replace the .devcontainer folder with the devcontainer-azure/.devcontainer folder. 
+- `rm -rf .devcontainer`
+- `mv devcontainer-azure/.devcontainer .devcontainer`
+
+5. Select the `Dev Containers: Reopen in Container` option. [TODO: explain how]
+This will create and open a Docker container for you to work in which will contain all the dependencies you need to run and use blindai-preview. This may take some time since there are several dependencies that must be installed.
+
+6. You should now be within your dev container in VSCode. Open a new terminal and install the client:
+- `cd client`
+- `poetry install` 
+- `poetry shell`
+
+Congratulations, you are now ready to run our test programs or create your own scripts or notebooks!
 
 You can now use our justfile to:
 - Launch the server: `just run –release`
 - Run our tests: `just test`
 
-You are now ready to create your own scripts or notebooks. You can check out our [how-to using github repo instead of PyPI packages](link) as an example of the full workflow.
+>Make sure you are in the root of the blindai-preview directory to make use of the justfile commands.
+
+You can check out our [how-to using github repo instead of PyPI packages](link) to see an example of the full workflow using BlindAI.
 
 ### Case three: On-premise deployment
 1. Follow our [On-premise set-up guide](https://github.com/mithril-security/blindai-preview/blob/main/docs/docs/deploy-on-premise.md) to guide you through the process of downloading our pre-requisites.
-2. Clone blindai github repo –recursive
-3. vscode and connect to mithril-icelake as host + open blindai_preview folder (important to have blindai_preview folder as working directory so we can do step 5: re-open in our .devcontainer)
-4. Add user to docker group: sudo usermod -aG docker $USER + newgrp docker + (to check is working) docker run hello-world
-5. Select ‘re-open in container’ in vscode bottom right options (this takes quite a long time) -> This will set-up the blindai_preview .devcontainer which installs all the tools needed to run blindai_preview
-6. Open a new terminal- do not touch the dev-containers one as need to leave https server running on port 8081 in this terminal
-7. Cd client + poetry install + poetry shell
-8. Cd .. && just run –release (launch server)
+
+2. Clone blindai github repo and submodules.
+- `git clone https://github.com/mithril-security/blindai-preview --recursive`
+
+3. Make sure you have docker installed on your machine. 
+- If you need to install Docker, you can follow [the official Docker installation instructions](https://docs.docker.com/engine/install). 
+
+You also need to make sure you haver the correct permissions to run docker commands without `sudo`. 
+To check this, try running `docker run hello-world`. If this works, you can skip straight to the next step. If it doesn't, you need to:
+- Add yourself to docker group: `sudo usermod -aG docker $USER && newgrp docker`
+
+4. Open the `blindai-preview` folder in VSCode.   
+
+5. Select the `Dev Containers: Reopen in Container` option. [TODO: explain how]
+This will create and open a Docker container for you to work in which will contain all the dependencies you need to run and use blindai-preview. This may take some time since there are several dependencies that must be installed.
+
+6. You should now be within your dev container in VSCode. Open a new terminal and install the client:
+- `cd client`
+- `poetry install` 
+- `poetry shell`
+
+Congratulations, you are now ready to run our test programs or create your own scripts or notebooks!
+
+You can now use our justfile to:
+- Launch the server: `just run –release`
+- Run our tests: `just test`
+
+>Make sure you are in the root of the blindai-preview directory to make use of the justfile commands.
+
+You can check out our [how-to using github repo instead of PyPI packages](link) to see an example of the full workflow using BlindAI.
 
 
 <!-- USAGE EXAMPLES -->
