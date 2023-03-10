@@ -63,8 +63,6 @@
   </ol>
 </details>
 
-
-
 <!-- ABOUT THE PROJECT -->
 ## 🔒 About The Project
 
@@ -91,12 +89,11 @@ Our solution comes in two parts:
 <!-- GETTING STARTED -->
 ## 🚀 Getting Started
 
-### Finding the right deployment method for your use case [NOTE TO OPHELIE: If this is too much info for the readme let's link to this on a separate page? But I think it's really useful]
+### Finding the right deployment method for your use case
 
 The first thing to establish is which of the following three cases you fall under:
 
 ### Case one: Testing BlindAI without hardware security guarantees
-[TODO: difficulty 1/3 stars 1/5 sticker ]
 
 Pros:
 - Quick and easy.
@@ -106,9 +103,9 @@ Pros:
 Cons:
 - This option does not offer the hardware security guarantees of Intel SGX. It is not suitable for production.
 
-[TODO: find recommended sticker ]
+
+**recommended 🥇**
 ### Case two: Deploying BlindAI on Azure DCsv3 VM
-[TODO: difficulty rating 2/3 stars or 2/5 sticker ]
 
 Pros:
 - Straight-forward deployment. Intel SGX is already installed on this VM.
@@ -118,8 +115,8 @@ Pros:
 Cons:
 - More expensive than local production.
 
+
 ### Case three: On-premise deployment
-[ TODO: difficulty rating 3/3 stars or 4/5 sticker ]
 
 Pros:
 - Secure. Hardware security guarantees protect your data and model from any third-party access.
@@ -131,23 +128,32 @@ Cons:
 - You need to install all the pre-requisites.
 
 >How can I check if I have an Intel SGX-ready device with `SGX+FLC` support?
-`git clone https://github.com/ayeks/SGX-hardware`
-`cd SGX-hardware`
-`gcc test-sgx.c -o test-sgx`
-`./test-sgx | grep "sgx launch control"`
+
+  ```
+  git clone https://github.com/ayeks/SGX-hardware
+  cd SGX-hardware
+  gcc test-sgx.c -o test-sgx
+  ./test-sgx | grep "sgx launch control"
+  ```
+
 - If your output is `sgx launch control: 1`, you have an Intel SGX-ready device with `SGX+FLC` support.
 - If your output is `sgx launch control: 0`, you do not have an Intel SGX-ready device with `SGX+FLC` support.
 
 >How can I check if I have SGX1 or SGX2?
-`git clone https://github.com/ayeks/SGX-hardware`
-`cd SGX-hardware`
-`gcc test-sgx.c -o test-sgx`
-`./test-sgx | grep "sgx 1 supported"`
+
+```
+git clone https://github.com/ayeks/SGX-hardware
+cd SGX-hardware
+gcc test-sgx.c -o test-sgx
+./test-sgx | grep "sgx 1 supported"
+```
 
 - If your output is `sgx 1 supported: 1`, you have SGX1.
 - If your output is `sgx 1 supported: 0`, you do not have SGX1.
 
-`./test-sgx | grep "sgx 2 supported"`
+```
+./test-sgx | grep "sgx 2 supported"
+```
 
 - If your output is `sgx 2 supported: 1`, you have SGX2.
 - If your output is `sgx 2 supported: 0`, you do not have SGX2.
@@ -156,7 +162,7 @@ Cons:
 
 ### Installation
 
-Skip to your relevant case for installation instructions.
+Now, that you have identified the right deployment mode for you, you can follow the installation instructions for your case.
 
 ### Case one: Testing BlindAI without hardware security guarantees
 
@@ -165,71 +171,22 @@ Skip to your relevant case for installation instructions.
 If you have any trouble with these your test programs, compare your usage against our [example notebooks](link) or contact us via Discord or Github!
 
 ### Case two: Deploying BlindAI on Azure DCsv3 VM
-TODO: UPDATE THE CLOUD-DEPLOYMENT AND ON-PREMISE GUIDES NEXT
 
-Now that you are now connected to your Azure DCsv3 VM via SSH in VSCode. You can set-up BlindAI with the following steps:
+Firstly, you'll need to check out the instructions for setting up your Azure DCsv3 VM [here](link)
 
-1. The first step is to follow our [Azure DCsv3 set-up guide](https://github.com/mithril-security/blindai-preview/blob/main/docs/docs/cloud-deployment.md) for a step-by-step guide of how to set up your Azure DCsv3 VM.
+Then, if you want to **deploy the server for production**, you can run our `on_premise_server_deployment.sh` script in your vm which will automate deployment for you.
 
-2. Clone blindai github repo and submodules
-- `git clone https://github.com/mithril-security/blindai-preview --recursive`
-
-3. Open the `blindai-preview` folder in VSCode- make sure to do this in your VSCode window where you are connected to your VM by SSH.   
-
-4. Replace the .devcontainer folder with the devcontainer-azure/.devcontainer folder. 
-- `rm -rf .devcontainer`
-- `mv devcontainer-azure/.devcontainer .devcontainer`
-
-5. Select the `Dev Containers: Reopen in Container` option. [TODO: explain how]
-This will create and open a Docker container for you to work in which will contain all the dependencies you need to run and use blindai-preview. This may take some time since there are several dependencies that must be installed.
-
-6. You should now be within your dev container in VSCode. Open a new terminal and install the client:
-- `cd client`
-- `poetry install` 
-- `poetry shell`
-
-Congratulations, you are now ready to run our test programs or create your own scripts or notebooks!
-
-You can now use our justfile to:
-- Launch the server: `just run –release`
-- Run our tests: `just test`
-
->Make sure you are in the root of the blindai-preview directory to make use of the justfile commands.
-
-You can check out our [how-to using github repo instead of PyPI packages](link) to see an example of the full workflow using BlindAI.
+If you want to **install the client and server for local development**, either because you want to contribute to the project or make your own local modifications to the code,
+check out the instructions installing BlindAI for development on an-premise [here](link)
 
 ### Case three: On-premise deployment
-1. Follow our [On-premise set-up guide](https://github.com/mithril-security/blindai-preview/blob/main/docs/docs/deploy-on-premise.md) to guide you through the process of downloading our pre-requisites.
 
-2. Clone blindai github repo and submodules.
-- `git clone https://github.com/mithril-security/blindai-preview --recursive`
+If you just want to **deploy the server for production**, you can run our `on_premise_server_deployment.sh` script which will automate deployment for you.
 
-3. Make sure you have docker installed on your machine. 
-- If you need to install Docker, you can follow [the official Docker installation instructions](https://docs.docker.com/engine/install). 
+`./on_premise_server_deployment.sh`
 
-You also need to make sure you haver the correct permissions to run docker commands without `sudo`. 
-To check this, try running `docker run hello-world`. If this works, you can skip straight to the next step. If it doesn't, you need to:
-- Add yourself to docker group: `sudo usermod -aG docker $USER && newgrp docker`
-
-4. Open the `blindai-preview` folder in VSCode.   
-
-5. Select the `Dev Containers: Reopen in Container` option. [TODO: explain how]
-This will create and open a Docker container for you to work in which will contain all the dependencies you need to run and use blindai-preview. This may take some time since there are several dependencies that must be installed.
-
-6. You should now be within your dev container in VSCode. Open a new terminal and install the client:
-- `cd client`
-- `poetry install` 
-- `poetry shell`
-
-Congratulations, you are now ready to run our test programs or create your own scripts or notebooks!
-
-You can now use our justfile to:
-- Launch the server: `just run –release`
-- Run our tests: `just test`
-
->Make sure you are in the root of the blindai-preview directory to make use of the justfile commands.
-
-You can check out our [how-to using github repo instead of PyPI packages](link) to see an example of the full workflow using BlindAI.
+If you want to **install the client and server for local development**, either because you want to contribute to the project or make your own local modifications to the code,
+check out the instructions installing BlindAI for development on an-premise [here](link)
 
 
 <!-- USAGE EXAMPLES -->
@@ -261,7 +218,7 @@ WE CAN ALSO RENAME THAT PART **KEY FEATURES**
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- GETTING HELO -->
+<!-- GETTING HELP -->
 
 ## 🙋 Getting help
 
