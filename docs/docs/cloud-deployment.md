@@ -1,14 +1,12 @@
-# Cloud deployment
+# Deployment on Azure DCsv3.
 
-You will find here some tutorials to deploy **BlindAI** on Azure DCsv3.
+In order to run BlindAI using a VM, we need to make sure it has the right Intel SGX-ready hardware to run BlindAI. This is why you should use an [Azure DCsv3 VM](https://docs.microsoft.com/en-us/azure/virtual-machines/dcv3-series) as it has all the required pre-requisites for deploying BlindAI.
 
-### Create the VM
+### Creating the VM
 
-You can easily deploy BlindAI on [Azure DCsv3 VMs](https://docs.microsoft.com/en-us/azure/virtual-machines/dcv3-series). BlindAI works out of the box, all you need to do is to follow those steps to deploy a VM :&#x20;
+First thing first, you need to create an account on Azure. If you would like to try the service for free, you can get [a free trial.](https://azure.microsoft.com/en-us/free/) Follow the link for more information.
 
-First thing first, you need to create an account on Azure. If you want to try the service for free, it is strongly advised to subscribe [to the free trial.](https://azure.microsoft.com/en-us/free/) Click on the link to have more information.
-
-Once you created your account and activated the free credits of $200, you can start searching for `Azure Confidential Computing` and then click on "Create".
+Once you have created your account and activated the free credits of $200, you can search for `Azure Confidential Computing` and then click on "Create".
 
 ![Confidential Computing VM](../assets/2022-02-24_11_09_07.png)
 
@@ -34,7 +32,7 @@ After a few minutes, the VM will be successfully deployed. Before connecting to 
 
 ![Setting up DNS name - 2](../assets/2022-02-24_12_07_22.png)
 
-Once you are done with this, we have to **open the ports used by BlindAI.** You need to open the ports **9923 and 9924.**
+Once you are done with this, we have to **open the ports used by BlindAI.** You need to open the BlindAI default ports **9923 and 9924.**
 
 ![](../assets/image.png)
 
@@ -43,13 +41,13 @@ Once you are done with this, we have to **open the ports used by BlindAI.** You 
 
 ### Using the VM
 
-You can now start the VM. In order to have a good experience with SSH, we recommend you download [**Visual Studio Code**](https://code.visualstudio.com/) and get the extension [**Remote - SSH**](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh). 
+You can now start the VM. In order to have a good user experience, we recommend you download [**Visual Studio Code**](https://code.visualstudio.com/) and get the extension [**Remote - SSH**](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh). 
 
 Setting up a SSH connection is fairly easy in Visual Studio Code. All you need to do is add a SSH Host (you can find this option in **the Command Palette**):&#x20;
 
 ![](../assets/2022-02-24_12_15_41.png)
 
-![The DNS name shows its usefulness here as you won't need to update the host after the first configuration.](../assets/2022-02-24_12_15_35.png)
+![The DNS name comes in handy here as you won't need to update the host after the first configuration.](../assets/2022-02-24_12_15_35.png)
 
 After that, you need to select "Connect to Host" in **the Command Palette** and select your DNS name.
 
@@ -59,24 +57,57 @@ Once you are online, we need to make sure that the SGX drivers are installed. Yo
 
 ![](../assets/2022-02-24_12_17_25.png)
 
-If you can see "`SGX`" in the list, in the same way it appears on the screenshot above, **you're good to go**! If `SGX` is missing, you can simply install the drivers yourself with those commands:&#x20;
+[LAURA: NOTE TO SELF: UP TO HERE]
 
-```
-wget https://download.01.org/intel-sgx/sgx-linux/2.15.1/distro/ubuntu18.04-server/sgx_linux_x64_driver_1.41.bin
-chmod +x sgx_linux_x64_driver_1.41.bin
-./sgx_linux_x64_driver_1.41.bin
-```
+### Security
+[TODO: EXPLAIN THE LINK WITH THE HAZMAT OPTION]
 
-**If you are getting an error while installing the drivers, it might mean that you picked the wrong VM. Please restart the process in that case.**
+**The port opened in 9923 is considered as unsecure.** 
 
-If you are good to go, you just need to install Docker on the VM. [Please follow these instructions to get started quickly. ](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository)
+By default the port opened in 9923 is running on http only. For production, we strongly recommend setting up a ***reverse-proxy*** that will manage and encrypt the traffic from the client to the blindAI server. Many free reverse-proxy implementations exist, such as **caddy**, **Nginx** and **Apache**:
 
-### Security requirements
+- [https://caddyserver.com/docs/quick-starts/reverse-proxy](https://caddyserver.com/docs/quick-starts/reverse-proxy)
+- [Nginx reverse proxy set-up guide](https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/)
+- [Apache reverse proxy set-up guide](https://httpd.apache.org/docs/2.4/howto/reverse_proxy.html)
 
+### Deploying the server for production
 
-**The port opened in 9923 is considered as unsecure. It is also running on http only and must not be considered secure on a post-production environment.** 
+Now that you are now connected to your Azure DCsv3 VM via SSH in VSCode. You can set-up BlindAI with the following steps:
 
-!!! Warning
-    The unsecure port must be linked to a predefined ***reverse-proxy*** that manages the ingress and egress traffic and also that will be responsible of encrypting the traffic from the client to the blindAI server. Multiple reverse-proxy implementations exist, among them **Nginx** and **Apache**. 
+1. The first step is to follow our [Azure DCsv3 set-up guide](https://github.com/mithril-security/blindai-preview/blob/main/docs/docs/cloud-deployment.md) for a step-by-step guide of how to set up your Azure DCsv3 VM.
 
-Once Docker is installed, [set up your dev-environment](advanced/setting-up-your-dev-environment.md).
+2. Clone blindai github repo and submodules
+- `git clone https://github.com/mithril-security/blindai-preview --recursive`
+
+3. Open the `blindai-preview` folder in VSCode- make sure to do this in your VSCode window where you are connected to your VM by SSH.   
+
+4. Replace the .devcontainer folder with the devcontainer-azure/.devcontainer folder. 
+- `rm -rf .devcontainer`
+- `mv devcontainer-azure/.devcontainer .devcontainer`
+
+5. Select the `Dev Containers: Reopen in Container` option. [TODO: explain how]
+This will create and open a Docker container for you to work in which will contain all the dependencies you need to run and use blindai-preview. This may take some time since there are several dependencies that must be installed.
+
+6. You should now be within your dev container in VSCode. Open a new terminal and install the client:
+- `cd client`
+- `poetry install` 
+- `poetry shell`
+
+Congratulations, you are now ready to run our test programs or create your own scripts or notebooks!
+
+You can now use our justfile to:
+- Launch the server: `just run –release`
+- Run our tests: `just test`
+
+>Make sure you are in the root of the blindai-preview directory to make use of the justfile commands.
+
+You can check out our [how-to using github repo instead of PyPI packages](link) to see an example of the full workflow using BlindAI.
+
+=== "Hardware mode (Azure DCsv3 VMs)"
+
+    To run the server on azure, and after installing all the dependencies needed :
+    ```bash
+    BLINDAI_AZURE_DCS3_PATCH=1 just release 
+    # or 
+    BLINDAI_AZURE_DCS3_PATCH=1 just run
+    ```
