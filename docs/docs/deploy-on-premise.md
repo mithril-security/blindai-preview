@@ -1,129 +1,153 @@
-# Deploy on premise
+# On-premise deployment
 
-<!-- 
-    The docker images used here are prebuilt ones from our dockerhub, you can take a look at the [build the server from source section]('build-from-sources/server.md')
--->
+### Eligibility check
 
-!!! warning
-    The unsecure connection is on HTTP only. In production mode, it is highly recommended to connect it to a **reverse-proxy** that creates a TLS connection between the end user and the BlindAI server.  You can achieve this using [Caddy](https://caddyserver.com/) or [Nginx](https://www.nginx.com/) for instance.
+In order to deploy BlindAI on-premise, you will need an Intel SGX-ready device with `SGX+FLC` support.
 
-<!-- ## Simulation mode
+You can check this with the following code:
 
-This section explains how to work with the simulation mode. This simulates Intel SGX in software and enables you to run this on any hardware you want.
+  ```
+  git clone https://github.com/ayeks/SGX-hardware
+  cd SGX-hardware
+  gcc test-sgx.c -o test-sgx
+  ./test-sgx | grep "sgx launch control"
+  ```
 
-Launch the server using the simulation docker image:
+- If your output is `sgx launch control: 1`, you have an Intel SGX-ready device with `SGX+FLC` support.
+- If your output is `sgx launch control: 0`, you do not have an Intel SGX-ready device with `SGX+FLC` support.
 
-```bash
-docker run -it \
-    -p 50051:50051 \
-    -p 50052:50052 \ 
-    mithrilsecuritysas/blindai-server-sim:latest # make sure the ports 50051 and 50052 are available.
+BlindAI was created for SGX2, which has a better performance and much more memory available than SGX1. The physical protected memory for SGX1 is limited to 128mb.
+
+You could still deploy the server with SGX1 and benefit from the isolation offered by SGX enclaves, but since SGX1 is missing some of the features we rely on, the client would still need to `connect` to the server in `simulation` mode.
+
+You can check if you have SGX1 or SGX2, bu running the following:
+
+```
+git clone https://github.com/ayeks/SGX-hardware
+cd SGX-hardware
+gcc test-sgx.c -o test-sgx
+./test-sgx | grep "sgx 1 supported"
 ```
 
-!!! warning
-    Please keep in mind that this image is not secure, since it simulates Intel SGX in software. It is lighter than hardware mode, and should not be used in production. -->
+- If your output is `sgx 1 supported: 1`, you have SGX1.
+- If your output is `sgx 1 supported: 0`, you do not have SGX1.
 
-## Hardware mode
+```
+./test-sgx | grep "sgx 2 supported"
+```
 
-### Hardware requirements
+- If your output is `sgx 2 supported: 1`, you have SGX2.
+- If your output is `sgx 2 supported: 0`, you do not have SGX2.
 
-!!! info 
-    In some cases (Linux kernel >5.15) the execution of the binary returns `in-kernel drivers support`, and it means that the drivers are already installed and must appear in `/dev/sgx/`. 
+### Intel SGX drivers
 
+>Note that these instructions were created for Linux ubuntu 20.04-22.04 users.
 
-=== "Hardware mode"
+>In some cases (Linux kernel >5.15) the execution of the binary returns `in-kernel drivers support`, and it means that the drivers are already installed and must appear in `/dev/sgx/`. 
 
+Please make sure to have the `SGX+FLC` drivers (preferably with version **1.41**) installed on your system before continuing.
 
-    You will need to have an Intel SGX-ready device, with `SGX+FLC` (Flexible Launch Control) support. Read [this Intel documentation page](https://www.intel.com/content/www/us/en/support/articles/000057420/software/intel-security-products.html) to see if your Intel processor supports it.
+✅ If you find the drivers named "enclave" and "provision" (or sgx\_enclave and sgx\_provision) in /dev/, you are good to go!
 
-    Please make sure to have the `SGX+FLC` drivers (preferably with version **1.41**) installed on your system before running the docker image.
+❌ If you find a driver named "isgx" in /dev/, your system uses SGX1. You could still deploy the server with SGX1 and benefit from the isolation offered by SGX enclaves, but since SGX1 is missing some of the features we rely on, the client would still need to `connect` to the server in `simulation` mode.
 
-    !!! success
-        If you can find the drivers named "enclave" and "provision" (or sgx\_enclave and sgx\_provision) in /dev/, you are good to go!
+If you have an Intel SGX-ready device but are missing the required drivers, you can install them by doing the following:
 
-    !!! failure
-        If on the other hand, you can find a driver named "isgx", that means your system is not supported. This driver is for the first generation of SGX, which lacks the security features we rely on. You can still boot the server in hardware mode and benefit from the isolation offered by SGX enclaves, but you will need to use the client in simulation mode.
+```bash
+wget https://download.01.org/intel-sgx/sgx-linux/2.15.1/distro/ubuntu18.04-server/sgx_linux_x64_driver_1.41.bin
+chmod +x sgx_linux_x64_driver_1.41.bin
+./sgx_linux_x64_driver_1.41.bin
+```
 
-    In case you don't have any drivers installed, you can install the drivers with this:
+The binary file contains the drivers signed by Intel and will proceed to the installation transparently.
 
-    ```bash
-    wget https://download.01.org/intel-sgx/sgx-linux/2.15.1/distro/ubuntu18.04-server/sgx_linux_x64_driver_1.41.bin
-    chmod +x sgx_linux_x64_driver_1.41.bin
-    ./sgx_linux_x64_driver_1.41.bin
+### Server deployment only
+
+1. Clone blindai github repo and submodules.
+    ```git clone https://github.com/mithril-security/blindai-preview --recursive
+    cd blindai-preview
+    ```
+2. We have made a script that will download everything you need and launch the server. You can run it to deploy the server by running:
+    ```./on_premise_server_deployment.sh
+
+    ```
+This script will:
+- Ensure you have docker installed.
+- Set up the PCCS needed for attestation.
+- Install and run the AESM service which allows our host machine to communicate with the enclave.
+- Run the server in release mode
+- [NOTE FOR ANDRE, CAN WE ALSO ADD THE REVERSE PROXY SETUP TO THIS SCRIPT OR MAKE AN ADDITIONAL SCRIPT?]
+
+Once the server has been deployed, users can connect to your server by using the client PyPi package API and specifying the server IP address and ports when using the `connect` method.
+
+>Note that by default the port opened in 9923 is running on http only. For production, we strongly recommend setting up a ***reverse-proxy*** that will manage and encrypt the traffic from the client to the blindAI server. Many free reverse-proxy implementations exist, such as **Nginx** and **Apache**:
+
+- [Nginx reverse proxy set-up guide](https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/)
+- [Apache reverse proxy set-up guide](https://httpd.apache.org/docs/2.4/howto/reverse_proxy.html)
+
+>Note that if you make any changes to the server code before deploying the server, you will need to generate a new manifest.toml file and share it with any users accessing the server using the client API. The default manifest.toml file is generated at the root of the repo when the enclave is built. The manifest.toml files are used during the verification step of the connection progress to check that the server is not running any unexpected and potentially malicious code. You can learn more about this verification process [here](link).
+
+### Installation for development
+
+If you want to **install the client and server for local development**, either because you want to contribute to the project or make your own local modifications to the code, you can launch our development environment with the following steps:
+
+1. Clone blindai github repo and submodules.
+    ```git clone https://github.com/mithril-security/blindai-preview --recursive
+    cd blindai-preview
     ```
 
-    The binary file contains the drivers signed by Intel and will proceed to the installation transparently.
+2. Make sure you have docker installed on your machine. 
+- If you need to install Docker, you can follow [the official Docker installation instructions](https://docs.docker.com/engine/install). 
 
-
-
-=== "Hardware mode (Azure DCsv3 VMs)"
-
-    There is no need to do anything, the drivers are already installed.
-
-
-### Installation of the AESM service
-
-!!! info
-    The AESM service is currently only supported outside a docker container and thus must be installed separately. We're working on making it more easier to install by running it directly with BlindAi, in the next iterations. 
-
-To install the AESM service and run it, you can follow the steps described below: 
-
-```bash
-echo "deb https://download.01.org/intel-sgx/sgx_repo/ubuntu $(lsb_release -cs) main" | sudo tee -a /etc/apt/sources.list.d/intel-sgx.list >/dev/null \ 
-curl -sSL "https://download.01.org/intel-sgx/sgx_repo/ubuntu/intel-sgx-deb.key" | sudo apt-key add -
-sudo apt-get update \
-sudo apt-get install -y sgx-aesm-service libsgx-aesm-launch-plugin
-```
-You can verify that the service is running by typing :
-```bash
-service aesmd status
-```
-The current user must also be added to the aesm group to be able to function properly : 
-```bash
-sudo usermod -a -G aesmd $USER
-```
-
-<!-- ### Running the server
-
-=== "Hardware mode"
-
-    After running the PCCS, you can directly run the BlindAi server by using : 
-    ```bash
-    just release 
-
-    #or 
-    just run 
+You also need to make sure you haver the correct permissions to run docker commands without `sudo`. 
+To check this, try running `docker run hello-world`. If this works, you can skip straight to the next step. If it doesn't, you need to add yourself to docker group: 
+    ```
+    sudo usermod -aG docker $USER && newgrp docker
     ```
 
-    !!! info
-        The `PCCS_API_KEY` needs to be replaced with the PCCS API Key.
+3. Open the `blindai-preview` folder in VSCode.   
 
-=== "Hardware mode (Azure DCsv3 VMs)"
+4. Make sure you have the remote container VSCode extension installed. If you don't, install this from the VSCode extensions marketplace.
 
-    To run the server on azure, and after installing all the dependencies needed :
-    ```bash
-    BLINDAI_AZURE_DCS3_PATCH=1 just release 
-    # or 
-    BLINDAI_AZURE_DCS3_PATCH=1 just run
+5. Open the green menu at the bottom-left of the Visual Studio Code.
+Choose: "Dev Containers: Reopen in Container".
+
+This will create and open a Docker container for you to work in which will contain all the dependencies you need to run and use blindai-preview. This may take some time since there are several dependencies that must be installed.
+
+You should now be within your dev container in VSCode. You can now make any changes you want to the client and server code.
+
+### Compiling client and launching server
+
+To compile the client once you have made changed to the client code:
+    ```cd client
+    poetry install
+    poetry shell
     ```
 
-### manifest Generation
+You can also use the `justfile` to:
+- Launch the server: 
+    ```just run
+    ```
+- Run our tests:
+    ```just test
+    ```
+>Make sure you are in the root of the blindai-preview directory to make use of the justfile commands.
 
-The manifest is automatically extracted via the `just run` or `just release` command depending on what mode you're in.
+You are now ready to run our test programs or create your own scripts or notebooks!
 
-This manifest.toml file is generated at the root of the repo and is based on the templates present on the repo. 
+### Testing client and server modifications in a test program
 
-### Connect to the hardware mode server
+If you want to run a script or notebook using the client after making changes to the source files replace `pip install blindai-preview` with `pip install [path/to/client/folder]`.
 
-You can start from the python code of [the quick-start section](../index.md). and copy the manifest.toml containing the mrenclave to `/client/`folder (an argument will be added in the next releases to take into account the manifest file directly into the connect function).
-```py
-client = connect(addr="localhost")
-```
+If you want to run a script or notebook using the server after making changes to the server, you can launch the server using `just run`. You can then connect to the server using the client API in your scripts/ test programs.
 
+>Note that if you make any changes to the server code before deploying the server, you will need to generate a new manifest.toml file and share it with any users accessing the server using the client API. The default manifest.toml file is generated at the root of the repo when the enclave is built. The manifest.toml files are used during the verification step of the connection progress to check that the server is not running any unexpected and potentially malicious code. You can learn more about this verification process [here](link).
 
-Your client will only be able to connect to an enclave generated with the exact same manifest.toml.
+>Note that by default the port opened in 9923 is running on http only. For production, we strongly recommend setting up a ***reverse-proxy*** that will manage and encrypt the traffic from the client to the blindAI server. Many free reverse-proxy implementations exist, such as **Nginx** and **Apache**:
 
-!!! note
-    If you want to deploy for production you should check out [the privacy section](main-concepts/privacy.md). You will learn how to check the authenticity of the manifest and how to build a secure communication channel. -->
+- [Nginx reverse proxy set-up guide](https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/)
+- [Apache reverse proxy set-up guide](https://httpd.apache.org/docs/2.4/howto/reverse_proxy.html)
 
-Next you can [set up your dev environment](advanced/setting-up-your-dev-environment.md)
+### Examples
+
+You can check out our [how-to using github repo instead of PyPI packages](link) to see an example of the full workflow using BlindAI.

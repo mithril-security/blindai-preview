@@ -124,7 +124,7 @@ Pros:
 
 Cons:
 - You must have an Intel SGX-ready device with `SGX+FLC` support.
-- Depending on your specific requirements, we would usually only recommend this option if you have SGX2, which has a better performance and much more memory available. The physical protected memory for SGX1 is limited to 128mb.
+- BlindAI was created to run with SGX2, which has a better performance and much more memory available than SGX1. The physical protected memory for SGX1 is limited to 128mb. You could still deploy the server with SGX1 and benefit from the isolation offered by SGX enclaves, but since SGX1 is missing some of the features we rely on, the client would still need to `connect` to the server in `simulation` mode.
 - You need to install all the pre-requisites.
 
 >How can I check if I have an Intel SGX-ready device with `SGX+FLC` support?
@@ -182,8 +182,10 @@ check out the instructions installing BlindAI for development on an-premise [her
 ### Case three: On-premise deployment
 
 If you just want to **deploy the server for production**, you can run our `on_premise_server_deployment.sh` script which will automate deployment for you.
+> Note this script was created for the following Linux distributions:
 
-`./on_premise_server_deployment.sh`
+```./on_premise_server_deployment.sh
+```
 
 If you want to **install the client and server for local development**, either because you want to contribute to the project or make your own local modifications to the code,
 check out the instructions installing BlindAI for development on an-premise [here](link)
@@ -249,8 +251,6 @@ Project Link: [https://github.com/mithril-security/blindai](https://github.com/m
 IF WE NEED TO SAY STUFF ABOUT PRODUCTION READINESS OF BLINDAI
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://github.com/alexandresanlim/Badges4-README.md-Profile#-blog- -->
