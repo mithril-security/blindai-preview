@@ -167,14 +167,14 @@ Now, that you have identified the right deployment mode for you, you can follow 
 ### Case one: Testing BlindAI without hardware security guarantees
 
 1. Check out our [quick tour notebook](link). This will show you how you can install and use BlindAI's client and server testing packages.
-2. Feel free to test your own Python scripts or notebooks using the `blindai_preview` and `blindai_preview_server` PyPi packages.
+2. Feel free to test your own Python scripts or notebooks using the `blindai_preview` PyPi packages with the `blindai_preview.testing` server.
 If you have any trouble with these your test programs, compare your usage against our [example notebooks](link) or contact us via Discord or Github!
 
 ### Case two: Deploying BlindAI on Azure DCsv3 VM
 
 Firstly, you'll need to check out the instructions for setting up your Azure DCsv3 VM [here](link)
 
-Then, if you want to **deploy the server for production**, you can run our `on_premise_server_deployment.sh` script in your vm which will automate deployment for you.
+Then, if you want to **deploy the server for production**, you can run our `vm_server_deployment.sh` script in your vm which will install any required dependencies for you.
 
 If you want to **install the client and server for local development**, either because you want to contribute to the project or make your own local modifications to the code,
 check out the instructions installing BlindAI for development on an-premise [here](link)

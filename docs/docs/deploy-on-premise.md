@@ -76,17 +76,18 @@ This script will:
 - Set up the PCCS needed for attestation.
 - Install and run the AESM service which allows our host machine to communicate with the enclave.
 - Run the server in release mode
-- [NOTE FOR ANDRE, CAN WE ALSO ADD THE REVERSE PROXY SETUP TO THIS SCRIPT OR MAKE AN ADDITIONAL SCRIPT?]
+- [NOTE FOR ANDRE, CAN WE ALSO ADD THE REVERSE PROXY SETUP TO THIS SCRIPT OR MAKE AN ADDITIONAL SCRIPT?
+NOTE FOR ANDRE: SHOULD WE MAKE DIFFERENT OPTIONS FOR RELEASE MODE VS LOCAL MODE OR SOMETHING?]
 
 Once the server has been deployed, users can connect to your server by using the client PyPi package API and specifying the server IP address and ports when using the `connect` method.
-
-[TODO: EXPLAIN THE LINK WITH THE HAZMAT OPTION]
 
 >Note that by default the port opened in 9923 is running on http only. For production, we strongly recommend setting up a ***reverse-proxy*** that will manage and encrypt the traffic from the client to the blindAI server. Many free reverse-proxy implementations exist, such as **caddy**, **Nginx** and **Apache**:
 
 - [https://caddyserver.com/docs/quick-starts/reverse-proxy](https://caddyserver.com/docs/quick-starts/reverse-proxy)
 - [Nginx reverse proxy set-up guide](https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/)
 - [Apache reverse proxy set-up guide](https://httpd.apache.org/docs/2.4/howto/reverse_proxy.html)
+
+If you do not set up a reverse proxy, users will need to set the `hazmat_http_on_untrusted_port` option to `True` when using blindai-preview's `connect()` function. Again, this is **not recommended** for production.
 
 >Note that if you make any changes to the server code before deploying the server, you will need to generate a new manifest.toml file and share it with any users accessing the server using the client API. The default manifest.toml file is generated at the root of the repo when the enclave is built. The manifest.toml files are used during the verification step of the connection progress to check that the server is not running any unexpected and potentially malicious code. You can learn more about this verification process [here](link).
 
