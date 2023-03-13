@@ -62,7 +62,7 @@ The binary file contains the drivers signed by Intel and will proceed to the ins
 
 ### Server deployment in three steps
 
-1. You need to install and run the `aesm` service which allows our host machine to communicate with the enclave.
+1. You firstly need to install and run the `aesm` service which allows our host machine to communicate with the enclave.
 
 You can do this on ubuntu with the following steps:
 
