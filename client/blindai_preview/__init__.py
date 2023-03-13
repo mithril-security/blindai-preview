@@ -31,4 +31,4 @@ from ._dcap_attestation import (
 from . import testing
 
 # Import whisper
-from .whisper import Audio
+from .audio import Audio
