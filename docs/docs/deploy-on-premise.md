@@ -41,8 +41,6 @@ gcc test-sgx.c -o test-sgx
 
 ### Intel SGX drivers
 
->Note that these instructions were created for Linux ubuntu 20.04-22.04 users.
-
 >In some cases (Linux kernel >5.15) the execution of the binary returns `in-kernel drivers support`, and it means that the drivers are already installed and must appear in `/dev/sgx/`. 
 
 Please make sure to have the `SGX+FLC` drivers (preferably with version **1.41**) installed on your system before continuing.
@@ -61,23 +59,59 @@ chmod +x sgx_linux_x64_driver_1.41.bin
 
 The binary file contains the drivers signed by Intel and will proceed to the installation transparently.
 
-### Server deployment only
 
-1. Clone blindai github repo and submodules.
-    ```git clone https://github.com/mithril-security/blindai-preview --recursive
-    cd blindai-preview
-    ```
-2. We have made a script that will download everything you need and launch the server. You can run it to deploy the server by running:
-    ```./on_premise_server_deployment.sh
+### Server deployment in three steps
+
+1. You need to install and run the `aesm` service which allows our host machine to communicate with the enclave.
+
+You can do this on ubuntu with the following steps:
 
     ```
-This script will:
-- Ensure you have docker installed.
-- Set up the PCCS needed for attestation.
-- Install and run the AESM service which allows our host machine to communicate with the enclave.
-- Run the server in release mode
-- [NOTE FOR ANDRE, CAN WE ALSO ADD THE REVERSE PROXY SETUP TO THIS SCRIPT OR MAKE AN ADDITIONAL SCRIPT?
-NOTE FOR ANDRE: SHOULD WE MAKE DIFFERENT OPTIONS FOR RELEASE MODE VS LOCAL MODE OR SOMETHING?]
+    #download aesm for ubuntu
+    echo "deb https://download.01.org/intel-sgx/sgx_repo/ubuntu $(lsb_release -cs) main" | sudo tee -a /etc/apt/sources.list.d/intel-sgx.list >/dev/null \ 
+    # add to apt-key list to authenticate package
+    curl -sSL "https://download.01.org/intel-sgx/sgx_repo/ubuntu/intel-sgx-deb.key" | sudo apt-key add -
+    # update available packages
+    sudo apt-get update \
+    # install aesm package
+    sudo apt-get install -y sgx-aesm-service libsgx-aesm-launch-plugin
+    ```
+
+You can verify that the service is now running with:
+
+    ```
+    service aesmd status
+    ```
+
+Finally, the current user must also be added to the aesm group:
+
+    ```
+    sudo usermod -a -G aesmd $USER
+    ```
+
+2. To deploy the server using our Docker image you will first need to create an Intel Provisioning Certification Caching Service (PCCS) API key. This is necessary to be enable SGX attestation run-time workloads.
+
+To do this, you'll need to:
+- If you don't already have one, you'll need to create an account with [Intel](https://www.intel.com/content/www/us/en/homepage.html).
+- Once you have an account, follow this [link](https://api.portal.trustedservices.intel.com/provisioning-certification) and make sure you are logged in.
+- Select `subscribe` in the `Get PCK Certificate/s` section.
+[image]
+- On the following screen, select `Add subscription`
+[image]
+- This will lead you to a page detailing your subscription. To view your API key you can click on `Show` under `primary key`. This is the key you will need in order to deploy the Docker image.
+[image]
+
+2. Now you've got your PCCS API key, you can run the docker image with the following command:
+
+[TODO: CHECK THIS COMMAND]
+    ```
+    docker run -it \
+    -p 9223:9223 \
+    -p 9224:9224 \ 
+    mithrilsecuritysas/blindai-preview-server:latest [YOUR_PCCS_API_KEY_HERE]
+    ```
+
+>If you need to install Docker, you can follow [the official Docker installation instructions](https://docs.docker.com/engine/install). 
 
 Once the server has been deployed, users can connect to your server by using the client PyPi package API and specifying the server IP address and ports when using the `connect` method.
 
@@ -89,14 +123,18 @@ Once the server has been deployed, users can connect to your server by using the
 
 If you do not set up a reverse proxy, users will need to set the `hazmat_http_on_untrusted_port` option to `True` when using blindai-preview's `connect()` function. Again, this is **not recommended** for production.
 
->Note that if you make any changes to the server code before deploying the server, you will need to generate a new manifest.toml file and share it with any users accessing the server using the client API. The default manifest.toml file is generated at the root of the repo when the enclave is built. The manifest.toml files are used during the verification step of the connection progress to check that the server is not running any unexpected and potentially malicious code. You can learn more about this verification process [here](link).
+### Building from source
 
-### Installation for development
+If you want to **build from source**, perhaps because you want to contribute to the project or build from a certain branch or commit, you can do so with the following steps.
 
-If you want to **install the client and server for local development**, either because you want to contribute to the project or make your own local modifications to the code, you can launch our development environment with the following steps:
+### Development environment
+If you want to make changes to the code, it is recommended you use our pre-configured development container, which contains all the dependencies you need to run and use blindai-preview.
+
+To this, you need to:
 
 1. Clone blindai github repo and submodules.
-    ```git clone https://github.com/mithril-security/blindai-preview --recursive
+    ```
+    git clone https://github.com/mithril-security/blindai-preview --recursive
     cd blindai-preview
     ```
 
@@ -111,49 +149,72 @@ To check this, try running `docker run hello-world`. If this works, you can skip
 
 3. Open the `blindai-preview` folder in VSCode.   
 
-4. Make sure you have the remote container VSCode extension installed. If you don't, install this from the VSCode extensions marketplace.
+4. Make sure you have the `remote container VSCode extension` installed. If you don't, install this from the VSCode extensions marketplace.
 
 5. Open the green menu at the bottom-left of the Visual Studio Code.
-Choose: "Dev Containers: Reopen in Container".
+Choose: `Dev Containers: Reopen in Container`.
 
-This will create and open a Docker container for you to work in which will contain all the dependencies you need to run and use blindai-preview. This may take some time since there are several dependencies that must be installed.
+This may take some time since there are several dependencies that must be installed.
 
-You should now be within your dev container in VSCode. You can now make any changes you want to the client and server code.
+### Building client from source
 
-### Compiling client and launching server
-
-To compile the client once you have made changed to the client code:
-    ```cd client
+To compile the client code locally:
+    ```
+    cd client
     poetry install
-    poetry shell
     ```
 
-You can also use the `justfile` to:
-- Launch the server: 
-    ```just run
+### Server
+
+If you are in our dev container, you will already have everything you need installed in this container and can run the server using the `justfile`:
     ```
-- Run our tests:
-    ```just test
+    just run
     ```
+
 >Make sure you are in the root of the blindai-preview directory to make use of the justfile commands.
 
-You are now ready to run our test programs or create your own scripts or notebooks!
+If you are not in our dev container, the easiest way to build the server from source is using our `on_premise_source_deployment.sh` script.
 
-### Testing client and server modifications in a test program
+To do this, you need to:
 
-If you want to run a script or notebook using the client after making changes to the source files replace `pip install blindai-preview` with `pip install [path/to/client/folder]`.
+1. Clone blindai github repo and submodules.
+    ```
+    git clone https://github.com/mithril-security/blindai-preview --recursive
+    cd blindai-preview
+    ```
 
-If you want to run a script or notebook using the server after making changes to the server, you can launch the server using `just run`. You can then connect to the server using the client API in your scripts/ test programs.
+2. Run:
+    ```
+    ./on_premise_server_deployment.sh
+    ```
+This script will:
+- Ensure you have docker installed.
+- Set up the PCCS needed for attestation.
+- Install and run the AESM service which allows our host machine to communicate with the enclave.
+- Run the server
+- [NOTE FOR ANDRE, CAN WE ALSO ADD THE REVERSE PROXY SETUP TO THIS SCRIPT OR MAKE AN ADDITIONAL SCRIPT?]
 
->Note that if you make any changes to the server code before deploying the server, you will need to generate a new manifest.toml file and share it with any users accessing the server using the client API. The default manifest.toml file is generated at the root of the repo when the enclave is built. The manifest.toml files are used during the verification step of the connection progress to check that the server is not running any unexpected and potentially malicious code. You can learn more about this verification process [here](link).
-
-[TODO: EXPLAIN THE LINK WITH THE HAZMAT OPTION]
+Once the server has been deployed, users can connect to your server by using the client PyPi package API and specifying the server IP address and ports when using the `connect` method.
 
 >Note that by default the port opened in 9923 is running on http only. For production, we strongly recommend setting up a ***reverse-proxy*** that will manage and encrypt the traffic from the client to the blindAI server. Many free reverse-proxy implementations exist, such as **caddy**, **Nginx** and **Apache**:
 
 - [https://caddyserver.com/docs/quick-starts/reverse-proxy](https://caddyserver.com/docs/quick-starts/reverse-proxy)
 - [Nginx reverse proxy set-up guide](https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/)
 - [Apache reverse proxy set-up guide](https://httpd.apache.org/docs/2.4/howto/reverse_proxy.html)
+
+If you do not set up a reverse proxy, users will need to set the `hazmat_http_on_untrusted_port` option to `True` when using blindai-preview's `connect()` function. Again, this is **not recommended** for production.
+
+>Note that if you make any changes to the server code before deploying the server, you will need to generate a new manifest.toml file and share it with any users accessing the server using the client API. The default manifest.toml file is generated at the root of the repo when the enclave is built. The manifest.toml files are used during the verification step of the connection progress to check that the server is not running any unexpected and potentially malicious code. You can learn more about this verification process [here](link).
+
+>Note that by default the port opened in 9923 is running on http only. For production, we strongly recommend setting up a ***reverse-proxy*** that will manage and encrypt the traffic from the client to the blindAI server. Many free reverse-proxy implementations exist, such as **caddy**, **Nginx** and **Apache**:
+
+- [https://caddyserver.com/docs/quick-starts/reverse-proxy](https://caddyserver.com/docs/quick-starts/reverse-proxy)
+- [Nginx reverse proxy set-up guide](https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/)
+- [Apache reverse proxy set-up guide](https://httpd.apache.org/docs/2.4/howto/reverse_proxy.html)
+
+If you do not set up a reverse proxy, users will need to set the `hazmat_http_on_untrusted_port` option to `True` when using blindai-preview's `connect()` function. Again, this is **not recommended** for production.
+
+If you want to install necessary dependencies and build the server from source manually, check out our [advanced build from source page](LINK).
 
 ### Examples
 
