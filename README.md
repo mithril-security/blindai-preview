@@ -108,12 +108,11 @@ Cons:
 **recommended 🥇**
 
 Pros:
-- Straight-forward deployment. Intel SGX is already installed on this VM.
 - No requirement to have your own Intel SGX-ready device or a particular distribution. 
 - Secure. Hardware security guarantees protect your data and model from any third-party access.
 
 Cons:
-- More expensive than local production.
+- Can be more expensive than local deployment.
 
 
 ### Case three: On-premise deployment
@@ -172,24 +171,11 @@ If you have any trouble with these your test programs, compare your usage agains
 
 ### Case two: Deploying BlindAI on Azure DCsv3 VM
 
-Firstly, you'll need to check out the instructions for setting up your Azure DCsv3 VM [here](https://github.com/mithril-security/blindai-preview/blob/ophelie-README-rewrite/docs/docs/cloud-deployment.md)
-
-Then, if you want to **deploy the server for production**, you can run our `vm_server_deployment.sh` script in your vm which will install any required dependencies for you.
-
-If you want to **install the client and server for local development**, either because you want to contribute to the project or make your own local modifications to the code,
-check out the instructions installing BlindAI for development on an-premise [here](https://github.com/mithril-security/blindai-preview/blob/ophelie-README-rewrite/docs/docs/cloud-deployment.md)
+Check out our instructions for setting up your Azure DCsv3 VM and deploying the server [here](https://github.com/mithril-security/blindai-preview/blob/ophelie-README-rewrite/docs/docs/cloud-deployment.md)
 
 ### Case three: On-premise deployment
 
-If you just want to **deploy the server for production**, you can run our `on_premise_server_deployment.sh` script which will automate deployment for you.
-> Note this script was created for the following Linux distributions:
-
-```./on_premise_server_deployment.sh
-```
-
-If you want to **install the client and server for local development**, either because you want to contribute to the project or make your own local modifications to the code,
-check out the instructions installing BlindAI for development on an-premise [here](https://github.com/mithril-security/blindai-preview/blob/ophelie-README-rewrite/docs/docs/deploy-on-premise.md)
-
+Check out our instructions for installing BlindAI for development on-premises [here](https://github.com/mithril-security/blindai-preview/blob/ophelie-README-rewrite/docs/docs/deploy-on-premise.md)
 
 <!-- USAGE EXAMPLES -->
 ## 🔆 Usage
