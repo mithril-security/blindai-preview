@@ -10,6 +10,7 @@ __all__ = [
     "EnclaveHeldDataError",
     "IdentityError",
     "testing",
+    "Audio",
 ]
 
 from .client import (
@@ -28,3 +29,6 @@ from ._dcap_attestation import (
     IdentityError,
 )
 from . import testing
+
+# Import whisper
+from .whisper import Audio
