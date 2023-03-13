@@ -123,6 +123,8 @@ Once the server has been deployed, users can connect to your server by using the
 
 If you do not set up a reverse proxy, users will need to set the `hazmat_http_on_untrusted_port` option to `True` when using blindai-preview's `connect()` function. Again, this is **not recommended** for production.
 
+Once the server has been deployed, users can connect to your server by using the client PyPi package API and specifying the server IP address and ports when using the `connect` method.
+
 ### Building from source
 
 If you want to **build from source**, perhaps because you want to contribute to the project or build from a certain branch or commit, you can do so with the following steps.
@@ -219,4 +221,4 @@ If you want to install necessary dependencies and build the server from source m
 
 ### Examples
 
-You can check out our [how-to using github repo instead of PyPI packages](link) to see an example of the full workflow using BlindAI.
+You can check out our [how-to guides](link) to see an example of the full workflow using BlindAI.

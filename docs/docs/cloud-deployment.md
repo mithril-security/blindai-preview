@@ -52,24 +52,19 @@ After that, you need to select "Connect to Host" in **the Command Palette** and 
 
 ![](../assets/2022-02-24_12_53_38.png)
 
-### Server deployment only
+### Server deployment
 
-Once you are connected to the VM. You can do the following steps to deploy the server:
+you can run the docker image on your VM, with the following command:
 
-1. Clone blindai github repo and submodules.
-    ```git clone https://github.com/mithril-security/blindai-preview --recursive
-    cd blindai-preview
-    ```
+[TODO: CHECK THIS COMMAND]
+```bash
+docker run -it \
+-p 9223:9223 \
+-p 9224:9224 \ 
+mithrilsecuritysas/blindai-preview-server:latest
+```
 
-2. We have made a script for server deployment:
-    ```./vm_server_deployment.sh
-
-    ```
-This script will:
-- Ensure you have all necessary pre-requisites
-- Run the server in release mode
-- [NOTE FOR ANDRE: CAN WE ALSO ADD THE REVERSE PROXY SETUP TO THIS SCRIPT OR MAKE AN ADDITIONAL SCRIPT?
-NOTE FOR ANDRE: SHOULD WE MAKE DIFFERENT OPTIONS FOR RELEASE MODE VS LOCAL MODE OR SOMETHING?]
+>If you need to install Docker, you can follow [the official Docker installation instructions](https://docs.docker.com/engine/install). 
 
 Once the server has been deployed, users can connect to your server by using the client PyPi package API and specifying the server IP address and ports when using the `connect` method.
 
@@ -81,61 +76,63 @@ Once the server has been deployed, users can connect to your server by using the
 
 If you do not set up a reverse proxy, users will need to set the `hazmat_http_on_untrusted_port` option to `True` when using blindai-preview's `connect()` function. Again, this is **not recommended** for production.
 
->Note that if you make any changes to the server code before deploying the server, you will need to generate a new manifest.toml file and share it with any users accessing the server using the client API. The default manifest.toml file is generated at the root of the repo when the enclave is built. The manifest.toml files are used during the verification step of the connection progress to check that the server is not running any unexpected and potentially malicious code. You can learn more about this verification process [here](link).
+Once the server has been deployed, users can connect to your server by using the client PyPi package API and specifying the server IP address and ports when using the `connect` method.
 
-### Installation for development
+### Building from source
 
-If you want to **install the client and server for local development**, either because you want to contribute to the project or make your own local modifications to the code, you can launch our development environment with the following steps:
+If you want to **build from source**, perhaps because you want to contribute to the project or build from a certain branch or commit, you can do so with the following steps.
+
+### Development environment
+If you want to make changes to the code, it is recommended you use our pre-configured development container, which contains all the dependencies you need to run and use blindai-preview.
+
+To this, you need to:
 
 1. Clone blindai github repo and submodules.
-    ```git clone https://github.com/mithril-security/blindai-preview --recursive
-    cd blindai-preview
-    ```
+```bash
+git clone https://github.com/mithril-security/blindai-preview --recursive
+cd blindai-preview
+```
 
 2. Make sure you have docker installed on your machine. 
 - If you need to install Docker, you can follow [the official Docker installation instructions](https://docs.docker.com/engine/install). 
 
 You also need to make sure you haver the correct permissions to run docker commands without `sudo`. 
 To check this, try running `docker run hello-world`. If this works, you can skip straight to the next step. If it doesn't, you need to add yourself to docker group: 
-    ```
-    sudo usermod -aG docker $USER && newgrp docker
-    ```
+```bash
+sudo usermod -aG docker $USER && newgrp docker
+```
 
 3. Open the `blindai-preview` folder in VSCode.   
 
-4. Open the green menu at the bottom-left of the Visual Studio Code.
-Choose: "Dev Containers: Reopen in Container".
+4. Make sure you have the `remote container VSCode extension` installed. If you don't, install this from the VSCode extensions marketplace.
 
-This will create and open a Docker container for you to work in which will contain all the dependencies you need to run and use blindai-preview. This may take some time since there are several dependencies that must be installed.
+5. Open the green menu at the bottom-left of the Visual Studio Code.
+Choose: `Dev Containers: Reopen in Container`.
 
-You should now be within your dev container in VSCode. You can now make any changes you want to the client and server code.
+This may take some time since there are several dependencies that must be installed.
 
-### Compiling client and launching server
+### Building client from source
 
-To compile the client once you have made changed to the client code:
-    ```cd client
-    poetry install
-    poetry shell
-    ```
+To compile the client code locally:
+```bash
+cd client
+poetry install
+```
 
-You can use the `justfile` to:
-- Launch the server: 
-    ```just run
-    ```
-- Run our tests:
-    ```just test
-    ```
+### Building server from source
+
+1. Clone blindai github repo and submodules.
+```bash
+git clone https://github.com/mithril-security/blindai-preview --recursive
+cd blindai-preview
+```
+
+2. You can then build and run the server from source using the `justfile`:
+```bash
+just run
+```
+
 >Make sure you are in the root of the blindai-preview directory to make use of the justfile commands.
-
->Note that if you make any changes to the server code before deploying the server, you will need to generate a new manifest.toml file and share it with any users accessing the server using the client API. The default manifest.toml file is generated at the root of the repo when the enclave is built. The manifest.toml files are used during the verification step of the connection progress to check that the server is not running any unexpected and potentially malicious code. You can learn more about this verification process [here](link).
-
-You are now ready to run our test programs or create your own scripts or notebooks!
-
-### Testing client and server modifications in a test program
-
-If you want to run a script or notebook using the client after making changes to the source files replace `pip install blindai-preview` with `pip install [path/to/client/folder]`.
-
-If you want to run a script or notebook using the server after making changes to the server, you can launch the server using `just run`. You can then connect to the server using the client API in your scripts/ test programs.
 
 >Note that by default the port opened in 9923 is running on http only. For production, we strongly recommend setting up a ***reverse-proxy*** that will manage and encrypt the traffic from the client to the blindAI server. Many free reverse-proxy implementations exist, such as **caddy**, **Nginx** and **Apache**:
 
@@ -144,6 +141,8 @@ If you want to run a script or notebook using the server after making changes to
 - [Apache reverse proxy set-up guide](https://httpd.apache.org/docs/2.4/howto/reverse_proxy.html)
 
 If you do not set up a reverse proxy, users will need to set the `hazmat_http_on_untrusted_port` option to `True` when using blindai-preview's `connect()` function. Again, this is **not recommended** for production.
+
+>Note that if you make any changes to the server code before deploying the server, you will need to generate a new manifest.toml file and share it with any users accessing the server using the client API. The default manifest.toml file is generated at the root of the repo when the enclave is built. The manifest.toml files are used during the verification step of the connection progress to check that the server is not running any unexpected and potentially malicious code. You can learn more about this verification process [here](link).
 
 ### Examples
 
