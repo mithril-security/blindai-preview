@@ -128,19 +128,19 @@ Cons:
 
 >How can I check if I have an Intel SGX-ready device with `SGX+FLC` support?
 
-  ```
-  git clone https://github.com/ayeks/SGX-hardware
-  cd SGX-hardware
-  gcc test-sgx.c -o test-sgx
-  ./test-sgx | grep "sgx launch control"
-  ```
+```bash
+git clone https://github.com/ayeks/SGX-hardware
+cd SGX-hardware
+gcc test-sgx.c -o test-sgx
+./test-sgx | grep "sgx launch control"
+```
 
 - If your output is `sgx launch control: 1`, you have an Intel SGX-ready device with `SGX+FLC` support.
 - If your output is `sgx launch control: 0`, you do not have an Intel SGX-ready device with `SGX+FLC` support.
 
 >How can I check if I have SGX1 or SGX2?
 
-```
+```bash
 git clone https://github.com/ayeks/SGX-hardware
 cd SGX-hardware
 gcc test-sgx.c -o test-sgx
@@ -150,7 +150,7 @@ gcc test-sgx.c -o test-sgx
 - If your output is `sgx 1 supported: 1`, you have SGX1.
 - If your output is `sgx 1 supported: 0`, you do not have SGX1.
 
-```
+```bash
 ./test-sgx | grep "sgx 2 supported"
 ```
 

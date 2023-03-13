@@ -1,4 +1,4 @@
-# On-premise deployment
+## On-premise deployment
 
 ### Eligibility check
 
@@ -164,7 +164,7 @@ cd client
 poetry install
 ```
 
-### Server
+### Building server from source
 
 If you are in our dev container, you will already have everything you need installed in this container and can run the server using the `justfile`:
 ```bash
