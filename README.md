@@ -104,8 +104,7 @@ Cons:
 - This option does not offer the hardware security guarantees of Intel SGX. It is not suitable for production.
 
 
-**recommended 🥇**
-### Case two: Deploying BlindAI on Azure DCsv3 VM
+### Case two (**recommended 🥇**): Deploying BlindAI on Azure DCsv3 VM
 
 Pros:
 - Straight-forward deployment. Intel SGX is already installed on this VM.
