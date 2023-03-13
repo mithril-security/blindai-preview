@@ -171,7 +171,17 @@ If you have any trouble with these your test programs, compare your usage agains
 
 ### Case two: Deploying BlindAI on Azure DCsv3 VM
 
-Check out our instructions for setting up your Azure DCsv3 VM and deploying the server [here](https://github.com/mithril-security/blindai-preview/blob/ophelie-README-rewrite/docs/docs/cloud-deployment.md)
+You can deploy the server in your Azure DCsv3 VM using our docker image with the following command:
+
+[TODO: CHECK THIS COMMAND]
+```bash
+docker run -it \
+-p 9223:9223 \
+-p 9224:9224 \ 
+mithrilsecuritysas/blindai-preview-server:latest
+```
+
+For instructions on how to set up your Azure DCsv3 VM or alternative deployment methods, visit [our cloud-deployment page](https://github.com/mithril-security/blindai-preview/blob/ophelie-README-rewrite/docs/docs/cloud-deployment.md)
 
 ### Case three: On-premise deployment
 
