@@ -6,7 +6,7 @@ In order to deploy BlindAI on-premise, you will need an Intel SGX-ready device w
 
 You can check this with the following code:
 
-  ```
+  ```bash
   git clone https://github.com/ayeks/SGX-hardware
   cd SGX-hardware
   gcc test-sgx.c -o test-sgx
@@ -22,7 +22,7 @@ You could still deploy the server with SGX1 and benefit from the isolation offer
 
 You can check if you have SGX1 or SGX2, bu running the following:
 
-```
+```bash
 git clone https://github.com/ayeks/SGX-hardware
 cd SGX-hardware
 gcc test-sgx.c -o test-sgx
@@ -32,7 +32,7 @@ gcc test-sgx.c -o test-sgx
 - If your output is `sgx 1 supported: 1`, you have SGX1.
 - If your output is `sgx 1 supported: 0`, you do not have SGX1.
 
-```
+```bash
 ./test-sgx | grep "sgx 2 supported"
 ```
 
@@ -66,8 +66,8 @@ The binary file contains the drivers signed by Intel and will proceed to the ins
 
 You can do this on ubuntu with the following steps:
 
-    ```
-    #download aesm for ubuntu
+    ```bash
+    # download aesm for ubuntu
     echo "deb https://download.01.org/intel-sgx/sgx_repo/ubuntu $(lsb_release -cs) main" | sudo tee -a /etc/apt/sources.list.d/intel-sgx.list >/dev/null \ 
     # add to apt-key list to authenticate package
     curl -sSL "https://download.01.org/intel-sgx/sgx_repo/ubuntu/intel-sgx-deb.key" | sudo apt-key add -
@@ -79,13 +79,13 @@ You can do this on ubuntu with the following steps:
 
 You can verify that the service is now running with:
 
-    ```
+    ```bash
     service aesmd status
     ```
 
 Finally, the current user must also be added to the aesm group:
 
-    ```
+    ```bash
     sudo usermod -a -G aesmd $USER
     ```
 
@@ -104,7 +104,7 @@ To do this, you'll need to:
 2. Now you've got your PCCS API key, you can run the docker image with the following command:
 
 [TODO: CHECK THIS COMMAND]
-    ```
+    ```bash
     docker run -it \
     -p 9223:9223 \
     -p 9224:9224 \ 
@@ -133,7 +133,7 @@ If you want to make changes to the code, it is recommended you use our pre-confi
 To this, you need to:
 
 1. Clone blindai github repo and submodules.
-    ```
+    ```bash
     git clone https://github.com/mithril-security/blindai-preview --recursive
     cd blindai-preview
     ```
@@ -143,7 +143,7 @@ To this, you need to:
 
 You also need to make sure you haver the correct permissions to run docker commands without `sudo`. 
 To check this, try running `docker run hello-world`. If this works, you can skip straight to the next step. If it doesn't, you need to add yourself to docker group: 
-    ```
+    ```bash
     sudo usermod -aG docker $USER && newgrp docker
     ```
 
@@ -159,7 +159,7 @@ This may take some time since there are several dependencies that must be instal
 ### Building client from source
 
 To compile the client code locally:
-    ```
+    ```bash
     cd client
     poetry install
     ```
@@ -167,7 +167,7 @@ To compile the client code locally:
 ### Server
 
 If you are in our dev container, you will already have everything you need installed in this container and can run the server using the `justfile`:
-    ```
+    ```bash
     just run
     ```
 
@@ -178,13 +178,13 @@ If you are not in our dev container, the easiest way to build the server from so
 To do this, you need to:
 
 1. Clone blindai github repo and submodules.
-    ```
+    ```bash
     git clone https://github.com/mithril-security/blindai-preview --recursive
     cd blindai-preview
     ```
 
 2. Run:
-    ```
+    ```bash
     ./on_premise_server_deployment.sh
     ```
 This script will:
