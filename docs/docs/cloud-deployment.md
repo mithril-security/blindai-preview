@@ -74,76 +74,13 @@ Once the server has been deployed, users can connect to your server by using the
 - [Nginx reverse proxy set-up guide](https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/)
 - [Apache reverse proxy set-up guide](https://httpd.apache.org/docs/2.4/howto/reverse_proxy.html)
 
+Once you have set up your reverse proxy to forward traffic to port 9923, clients should then modify the `unattested_server_port` option to the port on which you are running your reverse proxy when using the `connect` method to connect to the server.
+
 If you do not set up a reverse proxy, users will need to set the `hazmat_http_on_untrusted_port` option to `True` when using blindai-preview's `connect()` function. Again, this is **not recommended** for production.
+
 
 Once the server has been deployed, users can connect to your server by using the client PyPi package API and specifying the server IP address and ports when using the `connect` method.
 
 ### Building from source
 
-If you want to **build from source**, perhaps because you want to contribute to the project or build from a certain branch or commit, you can do so with the following steps.
-
-### Development environment
-If you want to make changes to the code, it is recommended you use our pre-configured development container, which contains all the dependencies you need to run and use blindai-preview.
-
-To this, you need to:
-
-1. Clone blindai github repo and submodules.
-```bash
-git clone https://github.com/mithril-security/blindai-preview --recursive
-cd blindai-preview
-```
-
-2. Make sure you have docker installed on your machine. 
-- If you need to install Docker, you can follow [the official Docker installation instructions](https://docs.docker.com/engine/install). 
-
-You also need to make sure you haver the correct permissions to run docker commands without `sudo`. 
-To check this, try running `docker run hello-world`. If this works, you can skip straight to the next step. If it doesn't, you need to add yourself to docker group: 
-```bash
-sudo usermod -aG docker $USER && newgrp docker
-```
-
-3. Open the `blindai-preview` folder in VSCode.   
-
-4. Make sure you have the `remote container VSCode extension` installed. If you don't, install this from the VSCode extensions marketplace.
-
-5. Open the green menu at the bottom-left of the Visual Studio Code.
-Choose: `Dev Containers: Reopen in Container`.
-
-This may take some time since there are several dependencies that must be installed.
-
-### Building client from source
-
-To compile the client code locally:
-```bash
-cd client
-poetry install
-```
-
-### Building server from source
-
-1. Clone blindai github repo and submodules.
-```bash
-git clone https://github.com/mithril-security/blindai-preview --recursive
-cd blindai-preview
-```
-
-2. You can then build and run the server from source using the `justfile`:
-```bash
-just run
-```
-
->Make sure you are in the root of the blindai-preview directory to make use of the justfile commands.
-
->Note that by default the port opened in 9923 is running on http only. For production, we strongly recommend setting up a ***reverse-proxy*** that will manage and encrypt the traffic from the client to the blindAI server. Many free reverse-proxy implementations exist, such as **caddy**, **Nginx** and **Apache**:
-
-- [https://caddyserver.com/docs/quick-starts/reverse-proxy](https://caddyserver.com/docs/quick-starts/reverse-proxy)
-- [Nginx reverse proxy set-up guide](https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/)
-- [Apache reverse proxy set-up guide](https://httpd.apache.org/docs/2.4/howto/reverse_proxy.html)
-
-If you do not set up a reverse proxy, users will need to set the `hazmat_http_on_untrusted_port` option to `True` when using blindai-preview's `connect()` function. Again, this is **not recommended** for production.
-
->Note that if you make any changes to the server code before deploying the server, you will need to generate a new manifest.toml file and share it with any users accessing the server using the client API. The default manifest.toml file is generated at the root of the repo when the enclave is built. The manifest.toml files are used during the verification step of the connection progress to check that the server is not running any unexpected and potentially malicious code. You can learn more about this verification process [here](link).
-
-### Examples
-
-You can check out our [how-to using github repo instead of PyPI packages](link) to see an example of the full workflow using BlindAI.
+If you want to **build from source**, perhaps because you want to contribute to the project or build from a certain branch or commit, you can find all the information you need to do so in our [building from source guide](../docs/advanced/build-from-sources/build-from-source.md)
