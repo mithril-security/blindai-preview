@@ -184,15 +184,12 @@ If you have any trouble with these your test programs, compare your usage agains
 
 **recommended 🥇**
 
-Pros:
+**Pros:**
+  ✅ No requirement to have your own Intel SGX-ready device or a particular distribution. 
+  ✅ Secure. Hardware security guarantees protect your data and model from any third-party access.
 
-✅ No requirement to have your own Intel SGX-ready device or a particular distribution. 
-
-✅ Secure. Hardware security guarantees protect your data and model from any third-party access.
-
-Cons:
-
-⚠️ Can be more expensive than local deployment.
+**Cons:**
+  ⚠️ Can be more expensive than local deployment.
 
 If this is the right method for you, you can deploy the server in your Azure DCsv3 VM using our docker image with the following command:
 
