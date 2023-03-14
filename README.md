@@ -210,7 +210,7 @@ Cons:
 - BlindAI was created to run with SGX2, which has a better performance and much more memory available than SGX1. The physical protected memory for SGX1 is limited to 128mb. You could still deploy the server with SGX1 and benefit from the isolation offered by SGX enclaves, but since SGX1 is missing some of the features we rely on, the client would still need to `connect` to the server in `simulation` mode.
 - You need to install all the pre-requisites.
 
->You can check that you have an Intel SGX-ready device with `SGX+FLC` support and SGX2 by following [our eligibility check section](https://github.com/mithril-security/blindai-preview/blob/main/docs/docs/deploy-on-premise.md) on our on-premise deployment page.
+>You can check that you have an Intel SGX-ready device with `SGX+FLC` support and SGX2 by following [our eligibility check section](https://github.com/mithril-security/blindai-preview/blob/ophelie-README-rewrite/docs/docs/deploy-on-premise.md) on our on-premise deployment page.
 
 If you fall into this case, you can check out our instructions for installing BlindAI for development on-premises [here](https://github.com/mithril-security/blindai-preview/blob/ophelie-README-rewrite/docs/docs/deploy-on-premise.md)
 
