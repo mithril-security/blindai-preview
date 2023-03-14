@@ -106,7 +106,7 @@ Intel processors with SGX can create secure enclaves, self-contained zones where
 
 
 Which is why BlindAi is a powerful, easy-to-use solution for AI model deployment with security guarantees. To get introduced to how you can use BlindAI to keep your data safe, check out our [Quick Tour](#Quick tour)!
-
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Quick tour
 
@@ -116,7 +116,7 @@ But here’s a taste of what using BlindAI could look like 🍒
 
 ### AI company's POV
 
-**uploading and deleting models**
+**Uploading and deleting models**
 
 The AI company, PixelHealth, upload their model to the server, which is assigned a model id.
 
@@ -137,7 +137,7 @@ client_1.delete_model(MODEL_ID)
 
 ### Client's POV
 
-**running model on data**
+**Running model on data**
 
 The client, Sacred Heart Hospital, connects and runs the model on the following image.
 
@@ -151,7 +151,6 @@ Probability of Covid for positive image is 0.890598714351654
 ```
 
 _For more examples, please refer to the [Documentation](https://blindai.mithrilsecurity.io/en/latest/)_
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Installation
@@ -160,15 +159,15 @@ _For more examples, please refer to the [Documentation](https://blindai.mithrils
 
 The first thing to establish is which of the following three cases you fall under:
 
-### Case one: Testing BlindAI without hardware security guarantees
+**Case one: Testing BlindAI without hardware security guarantees**
 
 Pros:
-- Quick and easy.
-- Works on any device. Very few pre-requisites.
-- Demos available on BlindAI Github.
+✅ Quick and easy.
+✅ Works on any device. Very few pre-requisites.
+✅ Demos available on BlindAI Github.
 
 Cons:
-- This option does not offer the hardware security guarantees of Intel SGX. It is not suitable for production.
+⚠️ This option does not offer the hardware security guarantees of Intel SGX. It is not suitable for production.
 
 If this is the right option for you, you can:
 
@@ -177,15 +176,15 @@ If this is the right option for you, you can:
 
 If you have any trouble with these your test programs, compare your usage against our [example notebooks](link) or contact us via Discord or Github!
 
-### Case two: Deploying BlindAI on Azure DCsv3 VM
+**Case two: Deploying BlindAI on Azure DCsv3 VM**
 **recommended 🥇**
 
 Pros:
-- No requirement to have your own Intel SGX-ready device or a particular distribution. 
-- Secure. Hardware security guarantees protect your data and model from any third-party access.
+✅ No requirement to have your own Intel SGX-ready device or a particular distribution. 
+✅ Secure. Hardware security guarantees protect your data and model from any third-party access.
 
 Cons:
-- Can be more expensive than local deployment.
+⚠️ Can be more expensive than local deployment.
 
 If this is the right method for you, you can deploy the server in your Azure DCsv3 VM using our docker image with the following command:
 
@@ -196,24 +195,22 @@ docker run -it \
 -p 9224:9224 \ 
 mithrilsecuritysas/blindai-preview-server:latest
 ```
-
 For instructions on how to set up your Azure DCsv3 VM, alternative deployment methods or more information, visit [our cloud-deployment page](https://github.com/mithril-security/blindai-preview/blob/ophelie-README-rewrite/docs/docs/cloud-deployment.md)
 
-### Case three: On-premise deployment
+**Case three: On-premise deployment**
 
 Pros:
-- Secure. Hardware security guarantees protect your data and model from any third-party access.
-- Can be less costly than paying for access to VM.
+✅ Secure. Hardware security guarantees protect your data and model from any third-party access.
+✅ Can be less costly than paying for access to VM.
 
 Cons:
-- You must have an Intel SGX-ready device with `SGX+FLC` support.
-- BlindAI was created to run with SGX2, which has a better performance and much more memory available than SGX1. The physical protected memory for SGX1 is limited to 128mb. You could still deploy the server with SGX1 and benefit from the isolation offered by SGX enclaves, but since SGX1 is missing some of the features we rely on, the client would still need to `connect` to the server in `simulation` mode.
-- You need to install all the pre-requisites.
+⚠️ You must have an Intel SGX-ready device with `SGX+FLC` support.
+⚠️ BlindAI was created to run with SGX2, which has a better performance and much more memory available than SGX1. The physical protected memory for SGX1 is limited to 128mb. You could still deploy the server with SGX1 and benefit from the isolation offered by SGX enclaves, but since SGX1 is missing some of the features we rely on, the client would still need to `connect` to the server in `simulation` mode.
+⚠️ You need to install all the pre-requisites.
 
 >You can check that you have an Intel SGX-ready device with `SGX+FLC` support and SGX2 by following [our eligibility check section](https://github.com/mithril-security/blindai-preview/blob/ophelie-README-rewrite/docs/docs/deploy-on-premise.md) on our on-premise deployment page.
 
 If you fall into this case, you can check out our instructions for installing BlindAI for development on-premises [here](https://github.com/mithril-security/blindai-preview/blob/ophelie-README-rewrite/docs/docs/deploy-on-premise.md)
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- ROADMAP -->
