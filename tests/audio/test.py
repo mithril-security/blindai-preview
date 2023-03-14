@@ -9,7 +9,7 @@ class TestWhisperAudio(unittest.TestCase):
         res = blindai_preview.Audio.transcribe(
             connection=connection,
             model="tiny.en",
-            file="jfk.flac"
+            file="taunt.wav"
         )
 
         print(res)

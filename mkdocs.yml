@@ -64,6 +64,9 @@ nav:
   - 'docs/cloud-deployment.md'
   - 'docs/deploy-on-premise.md'
 
+- 'How-to-Guides':
+  - 'docs/how-to-guides/whisper-audio.ipynb'
+  
 - 'Advanced':
   - 'Build from sources':
     - 'docs/advanced/build-from-sources/client.md'
