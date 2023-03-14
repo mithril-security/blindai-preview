@@ -89,7 +89,74 @@ Our solution comes in two parts:
 <!-- GETTING STARTED -->
 ## 🚀 Getting Started
 
-### Finding the right deployment method for your use case
+### Why Blindai?
+
+AI solutions tend to be deployed in one of three ways: on the Cloud, on-premise or on-device. Cloud deployment offers users ease-of-use and a wide offer of AI models but it puts users' data at risk. The safety of our data is left in the hands of the person or company who operates the service, the cloud operator, their sysadmins and other people who each need to be trusted. This means that Cloud deployment may not be suitable for users with sensitive data such as hospitals wanting to leverage patient data to improve healthcare.
+
+
+Users with sensitive data may instead turn to on-premise or on-device deployment as a more privacy-friendly alternative to Cloud deployment, but this increased privacy comes at a great cost in terms of ease-of-use. On-premise deployment requires on-site expertise that is not available to many companiesAdditionally, with on-premise and on-device deployment, AI models are limited by the storage space and power of on-site hardware or user devices respectively.Finally, on-device solutions require AI models to be embedded in the application distributed to the client, putting them at risk of being stolen.
+
+
+BlindAI offers the ease-of-use and wide offer of Cloud deployment with the increased privacy of on-premise and on-device solutions. We take advantage of the power of confidential computing, and more specifically Intel Software Guard Extension (Intel SGX), to enable user data to be processed remotely without the risk of unauthorized access or tampering.
+
+
+**How does it work?**
+
+Intel processors with SGX can create secure enclaves, self-contained zones where the processor guarantees that software running inside cannot be tampered with by the host operating system, hypervisor, and even its BIOS. Users upload their data and get their result via a secure API provided by the enclave. AI models are run on user data inside the enclave protecting both the user data from potential attacks and providing enhanced security for the AI models compared with on-premise alternatives.
+
+
+Which is why BlindAi is a powerful, easy-to-use solution for AI model deployment with security guarantees. To get introduced to how you can use BlindAI to keep your data safe, check out our [Quick Tour](#Quick tour)!
+
+
+### Quick tour
+
+You can go try out our [Quick tour](LIEN) in the documentation to discover BlindAI with a hands-on example using [COVID-Net](https://github.com/lindawangg/COVID-Net).
+
+But here’s a taste of what using BlindAI could look like 🍒
+
+### AI company's POV
+
+**uploading and deleting models**
+
+The AI company, PixelHealth, upload their model to the server, which is assigned a model id.
+
+```bash
+response = client_1.upload_model(model="./COVID-Net-CXR-2.onnx")
+MODEL_ID = response.model_id
+print(MODEL_ID)
+
+8afcdab8-209e-4b93-9403-f3ea2dc0c3ae
+```
+
+When their client has finished their collaboration with them, they can delete their model from the sever.
+
+```bash
+# AI company deletes model after use
+client_1.delete_model(MODEL_ID)
+```
+
+### Client's POV
+
+**running model on data**
+
+The client, Sacred Heart Hospital, connects and runs the model on the following image.
+
+![](./docs/assets/positive_image.png)
+
+```bash
+pos_ret = client_2.run_model(MODEL_ID, positive)
+print("Probability of Covid for positive image is", pos_ret.output[0].as_flat()[0][1])
+
+Probability of Covid for positive image is 0.890598714351654
+```
+
+_For more examples, please refer to the [Documentation](https://blindai.mithrilsecurity.io/en/latest/)_
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+### Installation
+
+**Finding the right deployment method for your use case**
 
 The first thing to establish is which of the following three cases you fall under:
 
@@ -103,6 +170,12 @@ Pros:
 Cons:
 - This option does not offer the hardware security guarantees of Intel SGX. It is not suitable for production.
 
+If this is the right option for you, you can:
+
+- Check out our [quick tour notebook](#Quick tour). This will show you how you can install and use BlindAI's client and server testing packages.
+- Test your own Python scripts or notebooks using the `blindai_preview` PyPi packages with the `blindai_preview.testing` server.
+
+If you have any trouble with these your test programs, compare your usage against our [example notebooks](link) or contact us via Discord or Github!
 
 ### Case two: Deploying BlindAI on Azure DCsv3 VM
 **recommended 🥇**
@@ -114,6 +187,17 @@ Pros:
 Cons:
 - Can be more expensive than local deployment.
 
+If this is the right method for you, you can deploy the server in your Azure DCsv3 VM using our docker image with the following command:
+
+[TODO: CHECK THIS COMMAND]
+```bash
+docker run -it \
+-p 9223:9223 \
+-p 9224:9224 \ 
+mithrilsecuritysas/blindai-preview-server:latest
+```
+
+For instructions on how to set up your Azure DCsv3 VM, alternative deployment methods or more information, visit [our cloud-deployment page](https://github.com/mithril-security/blindai-preview/blob/ophelie-README-rewrite/docs/docs/cloud-deployment.md)
 
 ### Case three: On-premise deployment
 
@@ -126,81 +210,11 @@ Cons:
 - BlindAI was created to run with SGX2, which has a better performance and much more memory available than SGX1. The physical protected memory for SGX1 is limited to 128mb. You could still deploy the server with SGX1 and benefit from the isolation offered by SGX enclaves, but since SGX1 is missing some of the features we rely on, the client would still need to `connect` to the server in `simulation` mode.
 - You need to install all the pre-requisites.
 
->How can I check if I have an Intel SGX-ready device with `SGX+FLC` support?
+>You can check that you have an Intel SGX-ready device with `SGX+FLC` support and SGX2 by following [our eligibility check section](https://github.com/mithril-security/blindai-preview/blob/main/docs/docs/deploy-on-premise.md) on our on-premise deployment page.
 
-```bash
-git clone https://github.com/ayeks/SGX-hardware
-cd SGX-hardware
-gcc test-sgx.c -o test-sgx
-./test-sgx | grep "sgx launch control"
-```
-
-- If your output is `sgx launch control: 1`, you have an Intel SGX-ready device with `SGX+FLC` support.
-- If your output is `sgx launch control: 0`, you do not have an Intel SGX-ready device with `SGX+FLC` support.
-
->How can I check if I have SGX1 or SGX2?
-
-```bash
-git clone https://github.com/ayeks/SGX-hardware
-cd SGX-hardware
-gcc test-sgx.c -o test-sgx
-./test-sgx | grep "sgx 1 supported"
-```
-
-- If your output is `sgx 1 supported: 1`, you have SGX1.
-- If your output is `sgx 1 supported: 0`, you do not have SGX1.
-
-```bash
-./test-sgx | grep "sgx 2 supported"
-```
-
-- If your output is `sgx 2 supported: 1`, you have SGX2.
-- If your output is `sgx 2 supported: 0`, you do not have SGX2.
+If you fall into this case, you can check out our instructions for installing BlindAI for development on-premises [here](https://github.com/mithril-security/blindai-preview/blob/ophelie-README-rewrite/docs/docs/deploy-on-premise.md)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-### Installation
-
-Now, that you have identified the right deployment mode for you, you can follow the installation instructions for your case.
-
-### Case one: Testing BlindAI without hardware security guarantees
-
-1. Check out our [quick tour notebook](link). This will show you how you can install and use BlindAI's client and server testing packages.
-2. Feel free to test your own Python scripts or notebooks using the `blindai_preview` PyPi packages with the `blindai_preview.testing` server.
-If you have any trouble with these your test programs, compare your usage against our [example notebooks](link) or contact us via Discord or Github!
-
-### Case two: Deploying BlindAI on Azure DCsv3 VM
-
-You can deploy the server in your Azure DCsv3 VM using our docker image with the following command:
-
-[TODO: CHECK THIS COMMAND]
-```bash
-docker run -it \
--p 9223:9223 \
--p 9224:9224 \ 
-mithrilsecuritysas/blindai-preview-server:latest
-```
-
-For instructions on how to set up your Azure DCsv3 VM or alternative deployment methods, visit [our cloud-deployment page](https://github.com/mithril-security/blindai-preview/blob/ophelie-README-rewrite/docs/docs/cloud-deployment.md)
-
-### Case three: On-premise deployment
-
-Check out our instructions for installing BlindAI for development on-premises [here](https://github.com/mithril-security/blindai-preview/blob/ophelie-README-rewrite/docs/docs/deploy-on-premise.md)
-
-<!-- USAGE EXAMPLES -->
-## 🔆 Usage
-
-You can go try out our [Quick tour](LIEN) in the documentation to discover BlindAI with a hands-on example using [COVID-Net](https://github.com/lindawangg/COVID-Net).
-
-But here’s a taste of what using BlindAI could look like 🍒
-
-PUT ONE EXAMPLE (ALSO SOME LINE FROM QUICK TOUR I GUESS)
-
-_For more examples, please refer to the [Documentation](https://blindai.mithrilsecurity.io/en/latest/)_
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 
 <!-- ROADMAP -->
 ## 🎯 Roadmap
