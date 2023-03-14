@@ -181,6 +181,7 @@ If this is the right option for you, you can:
 If you have any trouble with these your test programs, compare your usage against our [example notebooks](link) or contact us via Discord or Github!
 
 **Case two: Deploying BlindAI on Azure DCsv3 VM**
+
 **recommended 🥇**
 
 Pros:
