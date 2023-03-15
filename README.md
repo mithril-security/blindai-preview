@@ -22,7 +22,7 @@
 
   <p align="center">
     <b>BlindAI</b> helps deploy AI models with an added <b>privacy layer</b>, 
-    protecting the data sent to be analysed by the model and the model's IP. 
+    protecting the data sent to the model. 
     <br />
     <a href="https://blindai.mithrilsecurity.io/en/latest/"><strong>Explore the docs »</strong></a>
     <br />
@@ -84,13 +84,13 @@ Our solution comes in two parts:
 <!-- GETTING STARTED -->
 ## 🚀 Getting Started
 
-You can go try out our [Quick tour](LIEN) in the documentation to discover BlindAI with a hands-on example using [COVID-Net](https://github.com/lindawangg/COVID-Net).
+You can try out our [Quick tour](LIEN) in the documentation to discover BlindAI with a hands-on example using [COVID-Net](https://github.com/lindawangg/COVID-Net).
 
 But here’s a taste of what using BlindAI could look like 🍒
 
 In our scenario: an AI company and their client are collaborating so that:
-- the client can feed their confidential data to the model while preserving privacy.
-- the AI company can protect their model's secret IP.
+- the AI company can provide their model as an an easy-to-use service.
+- the client can feed their confidential data to the model whilst protecting it from third-party access along the way.
 
 ### AI company's POV
 
@@ -148,15 +148,14 @@ _For more examples, please refer to the [Documentation](https://blindai.mithrils
 
 If this is the right method for you, you can deploy the server in your Azure DCsv3 VM using our docker image with the following command:
 
-**[TODO: CHECK THIS COMMAND]**
 ```py
-docker run -it \
--p 9223:9223 \
--p 9224:9224 \ 
-mithrilsecuritysas/blindai-preview-server:latest
+docker run --privileged \
+-p 127.0.0.1:9923:9923 -p 127.0.0.1:9924:9924 \
+--mount type=bind,source=/dev/sgx,target=/dev/sgx \
+-v /var/run/aesmd/aesm.socket:/var/run/aesmd/aesm.socket mithrilsecuritysas/blindai-preview-server:latest
 ```
 
-For instructions on how to set up your Azure DCsv3 VM, alternative deployment methods or more information, visit [our installation page](--direct link reference to the cloud deployement part)
+For instructions on how to set up your Azure DCsv3 VM, alternative deployment methods or more information, visit [our installation page](https://github.com/mithril-security/blindai-preview/blob/ophelie-README-rewrite/docs/docs/getting-started/installation.md)
 
 #### On-premise deployment
 
@@ -170,10 +169,10 @@ For instructions on how to set up your Azure DCsv3 VM, alternative deployment me
 **❌ Cons:**
 
 - You must have an Intel SGX-ready device with `SGX+FLC` support.
-- BlindAI was created to run with SGX2, which has a better performance and much more memory available than SGX1. You could still deploy the server with SGX1 but the client will only be able to connect in `simulation` mode.
-- You need to install all the pre-requisites to BlindAI's use.
+- BlindAI was created to run with SGX2, which has a better performance and much more memory available than SGX1. You could still deploy the server with SGX1, but the client will only be able to connect in `simulation` mode.
+- You need to install all the pre-requisites.
 
-You can check out our instructions for installing BlindAI for development on-premises [here](https://github.com/mithril-security/blindai-preview/blob/ophelie-README-rewrite/docs/docs/deploy-on-premise.md) and see if you are eligible for SGX2.
+You can check out our instructions for installing BlindAI for on-premise [here](https://github.com/mithril-security/blindai-preview/blob/ophelie-README-rewrite/docs/docs/deploy-on-premise.md) to check if your machine has SGX2 with SGX+FLC support.
 
 #### Testing BlindAI without hardware security guarantees
 
