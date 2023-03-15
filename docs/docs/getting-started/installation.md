@@ -123,12 +123,11 @@ After that, you need to select "Connect to Host" in **the Command Palette** and 
 
 You can run the docker image on your VM, with the following command:
 
-**[TODO: CHECK THIS COMMAND]**
 ```bash
-docker run -it \
--p 9223:9223 \
--p 9224:9224 \ 
-mithrilsecuritysas/blindai-preview-server:latest
+docker run --privileged \
+-p 127.0.0.1:9923:9923 -p 127.0.0.1:9924:9924 \
+--mount type=bind,source=/dev/sgx,target=/dev/sgx \
+-v /var/run/aesmd/aesm.socket:/var/run/aesmd/aesm.socket mithrilsecuritysas/blindai-preview-server:latest
 ```
 
 > If you need to install Docker, you can follow [the official Docker installation instructions](https://docs.docker.com/engine/install). 
