@@ -27,7 +27,7 @@
     <a href="https://blindai.mithrilsecurity.io/en/latest/"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/mithril-security/blindai">Try Demo</a>
+    <a href="https://blindai-preview.mithrilsecurity.io/en/latest/getting-started-quick-tour">Try Demo</a>
     ·
     <a href="https://github.com/mithril-security/blindai/issues">Report Bug</a>
     ·
