@@ -66,14 +66,11 @@
 <!-- ABOUT THE PROJECT -->
 ## 🔒 About The Project
 
-***[SO I THINK CONFIDENTIAL AI INFERENCE SERVER DOESN'T MEAN ANYTHING REALLY HAHA. WE CAN REWORK THAT. I GUESS THE PLAN IS TO REWORK THE HOMEPAGE AND COPY PASTE IT FROM THERE? LET'S SEE WITH CORENTIN/MEHDI WHAT WE CAN COME UP WITH. CORENTIN TOLD ME ]***
-BlindAI is a **confidential AI inference server**. It works like any regular AI inference solution but **with an added privacy layer**. 
+**BlindAI is an AI inference server with an added <b>privacy layer</b>, protecting the data sent to models.** 
 
-Our solution comes in two parts:
+BlindAI facilitates privacy-friendly AI model deployment. AI engineers can upload and delete models to their secure server instance using our Python API. Clients can then connect to the server, upload their data and run models on it without compromising on privacy. Data sent by users to the AI model is kept confidential at all times. Neither the AI service provider nor the Cloud provider (if applicable), can see the data.
 
-- A secure inference **server** to deploy AI models with privacy guarantees 
-- A Python **client** SDK to securely query the remote AI models
-
+Confidentiality is assured by [hardware-enforced Trusted Execution Environments]. We explain how they keep data and models safe in detail [here](-- LIEN PRIVACY).
 
 ### Built With 
 

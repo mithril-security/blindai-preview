@@ -1,103 +1,57 @@
-!!! warning
-    This is a preview version of BlindAI named blindai-preview. It has not yet all the features of the current BlindAI. You can find the current BlindAI [here](https://github.com/mithril-security/blindai).
+# 👋 Welcome to BlindAI!
+________________________________________________________
 
+<font size="5"><span style="font-weight: 200">
+An AI model deployment solution which ensures users' data remains private every step of the way.
 
-**BlindAI** is a **fast, easy-to-use,** and **confidential inference server**, allowing you to easily and quickly deploy your AI models with privacy, **all in Python**. Thanks to the **end-to-end protection guarantees**, data owners can send private data to be analyzed by AI models, without fearing exposing their data to anyone else.
+## What is BlindAI?
+________________________________________________________
 
-To interact with an AI model hosted on a remote secure enclave, we provide the `blindai_preview` Python client library. This client will:
+**BlindAI is an AI inference server with an added <b>privacy layer</b>, protecting the data sent to models.** 
 
-- check that you are talking to a genuine and secure enclave with the right security features
-- upload an ML model that was previously converted to ONNX
-- query the model securely
+BlindAI facilitates privacy-friendly AI model deployment. AI engineers can upload and delete models to their secure server instance using our Python API. Clients can then connect to the server, upload their data and run models on it without compromising on privacy. Data sent by users to the AI model is kept confidential at all times. Neither the AI service provider nor the Cloud provider (if applicable), can see the data.
 
-## Set up
+Confidentiality is assured by [hardware-enforced Trusted Execution Environments](LINK). We explain how they keep data and models safe in detail[here](LINK).
 
-!!! info
-    The following instructions assume you already have access to a configured SGX enabled machine, such as one provided by Mithril Security. If that is not the case, you can either ask for one, or read [the Documentation](docs/cloud-deployment.md).
+**BlindAi is an open-source project.**
 
-Start by cloning the repo **with --recursive** to get the submodules.
-```bash
-git clone --recursive https://github.com/mithril-security/blindai-preview.git
-``` 
+Our solution consists of:
 
-!!! warning
-    If you are on an Azure machine, you should replace the .devcontainer folder by the devcontainer-azure/.devcontainer folder.
+- A privacy-friendly server coded in Rust 🦀 using Intel Software Guard Extensions (intel-SGX) 🔒 to ensure your data stays safe!
+- An easy-to-use Python client SDK 🐍
 
-Open the repo in vscode and `Reopen in Container`.
+You can check out [the code on our GitHub](https://github.com/mithril-security/blindai-preview/). 
 
-Then, at the root of the project:
+We’ll update the documentation as new features come in, so dive in!
 
-```
-cd client
-poetry install
-poetry shell
-```
+## Getting started
+________________________________________________________
 
-Which creates a virtual environment and install the client sdk.
+- Follow our [“Quick tour”](./docs/getting-started/quick-tour.ipynb) tutorial
+- [Read](./docs/advanced/security/remote_attestation.md) about the technologies we use to ensure privacy
 
+## Getting help
+________________________________________________________
 
-## Getting Started
+- Go to our [Discord](https://discord.com/invite/TxEHagpWd4) *#support* channel
+- Report bugs by [opening an issue on our BlindAI Github](https://github.com/mithril-security/blindai-preview/issues)
+- [Book a meeting](https://calendly.com/contact-mithril-security/15mins?month=2022-11) with us
 
-Now let's run a simple example to check everything is correctly set up.
+## How is the documentation structured?
+____________________________________________
 
-At the root of the project, run
-```
-python tests/simple/setup.py
-```
-which generates the onnx file for a very minimal model which only does one thing: subbing one monovalue tensor to another.
+- [Tutorials](link) take you by the hand to install and run BastionLab. We recommend you start with the **[Quick tour](./docs/docs/getting-started/quick-tour.ipynb)** and then move on to the other tutorials!  
 
-Then, on one tab, start the server
-```
-just run --release # blindai_server is extremely slow in debug build
-```
+- [How-to guides](link) are recipes. They guide you through the steps involved in addressing key problems and use cases. They are more advanced than tutorials and assume some knowledge of how BastionLab works.
 
-And on another, connect to it with a client (once it is up)
-```
-cd client/examples
-python simple.py
-```
+- [Concepts](link) guides discuss key topics and concepts at a high level. They provide useful background information and explanations, especially on cybersecurity.
 
-Here is the code of simple.py
-```py
-from blindai_preview.client import *
-import numpy as np
+- [API Reference](link) contains technical references for BastionLab’s API machinery. They describe how it works and how to use it but assume you have a good understanding of key concepts. 
 
-# For test purpose, we want to avoid setting a TLS reverse proxy on top of
-# the unattested port. We pass the hazmat_http_on_unattested_port = True argument
-# to allow connecting to the unattested port using plain HTTP instead of HTTPS.
-# This option is hazardous therefore it starts with hazmat_
-# Those options should generally not be used in production unless you
-# have carefully assessed the consequences.
-client_v2 = connect(addr="localhost", hazmat_http_on_unattested_port=True)
+- [Security](link) guides contain technical information for security engineers. They explain the threat models and other cybersecurity topics required to audit BastionLab's security standards.
 
-response = client_v2.upload_model(model="../../tests/simple/simple.onnx")
+- [Advanced](link) guides are destined to developpers wanting to dive deep into BastionLab and eventually collaborate with us to the open-source code. We'll cover in the future exactly how to do so. 
 
-run_response = client_v2.run_model(
-    model_id=response.model_id,
-    input_tensors={"input: ": np.array(42), "sub": np.array(40)},
-)
+## Who made BlindAI?&#x20;
 
-print("Ran successfully, got: ", run_response.output[0].as_numpy())
-
-client_v2.delete_model(model_id=response.model_id)
-
-```
-
-## justfile overview
-
-You can use the justfile to do recurrent developer tasks.
-
-- ```just run [args]``` to run the server in debug mode
-- ```just release [args]```to run the server in release mode
-- ```just test``` to run all the tests
-- ```just doc``` to build and serve the doc
-
-
-## Testing
-
-First, generates all of the necessary onnx and inputs (npz) files with:
-```
-bash tests/generate_all_onnx_and_npz.sh
-```
-
-Then ```just test``` run the client unittests, the end-to-end tests, and serve a pretty coverage report.
+BlindAI was developed by **Mithril Security**. **Mithril Security** is a startup focused on confidential machine learning based on **Intel SGX** technology. We provide an **open-source AI inference solution**, **allowing easy and fast deployment of neural networks, with strong security properties** provided by confidential computing by performing the computation in a hardware-based **Trusted Execution Environment** (_TEE_) or simply **enclaves**.
