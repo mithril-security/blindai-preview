@@ -5,7 +5,7 @@ AI models are everywhere. Recent releases, like GPT4, have skyrocketed adoption 
 
 This is why we made BlindAI: so AI models can be used while preserving users' data privacy and protecting the model's IP. To understand the advantages you'd gain in using us, here's a little tour of the current options used to deploy AI models.
 
-## Cloud VS On-Premise VS On-Device
+## Don't choose between ease-of-use and privacy
  
 AI solutions to be deployed in one of three ways: on the **Cloud**, **on-premise** or **on-device**. 
 
@@ -18,7 +18,7 @@ Users with sensitive data may instead turn to on-premise or on-device deployment
 
 **BlindAI** offers the best of both worlds: the **ease-of-use** and **wide offer** of Cloud deployment with the **increased privacy** of on-premise and on-device solutions. We take advantage of the power of confidential computing, and more specifically Intel Software Guard Extension (**Intel SGX**), to enable user data to be processed remotely without the risk of unauthorized access or tampering.
 
-## How does it work?
+## Using Intel SGX
 
 Intel processors with SGX can create **secure enclaves**. They are self-contained zones where the **processor guarantees** that software running inside **cannot be tampered with** by the host operating system, hypervisor, and even its BIOS. 
 
