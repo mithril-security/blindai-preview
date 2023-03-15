@@ -13,6 +13,7 @@ _, model_path, inputs_path = sys.argv
 
 inputs = dict(np.load(inputs_path))
 
+
 # Helper function to convert npz to blindai input tensors
 def get_inputs(inputs: dict):
     if "mel" in inputs.keys():
