@@ -53,8 +53,10 @@ plugins:
 - mkdocs-jupyter
 
 nav:
-- Getting Started: 'index.md'
-- Quick tour: "docs/quick-tour/blindai_quicktour.ipynb"
+- Home: 'index.md' 
+- Getting Started: 
+  - Why BlindAI: "docs/getting-started/why-blindai.md"
+  - Quick tour: "docs/getting-started/blindai_quicktour.ipynb"
 - 'Main concepts':
   - 'docs/main-concepts/overview.md'
   - 'Trusting BlindAI':

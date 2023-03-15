@@ -1,7 +1,13 @@
 # Why Blindai?
 ________________
 
-AI solutions tend to be deployed in one of three ways: on the **Cloud**, **on-premise** or **on-device**. 
+AI models are everywhere. Recent releases, like GPT4, have skyrocketed adoption and democratized their use in all industries. We believe this is great for progress, but that we need to be fast with developping solutions that protect confidential data when using those models. Take ChatGPT's example: thousands of employees used it - unrestricted - to help them in their tasks, feeding it company data that could then be viewed by any employee working on improving the next version of the model.
+
+This is why we made BlindAI: so AI models can be used while preserving users' data privacy and protecting the model's IP. To understand the advantages you'd gain in using us, here's a little tour of the current options used to deploy AI models.
+
+## Cloud VS On-Premise VS On-Device
+ 
+AI solutions to be deployed in one of three ways: on the **Cloud**, **on-premise** or **on-device**. 
 
 Cloud deployment offers users **ease-of-use** and a **wide offer of AI models** but it puts users' **data at risk**. Their privacy is left in the hands of the person or company who operates the service, the cloud operator, their sysadmins and other people who each need to be trusted. In general, this means that Cloud deployment is currently not suitable for users with sensitive data such as hospitals wanting to leverage patient data to improve healthcare.
 
@@ -18,4 +24,4 @@ Intel processors with SGX can create **secure enclaves**. They are self-containe
 
 Users can upload their data and get their result via a **secure API** provided by the enclave. AI models are run on user data inside the enclave protecting both the user data from potential attacks and providing enhanced security for the AI models compared with on-premise alternatives.
 
-To get introduced to how you can use BlindAI to keep your data safe, check out our [Quick Tour](#Quick tour)!
+To get introduced to how you can use BlindAI to keep your data safe, check out our [Quick Tour](docs/quick-tour/blindai_quicktour.ipynb)!
