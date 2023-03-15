@@ -66,13 +66,8 @@
 <!-- ABOUT THE PROJECT -->
 ## 🔒 About The Project
 
+***[SO I THINK CONFIDENTIAL AI INFERENCE SERVER DOESN'T MEAN ANYTHING REALLY HAHA. WE CAN REWORK THAT. I GUESS THE PLAN IS TO REWORK THE HOMEPAGE AND COPY PASTE IT FROM THERE? LET'S SEE WITH CORENTIN/MEHDI WHAT WE CAN COME UP WITH. CORENTIN TOLD ME ]***
 BlindAI is a **confidential AI inference server**. It works like any regular AI inference solution but **with an added privacy layer**. 
-
-AI solutions tend to be deployed in one of two ways: on the Cloud or on-premise. Cloud deployment offers users ease-of-use and a wide offer of AI models but it puts users' data at risk. On-premise deployment is a secure alternative, but the increased privacy comes at a great cost in terms of ease-of-use. 
-
-BlindAI aims to offer the best of both worlds: the **ease-of-use** and wide offer of Cloud deployment with the **security** of on-premise solutions. We take advantage of the power of confidential computing, and more specifically Intel Software Guard Extension (Intel SGX), to enable user data to be processed remotely without the risk of unauthorized access or tampering. The code running inside Intel SGX cannot be tampered with by the host operating system, hypervisor, and even its BIOS. 
-
->*You can learn more about Intel SGX, Trusted Execution Environements and how they work [in our documentation](LINK).*
 
 Our solution comes in two parts:
 
@@ -88,27 +83,6 @@ Our solution comes in two parts:
 
 <!-- GETTING STARTED -->
 ## 🚀 Getting Started
-
-### Why Blindai?
-
-AI solutions tend to be deployed in one of three ways: on the Cloud, on-premise or on-device. Cloud deployment offers users ease-of-use and a wide offer of AI models but it puts users' data at risk. The safety of our data is left in the hands of the person or company who operates the service, the cloud operator, their sysadmins and other people who each need to be trusted. This means that Cloud deployment may not be suitable for users with sensitive data such as hospitals wanting to leverage patient data to improve healthcare.
-
-
-Users with sensitive data may instead turn to on-premise or on-device deployment as a more privacy-friendly alternative to Cloud deployment, but this increased privacy comes at a great cost in terms of ease-of-use. On-premise deployment requires on-site expertise that is not available to many companiesAdditionally, with on-premise and on-device deployment, AI models are limited by the storage space and power of on-site hardware or user devices respectively.Finally, on-device solutions require AI models to be embedded in the application distributed to the client, putting them at risk of being stolen.
-
-
-BlindAI offers the ease-of-use and wide offer of Cloud deployment with the increased privacy of on-premise and on-device solutions. We take advantage of the power of confidential computing, and more specifically Intel Software Guard Extension (Intel SGX), to enable user data to be processed remotely without the risk of unauthorized access or tampering.
-
-
-**How does it work?**
-
-Intel processors with SGX can create secure enclaves, self-contained zones where the processor guarantees that software running inside cannot be tampered with by the host operating system, hypervisor, and even its BIOS. Users upload their data and get their result via a secure API provided by the enclave. AI models are run on user data inside the enclave protecting both the user data from potential attacks and providing enhanced security for the AI models compared with on-premise alternatives.
-
-
-Which is why BlindAi is a powerful, easy-to-use solution for AI model deployment with security guarantees. To get introduced to how you can use BlindAI to keep your data safe, check out our [Quick Tour](#Quick tour)!
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-### Quick tour
 
 You can go try out our [Quick tour](LIEN) in the documentation to discover BlindAI with a hands-on example using [COVID-Net](https://github.com/lindawangg/COVID-Net).
 
