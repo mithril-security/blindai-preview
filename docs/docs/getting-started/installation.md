@@ -3,7 +3,7 @@ ________________________________
 
 Here's your guide to install BlindAI. 
 
-There different possible scenarios, so you can use the menu on the right (if you're on desktop) or the left (if you're on mobile/tablet) to skip ahead to the section that fits your needs!
+There are different possible scenarios, so you can use the menu on the right (if you're on desktop) or the left (if you're on mobile/tablet) to skip ahead to the section that fits your needs!
 
 ## Deployment on Azure DCsv3
 ________________________________________________
