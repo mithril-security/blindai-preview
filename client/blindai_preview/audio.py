@@ -53,13 +53,13 @@ class Audio:
         res = connection.run_model(model_id=response.model_id, input_tensors=input_mel)
 
         # Convert each output BlindAI Tensor object into PyTorch Tensor
-        res = [t.as_torch() for t in res.output]
+        res = [t.as_torch() for t in res.output] # type: ignore
 
         # Load the Whisper Transformer object.
         tokenizer = WhisperProcessor.from_pretrained(transformer)
 
         # Extract tokens from result
-        tokens = res[0][0].numpy()
+        tokens = res[0][0].numpy() # type: ignore
 
         # Use transform to decode tokens
         text = tokenizer.batch_decode(tokens, skip_special_tokens=True).pop()
