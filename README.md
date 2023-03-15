@@ -88,11 +88,15 @@ You can go try out our [Quick tour](LIEN) in the documentation to discover Blind
 
 But here’s a taste of what using BlindAI could look like 🍒
 
+In our scenario: an AI company and their client are collaborating so that:
+- the client can feed their confidential data to the model while preserving privacy.
+- the AI company can protect their model's secret IP.
+
 ### AI company's POV
 
-**Uploading and deleting models**
+#### Uploading and deleting models
 
-The AI company, PixelHealth, upload their model to the server, which is assigned a model id.
+An AI company uploads their model to the server, which is assigned a model ID.
 
 ```py
 response = client_1.upload_model(model="./COVID-Net-CXR-2.onnx")
@@ -102,7 +106,7 @@ print(MODEL_ID)
 8afcdab8-209e-4b93-9403-f3ea2dc0c3ae
 ```
 
-When their client has finished their collaboration with them, they can delete their model from the sever.
+When collaborating with the client is done, the AI company can delete their model from the server.
 
 ```py
 # AI company deletes model after use
@@ -111,9 +115,9 @@ client_1.delete_model(MODEL_ID)
 
 ### Client's POV
 
-**Running model on data**
+#### Running a model on confidential data
 
-The client, Sacred Heart Hospital, connects and runs the model on the following image.
+The client connects and runs the model on the following confidential image.
 
 ![](./docs/assets/positive_image.png)
 
@@ -129,66 +133,65 @@ _For more examples, please refer to the [Documentation](https://blindai.mithrils
 
 ### Installation
 
-**Finding the right deployment method for your use case**
+#### Deploying BlindAI on Azure DCsv3 VM
 
-The first thing to establish is which of the following three cases you fall under:
+**🥇 Recommended 🥇**
 
-**Case one: Testing BlindAI without hardware security guarantees**
-
-**Pros**
-- Quick and easy.
-- Works on any device. Very few pre-requisites.
-- Demos available on BlindAI Github.
-
-
-**Cons**
-- This option does not offer the hardware security guarantees of Intel SGX. It is not suitable for production.
-
-If this is the right option for you, you can:
-
-- Check out our [quick tour notebook](#Quick tour). This will show you how you can install and use BlindAI's client and server testing packages.
-- Test your own Python scripts or notebooks using the `blindai_preview` PyPi packages with the `blindai_preview.testing` server.
-
-If you have any trouble with these your test programs, compare your usage against our [example notebooks](link) or contact us via Discord or Github!
-
-**Case two: Deploying BlindAI on Azure DCsv3 VM**
-
-**recommended 🥇**
-
-**Pros**
+**✅ Pros**
 - No requirement to have your own Intel SGX-ready device or a particular distribution. 
 - Secure. Hardware security guarantees protect your data and model from any third-party access.
 
 
-**Cons:**
+**❌ Cons:**
 - Can be more expensive than local deployment.
 
 If this is the right method for you, you can deploy the server in your Azure DCsv3 VM using our docker image with the following command:
 
-[TODO: CHECK THIS COMMAND]
+**[TODO: CHECK THIS COMMAND]**
 ```py
 docker run -it \
 -p 9223:9223 \
 -p 9224:9224 \ 
 mithrilsecuritysas/blindai-preview-server:latest
 ```
-For instructions on how to set up your Azure DCsv3 VM, alternative deployment methods or more information, visit [our cloud-deployment page](https://github.com/mithril-security/blindai-preview/blob/ophelie-README-rewrite/docs/docs/cloud-deployment.md)
 
-**Case three: On-premise deployment**
+For instructions on how to set up your Azure DCsv3 VM, alternative deployment methods or more information, visit [our installation page](--direct link reference to the cloud deployement part)
 
-**Pros**
+#### On-premise deployment
+
+⚠️ Needs Intel SGX+FLC ⚠️
+
+**✅ Pros**
 - Secure. Hardware security guarantees protect your data and model from any third-party access.
 - Can be less costly than paying for access to VM.
 
 
-**Cons:**
+**❌ Cons:**
 - You must have an Intel SGX-ready device with `SGX+FLC` support.
-- BlindAI was created to run with SGX2, which has a better performance and much more memory available than SGX1. The physical protected memory for SGX1 is limited to 128mb. You could still deploy the server with SGX1 and benefit from the isolation offered by SGX enclaves, but since SGX1 is missing some of the features we rely on, the client would still need to `connect` to the server in `simulation` mode.
+- BlindAI was created to run with SGX2, which has a better performance and much more memory available than SGX1. You could still deploy the server with SGX1 but with less features and the client could only connect in `simulation` mode.
 - You need to install all the pre-requisites.
 
->You can check that you have an Intel SGX-ready device with `SGX+FLC` support and SGX2 by following [our eligibility check section](https://github.com/mithril-security/blindai-preview/blob/ophelie-README-rewrite/docs/docs/deploy-on-premise.md) on our on-premise deployment page.
+You can check out our instructions for installing BlindAI for development on-premises [here](https://github.com/mithril-security/blindai-preview/blob/ophelie-README-rewrite/docs/docs/deploy-on-premise.md) and see if you are eligible for SGX2.
 
-If you fall into this case, you can check out our instructions for installing BlindAI for development on-premises [here](https://github.com/mithril-security/blindai-preview/blob/ophelie-README-rewrite/docs/docs/deploy-on-premise.md)
+#### Testing BlindAI without hardware security guarantees
+
+🧪 For testing ONLY 🧪
+
+**✅ Pros**
+- Quick and easy.
+- Works on any device. Very few pre-requisites.
+- Demos available on BlindAI GitHub.
+
+
+**❌ Cons:**
+- This option does not offer the hardware security guarantees of Intel SGX. **It is not suitable for production.**
+
+If this is the right option for you, you can:
+
+- Check out our [quick tour notebook](#Quick tour). This will show you how you can install and use BlindAI's client and server testing packages.
+- Test your own Python scripts or notebooks using the `blindai_preview` PyPi packages with the `blindai_preview.testing` server.
+
+If you have any trouble with these your test programs, compare your usage against our [example notebooks](link) or <a href="#-getting-help">contact us directly</a>!
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- ROADMAP -->
