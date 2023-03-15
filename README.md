@@ -138,11 +138,12 @@ _For more examples, please refer to the [Documentation](https://blindai.mithrils
 **🥇 Recommended 🥇**
 
 **✅ Pros**
+
 - No requirement to have your own Intel SGX-ready device or a particular distribution. 
 - Secure. Hardware security guarantees protect your data and model from any third-party access.
 
-
 **❌ Cons:**
+
 - Can be more expensive than local deployment.
 
 If this is the right method for you, you can deploy the server in your Azure DCsv3 VM using our docker image with the following command:
@@ -162,11 +163,12 @@ For instructions on how to set up your Azure DCsv3 VM, alternative deployment me
 ⚠️ Needs Intel SGX+FLC ⚠️
 
 **✅ Pros**
+
 - Secure. Hardware security guarantees protect your data and model from any third-party access.
 - Can be less costly than paying for access to VM.
 
-
 **❌ Cons:**
+
 - You must have an Intel SGX-ready device with `SGX+FLC` support.
 - BlindAI was created to run with SGX2, which has a better performance and much more memory available than SGX1. You could still deploy the server with SGX1 but the client will only be able to connect in `simulation` mode.
 - You need to install all the pre-requisites to BlindAI's use.
@@ -178,12 +180,13 @@ You can check out our instructions for installing BlindAI for development on-pre
 🧪 For testing ONLY 🧪
 
 **✅ Pros**
+
 - Quick and easy.
 - Works on any device. Very few pre-requisites.
 - Demos available on BlindAI GitHub.
 
-
 **❌ Cons:**
+
 - This option does not offer the hardware security guarantees of Intel SGX. **It is not suitable for production.**
 
 If this is the right option for you, you can:

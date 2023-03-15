@@ -5,25 +5,29 @@ Here's your guide to install BlindAI.
 
 There are different possible scenarios, of which you can get the pros and cons by opening the following boxes.
 
-??? tip "Deploying BlindAI on Azure DCsv3 VM (*recommended*)"
+??? success "Deploying BlindAI on Azure DCsv3 VM (*recommended*)"
 
 	**✅ Pros**
+
 	- No requirement to have your own Intel SGX-ready device or a particular distribution. 
 	- Secure. Hardware security guarantees protect your data and model from any third-party access.
 
 	**❌ Cons:**
+
 	- Can be more expensive than local deployment.
 
 	**🚀 <a href="#deployment-on-azure-dcsv3">Check out the Azure section</a>**
 
-??? info "On-premise deployment (*needs Intel SGX+FLC*)"
+??? warning "On-premise deployment (*needs Intel SGX+FLC*)"
 
 	**✅ Pros**
+
 	- Secure. Hardware security guarantees protect your data and model from any third-party access.
 	- Can be less costly than paying for access to VM.
 
 
 	**❌ Cons:**
+
 	- You must have an Intel SGX-ready device with `SGX+FLC` support.
 	- BlindAI was created to run with SGX2, which has a better performance and much more memory available than SGX1. You could still deploy the server with SGX1 but the client will only be able to connect in `simulation` mode.
 	- You need to install all the pre-requisites to BlindAI's use.
@@ -33,12 +37,14 @@ There are different possible scenarios, of which you can get the pros and cons b
 ??? example "Testing BlindAI without hardware security guarantees (*for testing only*)"
 
 	**✅ Pros**
+
 	- Quick and easy.
 	- Works on any device. Very few pre-requisites.
 	- Demos available on BlindAI GitHub.
 
 
 	**❌ Cons:**
+
 	- This option does not offer the hardware security guarantees of Intel SGX. **It is not suitable for production.**
 
 	🚀 If this is the right option for you, you can:
@@ -70,7 +76,7 @@ Once you have created your account (and activated the free credits of $200), sea
 
 After this, you should see a configuration screen. Please select either **Ubuntu 18.04 or 20.04.**
 
-!!! warning "Security Warning"
+!!! warning "Security warning"
 
 	It is strongly advised to use a SSH public key in order to use the VM.
 
@@ -130,7 +136,7 @@ mithrilsecuritysas/blindai-preview-server:latest
 
 Once the server has been deployed, users can connect to your server by using the client PyPi package API and specifying the server IP address and ports when using BlindAI's `connect()` method.
 
-!!! warning
+!!! warning "For production"
 
 	By default, the port opened in `9923` is running on *http* only. For production, we strongly recommend setting up a ***reverse-proxy*** that will manage and encrypt the traffic from the client to the BlindAI server. Many free reverse-proxy implementations exist, such as **caddy**, **Nginx** and **Apache**:
 
@@ -192,9 +198,7 @@ gcc test-sgx.c -o test-sgx
 
 ### Intel SGX drivers
 
-!!! note
-
-	In some cases (Linux kernel >5.15) the execution of the binary returns `in-kernel drivers support`, and it means that the drivers are already installed and must appear in `/dev/sgx/`. 
+>In some cases (Linux kernel >5.15) the execution of the binary returns `in-kernel drivers support`, and it means that the drivers are already installed and must appear in `/dev/sgx/`. 
 
 Please make sure to have the `SGX+FLC` drivers (preferably with version **1.41**) installed on your system before continuing.
 
@@ -270,7 +274,7 @@ The binary file contains the drivers signed by Intel and will proceed to the ins
 
 	Once the server has been deployed, users can connect to your server by using the client PyPi package API and specifying the server IP address and ports when using the `connect` method.
 
-	!!! warning
+	!!! warning "For production"
 
 		By default the port opened in `9923` is running on *http* only. For production, we strongly recommend setting up a ***reverse-proxy*** that will manage and encrypt the traffic from the client to the BlindAI server. Many free reverse-proxy implementations exist, such as **caddy**, **Nginx** and **Apache**:
 
