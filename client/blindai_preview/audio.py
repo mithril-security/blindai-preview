@@ -3,11 +3,9 @@ from typing import Optional, Dict
 from .utils import torch_to_onnx
 from .client import BlindAiConnection
 from transformers import WhisperProcessor
-import time
 
 
 class Audio:
-
     @classmethod
     def transcribe(
         cls,
@@ -15,7 +13,7 @@ class Audio:
         model: str,
         file: str,
         transformer: str = "openai/whisper-tiny.en",
-    ) -> Dict:
+    ) -> str:
         """
         BlindAI Whisper API which converts speech to text based on the model passed.
 
@@ -47,18 +45,12 @@ class Audio:
         onnx_file_path = torch_to_onnx(torch_model)
 
         # Upload ONNX model to BlindAI server
-        upload_t1 = time.perf_counter()
         response = connection.upload_model(
             onnx_file_path, model_name=model, optimize=True
         )
-        upload_t2 = time.perf_counter()
 
         # Run ONNX model with `input_array` on BlindAI server
-        run_t1 = time.perf_counter()
-        res = connection.run_model(
-            model_id=response.model_id, input_tensors=input_mel
-        )
-        run_t2 = time.perf_counter()
+        res = connection.run_model(model_id=response.model_id, input_tensors=input_mel)
 
         # Convert each output BlindAI Tensor object into PyTorch Tensor
         res = [t.as_torch() for t in res.output]
@@ -70,14 +62,6 @@ class Audio:
         tokens = res[0][0].numpy()
 
         # Use transform to decode tokens
-        text = tokenizer.batch_decode(tokens, skip_special_tokens=True)
+        text = tokenizer.batch_decode(tokens, skip_special_tokens=True).pop()
 
-        # Create transcription object
-        transcription = dict(
-            text=text,
-            tokens=tokens,
-            upload_time=upload_t2 - upload_t1,
-            run_time=run_t2 - run_t1,
-        )
-
-        return transcription
+        return text

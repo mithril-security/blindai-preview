@@ -18,6 +18,7 @@ from cryptography.hazmat.primitives import serialization
 import torch
 import os
 
+
 def strip_https(url: str) -> str:
     return re.sub(r"^https:\/\/", "", url)
 
@@ -27,11 +28,16 @@ def cert_der_to_pem(cert: bytes) -> bytes:
         serialization.Encoding.PEM
     )
 
+
 def torch_to_onnx(model: torch.nn.Module):
+
+    # TODO: Urgent
+    # Remove this implementation and actually convert the model to ONNX
+
     # We convert the method to ONNX
     # For the mean time, we will return a downloaded whisper model
 
-    filename="fake-whisper-model.onnx"
+    filename = "fake-whisper-model.onnx"
     os.system(f"gdown 1wqg1F0UkEdm3KB7n1BjfRLHnzKU2-G5S --output {filename}")
 
     # Return the absolute path of the file
