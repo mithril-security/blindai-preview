@@ -1,20 +1,18 @@
-# Cloud deployment
+# Deployment on Azure DCsv3.
 
-You will find here some tutorials to deploy **BlindAI** on Azure DCsv3.
+In order to run BlindAI using a VM, we need to make sure it has the right Intel SGX-ready hardware to run BlindAI. This is why we strongly recommend setting up an [Azure DCsv3 VM](https://docs.microsoft.com/en-us/azure/virtual-machines/dcv3-series) as it has all the required pre-requisites for deploying BlindAI. The following installation guide has been created for Azure DCsv3 VMs.
 
-### Create the VM
+### Creating the VM
 
-You can easily deploy BlindAI on [Azure DCsv3 VMs](https://docs.microsoft.com/en-us/azure/virtual-machines/dcv3-series). BlindAI works out of the box, all you need to do is to follow those steps to deploy a VM :&#x20;
+First thing first, you need to create an account on Azure. If you would like to try the service for free, you can get [a free trial.](https://azure.microsoft.com/en-us/free/) Follow the link for more information.
 
-First thing first, you need to create an account on Azure. If you want to try the service for free, it is strongly advised to subscribe [to the free trial.](https://azure.microsoft.com/en-us/free/) Click on the link to have more information.
-
-Once you created your account and activated the free credits of $200, you can start searching for `Azure Confidential Computing` and then click on "Create".
+Once you have created your account and activated the free credits of $200, search for `Azure Confidential Computing` and click on "Create".
 
 ![Confidential Computing VM](../assets/2022-02-24_11_09_07.png)
 
 ![Start the creation process.](../assets/2022-02-24_11_09_26.png)
 
-After this, you will start to see a configuration screen. Please select either **Ubuntu 18.04 or 20.04. For security reasons, it is strongly advised to use a SSH public key in order to use the VM.**
+After this, you will see a configuration screen. Please select either **Ubuntu 18.04 or 20.04. For security reasons, it is strongly advised to use a SSH public key in order to use the VM.**
 
 ![Basic configuration](../assets/2022-02-24_11_57_19.png)
 
@@ -34,49 +32,55 @@ After a few minutes, the VM will be successfully deployed. Before connecting to 
 
 ![Setting up DNS name - 2](../assets/2022-02-24_12_07_22.png)
 
-Once you are done with this, we have to **open the ports used by BlindAI.** You need to open the ports **9923 and 9924.**
+Once you are done with this, we have to **open the ports used by BlindAI.** You need to open the BlindAI default ports **9923 and 9924.**
 
 ![](../assets/image.png)
 
 ![](../assets/image_1.png)
 
-
 ### Using the VM
 
-You can now start the VM. In order to have a good experience with SSH, we recommend you download [**Visual Studio Code**](https://code.visualstudio.com/) and get the extension [**Remote - SSH**](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh). 
+You can now start the VM. In order to have a good user experience, we recommend you download [**Visual Studio Code**](https://code.visualstudio.com/) and get the extension [**Remote - SSH**](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh). 
 
 Setting up a SSH connection is fairly easy in Visual Studio Code. All you need to do is add a SSH Host (you can find this option in **the Command Palette**):&#x20;
 
 ![](../assets/2022-02-24_12_15_41.png)
 
-![The DNS name shows its usefulness here as you won't need to update the host after the first configuration.](../assets/2022-02-24_12_15_35.png)
+![The DNS name comes in handy here as you won't need to update the host after the first configuration.](../assets/2022-02-24_12_15_35.png)
 
 After that, you need to select "Connect to Host" in **the Command Palette** and select your DNS name.
 
 ![](../assets/2022-02-24_12_53_38.png)
 
-Once you are online, we need to make sure that the SGX drivers are installed. You can do it very easily like this:&#x20;
+### Server deployment
 
-![](../assets/2022-02-24_12_17_25.png)
+you can run the docker image on your VM, with the following command:
 
-If you can see "`SGX`" in the list, in the same way it appears on the screenshot above, **you're good to go**! If `SGX` is missing, you can simply install the drivers yourself with those commands:&#x20;
-
+[TODO: CHECK THIS COMMAND]
+```bash
+docker run -it \
+-p 9223:9223 \
+-p 9224:9224 \ 
+mithrilsecuritysas/blindai-preview-server:latest
 ```
-wget https://download.01.org/intel-sgx/sgx-linux/2.15.1/distro/ubuntu18.04-server/sgx_linux_x64_driver_1.41.bin
-chmod +x sgx_linux_x64_driver_1.41.bin
-./sgx_linux_x64_driver_1.41.bin
-```
 
-**If you are getting an error while installing the drivers, it might mean that you picked the wrong VM. Please restart the process in that case.**
+>If you need to install Docker, you can follow [the official Docker installation instructions](https://docs.docker.com/engine/install). 
 
-If you are good to go, you just need to install Docker on the VM. [Please follow these instructions to get started quickly. ](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository)
+Once the server has been deployed, users can connect to your server by using the client PyPi package API and specifying the server IP address and ports when using the `connect` method.
 
-### Security requirements
+>Note that by default the port opened in 9923 is running on http only. For production, we strongly recommend setting up a ***reverse-proxy*** that will manage and encrypt the traffic from the client to the blindAI server. Many free reverse-proxy implementations exist, such as **caddy**, **Nginx** and **Apache**:
+
+- [https://caddyserver.com/docs/quick-starts/reverse-proxy](https://caddyserver.com/docs/quick-starts/reverse-proxy)
+- [Nginx reverse proxy set-up guide](https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/)
+- [Apache reverse proxy set-up guide](https://httpd.apache.org/docs/2.4/howto/reverse_proxy.html)
+
+Once you have set up your reverse proxy to forward traffic to port 9923, clients should then modify the `unattested_server_port` option to the port on which you are running your reverse proxy when using the `connect` method to connect to the server.
+
+If you do not set up a reverse proxy, users will need to set the `hazmat_http_on_untrusted_port` option to `True` when using blindai-preview's `connect()` function. Again, this is **not recommended** for production.
 
 
-**The port opened in 9923 is considered as unsecure. It is also running on http only and must not be considered secure on a post-production environment.** 
+Once the server has been deployed, users can connect to your server by using the client PyPi package API and specifying the server IP address and ports when using the `connect` method.
 
-!!! Warning
-    The unsecure port must be linked to a predefined ***reverse-proxy*** that manages the ingress and egress traffic and also that will be responsible of encrypting the traffic from the client to the blindAI server. Multiple reverse-proxy implementations exist, among them **Nginx** and **Apache**. 
+### Building from source
 
-Once Docker is installed, [set up your dev-environment](advanced/setting-up-your-dev-environment.md).
+If you want to **build from source**, perhaps because you want to contribute to the project or build from a certain branch or commit, you can find all the information you need to do so in our [building from source guide](../docs/advanced/build-from-sources/build-from-source.md)
