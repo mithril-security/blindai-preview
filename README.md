@@ -120,7 +120,7 @@ But here’s a taste of what using BlindAI could look like 🍒
 
 The AI company, PixelHealth, upload their model to the server, which is assigned a model id.
 
-```bash
+```py
 response = client_1.upload_model(model="./COVID-Net-CXR-2.onnx")
 MODEL_ID = response.model_id
 print(MODEL_ID)
@@ -130,7 +130,7 @@ print(MODEL_ID)
 
 When their client has finished their collaboration with them, they can delete their model from the sever.
 
-```bash
+```py
 # AI company deletes model after use
 client_1.delete_model(MODEL_ID)
 ```
@@ -143,7 +143,7 @@ The client, Sacred Heart Hospital, connects and runs the model on the following 
 
 ![](./docs/assets/positive_image.png)
 
-```bash
+```py
 pos_ret = client_2.run_model(MODEL_ID, positive)
 print("Probability of Covid for positive image is", pos_ret.output[0].as_flat()[0][1])
 
@@ -192,7 +192,7 @@ If you have any trouble with these your test programs, compare your usage agains
 If this is the right method for you, you can deploy the server in your Azure DCsv3 VM using our docker image with the following command:
 
 [TODO: CHECK THIS COMMAND]
-```bash
+```py
 docker run -it \
 -p 9223:9223 \
 -p 9224:9224 \ 
