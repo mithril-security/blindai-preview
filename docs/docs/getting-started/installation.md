@@ -289,7 +289,7 @@ The binary file contains the drivers signed by Intel and will proceed to the ins
 
 	Once the server has been deployed, users can connect to your server by using the client PyPi package API and specifying the server IP address and ports when using the `connect` method.
 
-## Building from source
+## Building from source (advanced)
 _______________________________________________________
 
 If you want to **build from source**, perhaps because you want to contribute to the project or build from a certain branch or commit, you can find all the information you need to do so in our [building from source guide](../docs/advanced/build-from-sources/build-from-source.md). 
