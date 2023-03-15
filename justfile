@@ -23,10 +23,10 @@ run *args:
     | jq -r 'select(.reason=="compiler-artifact" and .target.kind==["bin"]) | .executable'` 
 
   ftxsgx-elf2sgxs "$binpath" \
-    --heap-size 0xFBA00000 \
+    --heap-size 0x2FBA00000 \
     --ssaframesize 1 \
     --stack-size 0x20000 \
-    --threads 20
+    --threads 32 \
 
   just generate-manifest-dev "$binpath.sgxs" 
   cp manifest.dev.toml client/blindai_preview/manifest.toml
