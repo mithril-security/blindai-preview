@@ -57,6 +57,7 @@ nav:
 - Getting Started: 
   - Why BlindAI: "docs/getting-started/why-blindai.md"
   - Quick tour: "docs/getting-started/blindai_quicktour.ipynb"
+  - Installation: "docs/getting-started/installation.md"
 - 'Main concepts':
   - 'docs/main-concepts/overview.md'
   - 'Trusting BlindAI':

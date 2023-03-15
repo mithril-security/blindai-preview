@@ -168,8 +168,8 @@ For instructions on how to set up your Azure DCsv3 VM, alternative deployment me
 
 **❌ Cons:**
 - You must have an Intel SGX-ready device with `SGX+FLC` support.
-- BlindAI was created to run with SGX2, which has a better performance and much more memory available than SGX1. You could still deploy the server with SGX1 but with less features and the client could only connect in `simulation` mode.
-- You need to install all the pre-requisites.
+- BlindAI was created to run with SGX2, which has a better performance and much more memory available than SGX1. You could still deploy the server with SGX1 but the client will only be able to connect in `simulation` mode.
+- You need to install all the pre-requisites to BlindAI's use.
 
 You can check out our instructions for installing BlindAI for development on-premises [here](https://github.com/mithril-security/blindai-preview/blob/ophelie-README-rewrite/docs/docs/deploy-on-premise.md) and see if you are eligible for SGX2.
 
