@@ -125,7 +125,9 @@ _For more examples, please refer to the [Documentation](https://blindai.mithrils
 #### Deploying BlindAI on Azure DCsv3 VM  (**🥇 recommended 🥇**)
 
 ✅ No requirement to have your own Intel SGX-ready device or a particular distribution. 
+
 ✅ Secure. Hardware security guarantees protect your data and model from any third-party access.
+
 ❌ Can be more expensive than local deployment.
 
 You can deploy the server in your Azure DCsv3 VM using our docker image with the following command:
