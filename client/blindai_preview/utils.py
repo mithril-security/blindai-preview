@@ -36,8 +36,14 @@ def torch_to_onnx(model: torch.nn.Module):
     # We convert the method to ONNX
     # For the mean time, we will return a downloaded whisper model
 
-    filename = "fake-whisper-model.onnx"
-    os.system(f"gdown 1wqg1F0UkEdm3KB7n1BjfRLHnzKU2-G5S --output {filename}")
+    # Add filename to current directory
+
+    filename = "whisper-tiny-20-tokens.onnx"
+    filename = os.path.join(os.path.dirname(__file__), filename)
+
+    # Check if the file doesn't exist, then download it
+    if not os.path.exists(filename):
+        os.system(f"gdown 1wqg1F0UkEdm3KB7n1BjfRLHnzKU2-G5S --output {filename}")
 
     # Return the absolute path of the file
     return os.path.abspath(filename)
