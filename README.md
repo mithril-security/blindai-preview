@@ -20,9 +20,10 @@
 [![Blog][blog-shield]][blog-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
-  <p align="center"><font size="5"><span style="font-weight: 200">
+  <font size="5"><span style="font-weight: 200" align="center">
     <b>BlindAI</b> is an <b>AI inference server</b> with an <b>added privacy layer</b>, protecting the data sent to models. 
 	</font></span>
+	<p align="center">
     <br />
     <a href="https://blindai.mithrilsecurity.io/en/latest/"><strong>Explore the docs »</strong></a>
     <br />
