@@ -1,4 +1,4 @@
-# Why Blindai?
+# Why BlindAI?
 ________________
 
 AI models are everywhere. Recent releases, like GPT4, have skyrocketed adoption and democratized their use in all industries. We believe this is great for progress, but that we need to be fast with developping solutions that protect confidential data when using those models. Take ChatGPT's example: thousands of employees used it - unrestricted - to help them in their tasks, feeding it company data that could then be viewed by any employee working on improving the next version of the model.
