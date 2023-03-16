@@ -29,7 +29,7 @@ def cert_der_to_pem(cert: bytes) -> bytes:
     )
 
 
-def torch_to_onnx(model: torch.nn.Module):
+def fetch_whisper_tiny_20_tokens(model: torch.nn.Module):
     # TODO: Urgent
     # Remove this implementation and actually convert the model to ONNX
 

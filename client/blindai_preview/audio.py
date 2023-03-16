@@ -1,13 +1,13 @@
 import whisper
 from typing import Optional
-from .utils import torch_to_onnx
+from .utils import fetch_whisper_tiny_20_tokens
 from .client import BlindAiConnection, connect
 from transformers import WhisperProcessor
 import torch
 
 
 DEFAULT_BLINDAI_ADDR = "https://mithrilsecurity/blindai/"
-DEFAULT_WHISPER_MODEL = "medium.en"
+DEFAULT_WHISPER_MODEL = "tiny.en"
 DEFAULT_TEE_OPTIONS = ["sgx", "bento"]
 DEFAULT_TEE = "sgx"
 DEFAULT_TRANSFORMER = f"openai/whisper-{DEFAULT_WHISPER_MODEL}"
@@ -94,7 +94,7 @@ class Audio:
         input_mel = _preprocess_audio(file)
 
         # Convert model to ONNX with `torch_to_onnx`
-        onnx_file_path = torch_to_onnx(torch_model)
+        onnx_file_path = fetch_whisper_tiny_20_tokens(torch_model)
 
         # Get BlindAI connection object
         with _get_connection(connection, tee) as conn:
