@@ -124,7 +124,7 @@ After that, you need to select "Connect to Host" in **the Command Palette** and 
 You can run the docker image on your VM, with the following command:
 
 ```bash
-docker run -p 9923:9923 -p 9924:9924 \
+docker run -it -e BLINDAI_AZURE_DCS3_PATCH=1 -p 9923:9923 -p 9924:9924 \
 --device /dev/sgx/enclave --device /dev/sgx/provision \
 -v /var/run/aesmd/aesm.socket:/var/run/aesmd/aesm.socket \
 mithrilsecuritysas/blindai-preview-server:latest /root/start.sh
