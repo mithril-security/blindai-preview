@@ -20,9 +20,9 @@
 [![Blog][blog-shield]][blog-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
+  <h4 align="center">
+    <b>BlindAI</b> is an <b>AI inference server</b> with an <b>added privacy layer</b>, protecting the data sent to models.</h4>
   <p align="center">
-    <b>BlindAI</b> helps deploy AI models with an added <b>privacy layer</b>, 
-    protecting the data sent to the model. 
     <br />
     <a href="https://blindai.mithrilsecurity.io/en/latest/"><strong>Explore the docs »</strong></a>
     <br />
@@ -64,9 +64,7 @@
 <!-- ABOUT THE PROJECT -->
 ## 🔒 About The Project
 
-**BlindAI** is an **AI inference server** with an **added privacy layer**, protecting the data sent to models.
-
-It facilitates  **privacy-friendly AI model deployment** by letting AI engineers upload and delete models to their secure server instance using our **Python API**. Clients can then connect to the server, upload their data and run models on it without compromising on privacy. 
+BlindAI facilitates  **privacy-friendly AI model deployment** by letting AI engineers upload and delete models to their secure server instance using our **Python API**. Clients can then connect to the server, upload their data and run models on it without compromising on privacy. 
 
 Data sent by users to the AI model is kept **confidential at all times**. Neither the AI service provider nor the Cloud provider (if applicable), can see the data.
 
