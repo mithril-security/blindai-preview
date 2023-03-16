@@ -55,22 +55,22 @@
       </ul>
     </li>
     <li><a href="#-usage">Usage</a></li>
-    <li><a href="#-roadmap">Roadmap</a></li>
     <li><a href="#-getting-help">Getting Help</a></li>
     <li><a href="#-license">License</a></li>
     <li><a href="#-contact">Contact</a></li>
-    <li><a href="#-disclaimer">Disclaimer</a></li>
   </ol>
 </details>
 
 <!-- ABOUT THE PROJECT -->
 ## 🔒 About The Project
 
-**BlindAI is an AI inference server with an added <b>privacy layer</b>, protecting the data sent to models.** 
+**BlindAI** is an **AI inference server** with an **added privacy layer**, protecting the data sent to models.
 
-BlindAI facilitates privacy-friendly AI model deployment. AI engineers can upload and delete models to their secure server instance using our Python API. Clients can then connect to the server, upload their data and run models on it without compromising on privacy. Data sent by users to the AI model is kept confidential at all times. Neither the AI service provider nor the Cloud provider (if applicable), can see the data.
+It facilitates  **privacy-friendly AI model deployment** by letting AI engineers upload and delete models to their secure server instance using our **Python API**. Clients can then connect to the server, upload their data and run models on it without compromising on privacy. 
 
-Confidentiality is assured by [hardware-enforced Trusted Execution Environments]. We explain how they keep data and models safe in detail [here](-- LIEN PRIVACY).
+Data sent by users to the AI model is kept **confidential at all times**. Neither the AI service provider nor the Cloud provider (if applicable), can see the data.
+
+Confidentiality is assured by hardware-enforced [**Trusted Execution Environments**](-- LINK CC EXPLAINED or DOC). We explain how they keep data and models safe in detail [here](-- LIEN PRIVACY).
 
 ### Built With 
 
@@ -85,9 +85,10 @@ You can try out our [Quick tour](LIEN) in the documentation to discover BlindAI 
 
 But here’s a taste of what using BlindAI could look like 🍒
 
-In our scenario: an AI company and their client are collaborating so that:
+In our scenario, an AI company and their client are collaborating so that:
+
 - the AI company can provide their model as an an easy-to-use service.
-- the client can feed their confidential data to the model whilst protecting it from third-party access along the way.
+- the client can feed their confidential data to the model while protecting it from third-party access along the way.
 
 ### AI company's POV
 
@@ -193,20 +194,6 @@ If this is the right option for you, you can:
 If you have any trouble with these your test programs, compare your usage against our [example notebooks](link) or <a href="#-getting-help">contact us directly</a>!
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- ROADMAP -->
-## 🎯 Roadmap
-
-WRITE DOWN THE FEATURES WE **ALREADY** IMPLEMENTED. NOTHING SATISFYING LIKE A LIST WITH CHECKED BOXES.
-
-WE CAN ALSO RENAME THAT PART **KEY FEATURES**
-
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-    - [ ] Nested Feature
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 <!-- GETTING HELP -->
 
 ## 🙋 Getting help
@@ -230,12 +217,6 @@ Distributed under the Apache License, version 2.0. See [`LICENSE.md`](https://ww
 Mithril Security - [@MithrilSecurity](https://twitter.com/MithrilSecurity) - contact@mithrilsecurity.io
 
 Project Link: [https://github.com/mithril-security/blindai](https://github.com/mithril-security/blindai)
-
-
-<!-- DISCLAIMER -->
-## 📢 Disclaimer
-
-IF WE NEED TO SAY STUFF ABOUT PRODUCTION READINESS OF BLINDAI
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
