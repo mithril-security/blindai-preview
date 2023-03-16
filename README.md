@@ -67,7 +67,7 @@ BlindAI facilitates  **privacy-friendly AI model deployment** by letting AI engi
 
 Data sent by users to the AI model is kept **confidential at all times**. Neither the AI service provider nor the Cloud provider (if applicable), can see the data.
 
-Confidentiality is assured by hardware-enforced [**Trusted Execution Environments**](-- LINK CC EXPLAINED or DOC). We explain how they keep data and models safe in detail [here](-- LIEN PRIVACY).
+Confidentiality is assured by hardware-enforced [**Trusted Execution Environments**](--LINK CC EXPLAINED or DOC). We explain how they keep data and models safe in detail [here](--LIEN PRIVACY).
 
 ### Built With 
 
@@ -82,16 +82,11 @@ You can try out our [Quick tour](LIEN) in the documentation to discover BlindAI 
 
 But here’s a taste of what using BlindAI could look like 🍒
 
-In our scenario, an AI company and their client are collaborating so that:
-
-- the AI company can provide their model as an an easy-to-use service.
-- the client can feed their confidential data to the model while protecting it from third-party access along the way.
-
-### AI company's POV
+### AI company's side
 
 #### Uploading and deleting models
 
-An AI company uploads their model to the server, which is assigned a model ID.
+An AI company AI company want to provide their model as an an easy-to-use service. They upload it to the server, which is assigned a model ID.
 
 ```py
 response = client_1.upload_model(model="./COVID-Net-CXR-2.onnx")
@@ -101,18 +96,18 @@ print(MODEL_ID)
 8afcdab8-209e-4b93-9403-f3ea2dc0c3ae
 ```
 
-When collaborating with the client is done, the AI company can delete their model from the server.
+When collaborating with clients is done, the AI company can delete their model from the server.
 
 ```py
 # AI company deletes model after use
 client_1.delete_model(MODEL_ID)
 ```
 
-### Client's POV
+### Client's side
 
 #### Running a model on confidential data
 
-The client connects and runs the model on the following confidential image.
+The client wants to feed their confidential data to the model while protecting it from third-party access. They connect and run the model on the following confidential image.
 
 ![](./docs/assets/positive_image.png)
 
@@ -124,13 +119,10 @@ Probability of Covid for positive image is 0.890598714351654
 ```
 
 _For more examples, please refer to the [Documentation](https://blindai.mithrilsecurity.io/en/latest/)_
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Installation
 
-#### Deploying BlindAI on Azure DCsv3 VM
-
-**🥇 Recommended 🥇**
+#### Deploying BlindAI on Azure DCsv3 VM  **🥇 Recommended 🥇**
 
 **✅ Pros**
 
@@ -141,7 +133,7 @@ _For more examples, please refer to the [Documentation](https://blindai.mithrils
 
 - Can be more expensive than local deployment.
 
-If this is the right method for you, you can deploy the server in your Azure DCsv3 VM using our docker image with the following command:
+You can deploy the server in your Azure DCsv3 VM using our docker image with the following command:
 
 ```py
 docker run --privileged \
@@ -150,7 +142,7 @@ docker run --privileged \
 -v /var/run/aesmd/aesm.socket:/var/run/aesmd/aesm.socket mithrilsecuritysas/blindai-preview-server:latest
 ```
 
-For instructions on how to set up your Azure DCsv3 VM, alternative deployment methods (on-premise, testing only...) or more information, visit [our installation page](https://github.com/mithril-security/blindai-preview/blob/ophelie-README-rewrite/docs/docs/getting-started/installation.md)
+For instructions on how to set up your Azure DCsv3 VM, alternative deployment methods (**on-premise, testing only**...) or more information, visit [our installation page](https://github.com/mithril-security/blindai-preview/blob/ophelie-README-rewrite/docs/docs/getting-started/installation.md)
 
 If you have any trouble with these your test programs, compare your usage against our [example notebooks](link) or <a href="#-getting-help">contact us directly</a>!
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
