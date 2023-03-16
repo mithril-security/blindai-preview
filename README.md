@@ -14,14 +14,14 @@
     <img src="https://github.com/mithril-security/blindai/blob/master/assets/logo.png" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">BlindAI</h3>
+<h1 align="center">BlindAI</h1>
 
 [![Website][website-shield]][website-url]
 [![Blog][blog-shield]][blog-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
-  <h4 align="center">
-    <b>BlindAI</b> is an <b>AI inference server</b> with an <b>added privacy layer</b>, protecting the data sent to models.</h4>
+  <h2 align="center">
+    <b>BlindAI</b> is an <b>AI inference server</b> with an <b>added privacy layer</b>, protecting the data sent to models. </h2>
   <p align="center">
     <br />
     <a href="https://blindai.mithrilsecurity.io/en/latest/"><strong>Explore the docs »</strong></a>
