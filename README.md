@@ -132,11 +132,11 @@ _For more examples, please refer to the [Documentation](https://blindai.mithrils
 
 You can deploy the server in your Azure DCsv3 VM using our docker image with the following command:
 
-```py
-docker run --privileged \
--p 127.0.0.1:9923:9923 -p 127.0.0.1:9924:9924 \
---mount type=bind,source=/dev/sgx,target=/dev/sgx \
--v /var/run/aesmd/aesm.socket:/var/run/aesmd/aesm.socket mithrilsecuritysas/blindai-preview-server:latest
+```bash
+docker run -p 9923:9923 -p 9924:9924 \
+--device /dev/sgx/enclave --device /dev/sgx/provision \
+-v /var/run/aesmd/aesm.socket:/var/run/aesmd/aesm.socket \
+mithrilsecuritysas/blindai-preview-server:latest /root/start.sh
 ```
 
 For alternative deployment methods (*on-premise, testing only...*) or more information, visit [our installation guide](https://github.com/mithril-security/blindai-preview/blob/ophelie-README-rewrite/docs/docs/getting-started/installation.md).

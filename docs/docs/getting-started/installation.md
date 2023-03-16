@@ -124,10 +124,10 @@ After that, you need to select "Connect to Host" in **the Command Palette** and 
 You can run the docker image on your VM, with the following command:
 
 ```bash
-docker run --privileged \
--p 127.0.0.1:9923:9923 -p 127.0.0.1:9924:9924 \
---mount type=bind,source=/dev/sgx,target=/dev/sgx \
--v /var/run/aesmd/aesm.socket:/var/run/aesmd/aesm.socket mithrilsecuritysas/blindai-preview-server:latest
+docker run -p 9923:9923 -p 9924:9924 \
+--device /dev/sgx/enclave --device /dev/sgx/provision \
+-v /var/run/aesmd/aesm.socket:/var/run/aesmd/aesm.socket \
+mithrilsecuritysas/blindai-preview-server:latest /root/start.sh
 ```
 
 > If you need to install Docker, you can follow [the official Docker installation instructions](https://docs.docker.com/engine/install). 
@@ -251,11 +251,11 @@ The binary file contains the drivers signed by Intel and will proceed to the ins
 
 3. **Run the docker image.**
 
-	```py
-	docker run --privileged \
-	-p 127.0.0.1:9923:9923 -p 127.0.0.1:9924:9924 \
-	--mount type=bind,source=/dev/sgx,target=/dev/sgx \
-	-v /var/run/aesmd/aesm.socket:/var/run/aesmd/aesm.socket mithrilsecuritysas/blindai-preview-server:latest [YOUR_PCCS_API_KEY_HERE]
+	```bash
+	docker run -it -p 9923:9923 -p 9924:9924 \
+	--device /dev/sgx/enclave --device /dev/sgx/provision \
+	-v /var/run/aesmd/aesm.socket:/var/run/aesmd/aesm.socket \
+	mithrilsecuritysas/blindai-preview-server:latest /root/start.sh [PCCS_API_KEY]
 	```
 
 	>If you need to install Docker, you can follow [the official Docker installation instructions](https://docs.docker.com/engine/install). 
