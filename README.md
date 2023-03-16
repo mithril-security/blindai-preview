@@ -122,7 +122,9 @@ _For more examples, please refer to the [Documentation](https://blindai.mithrils
 
 ### Installation
 
-#### Deploying BlindAI on Azure DCsv3 VM  (**🥇 recommended 🥇**)
+**🥇 Recommended 🥇**
+
+#### Deploying BlindAI on Azure DCsv3 VM
 
 + ✅ No requirement to have your own Intel SGX-ready device or a particular distribution. 
 + ✅ Secure. Hardware security guarantees protect your data and model from any third-party access.
@@ -137,9 +139,8 @@ docker run --privileged \
 -v /var/run/aesmd/aesm.socket:/var/run/aesmd/aesm.socket mithrilsecuritysas/blindai-preview-server:latest
 ```
 
-For instructions on how to set up your Azure DCsv3 VM, alternative deployment methods (**on-premise, testing only**...) or more information, visit [our installation page](https://github.com/mithril-security/blindai-preview/blob/ophelie-README-rewrite/docs/docs/getting-started/installation.md)
+For alternative deployment methods (**on-premise, testing only**...) or more information, visit [our installation page](https://github.com/mithril-security/blindai-preview/blob/ophelie-README-rewrite/docs/docs/getting-started/installation.md)
 
-If you have any trouble with these your test programs, compare your usage against our [example notebooks](link) or <a href="#-getting-help">contact us directly</a>!
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- GETTING HELP -->
