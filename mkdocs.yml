@@ -1,9 +1,16 @@
+# Website Info
 site_name: BlindAI
-
 site_url: https://www.mithrilsecurity.io/
+site_author: Mithril Security
+site_description: >-
+  Create a simple privacy framework for data science collaboration, 
+  covering data exploration and machine learning.
 
+# Repository
+repo_name: mithril-security/blindai
 repo_url: https://github.com/mithril-security/blindai-preview
 
+# Configuration
 theme:
   name: material
   custom_dir: docs/material_theme_customization
@@ -11,6 +18,9 @@ theme:
     - navigation.instant
     - search.highlight
     - content.tabs.link
+    - navigation.sections
+    - navigation.indexes
+    - navigation.expand
   logo: assets/logo.png
   favicon: assets/logo.png
   palette:
@@ -20,16 +30,47 @@ theme:
     - scheme: default
       toggle:
         icon: material/weather-night
+  icon:
+    admonition:
+      note: material/pencil-circle
+      abstract: material/list-box-outline
+      info: material/information-outline
+      tip: material/fire
+      success: material/check
+      question: material/help-circle
+      warning: material/alert
+      failure: material/window-close
+      danger: material/lightning-bolt-circle
+      bug: material/shield-bug
+      example: material/test-tube
+      quote: material/format-quote-close
 
-# extra:
-#   homepage: https://mithrilsecurity.io
+#Plugins
+plugins:
+  - search
+  - mkdocs-jupyter
+
+# Customization
+extra:
+  homepage: https://mithrilsecurity.io
+  social:
+    - icon: fontawesome/brands/discord
+      link: https://discord.com/invite/TxEHagpWd4
+    - icon: fontawesome/brands/github
+      link: https://github.com/mithril-security/
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/company/mithril-security-company/
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/mithrilsecurity
 
 extra_css:
   - stylesheets/extra.css
 
 extra_javascript:
-  - 'https://code.jquery.com/jquery-3.3.1.min.js'
+  - "https://code.jquery.com/jquery-3.3.1.min.js"
+  - javascripts/navbar.js
 
+# Extensions
 markdown_extensions:
   - abbr
   - admonition
@@ -44,14 +85,16 @@ markdown_extensions:
       smart_enable: all
   - pymdownx.inlinehilite
   - pymdownx.snippets
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.tabbed:
       alternate_style: true
+  - pymdownx.critic
 
-plugins:
-- search
-- mkdocs-jupyter
-
+# Documentation tree
 nav:
 - 🏠 Home: 'index.md' 
 - 🚀 Getting Started: 
