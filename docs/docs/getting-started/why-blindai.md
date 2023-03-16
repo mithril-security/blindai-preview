@@ -24,4 +24,4 @@ Intel processors with SGX can create **secure enclaves**. They are self-containe
 
 Users can upload their data and get their result via a **secure API** provided by the enclave. AI models are run on user data inside the enclave protecting both the user data from potential attacks and providing enhanced security for the AI models compared with on-premise alternatives.
 
-To get introduced to how you can use BlindAI to keep your data safe, check out our [Quick Tour](docs/quick-tour/blindai_quicktour.ipynb)!
+To get introduced to how you can use BlindAI to keep your data safe, check out our [Quick Tour](./quick-tour.ipynb)!

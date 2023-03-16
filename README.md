@@ -67,7 +67,7 @@ BlindAI facilitates  **privacy-friendly AI model deployment** by letting AI engi
 
 Data sent by users to the AI model is kept **confidential at all times**. Neither the AI service provider nor the Cloud provider (if applicable), can see the data.
 
-Confidentiality is assured by hardware-enforced [**Trusted Execution Environments**](--LINK CC EXPLAINED or DOC). We explain how they keep data and models safe in detail [here](--LIEN PRIVACY).
+Confidentiality is assured by hardware-enforced [**Trusted Execution Environments**](--LINK CC EXPLAINED or DOC). We explain how they keep data and models safe in detail [here](./docs/docs/main-concepts/privacy.md).
 
 ### Built With 
 
@@ -78,7 +78,7 @@ Confidentiality is assured by hardware-enforced [**Trusted Execution Environment
 <!-- GETTING STARTED -->
 ## 🚀 Getting Started
 
-You can try out our [Quick tour](LIEN) in the documentation to discover BlindAI with a hands-on example using [COVID-Net](https://github.com/lindawangg/COVID-Net).
+You can try out our [Quick tour](./docs/docs/getting-started/quick-tour.ipynb) in the documentation to discover BlindAI with a hands-on example using [COVID-Net](https://github.com/lindawangg/COVID-Net).
 
 But here’s a taste of what using BlindAI could look like 🍒
 
