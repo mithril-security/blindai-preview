@@ -139,7 +139,7 @@ docker run --privileged \
 -v /var/run/aesmd/aesm.socket:/var/run/aesmd/aesm.socket mithrilsecuritysas/blindai-preview-server:latest
 ```
 
-> For alternative deployment methods (*on-premise, testing only...*) or more information, visit [our installation guide](https://github.com/mithril-security/blindai-preview/blob/ophelie-README-rewrite/docs/docs/getting-started/installation.md).
+For alternative deployment methods (*on-premise, testing only...*) or more information, visit [our installation guide](https://github.com/mithril-security/blindai-preview/blob/ophelie-README-rewrite/docs/docs/getting-started/installation.md).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
