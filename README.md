@@ -22,6 +22,7 @@
 
   <p align="center">
     <b>BlindAI</b> is an <b>AI inference server</b> with an <b>added privacy layer</b>, protecting the data sent to models.</p>
+	
 ___________________________________________________________
 
 <p align="center">
