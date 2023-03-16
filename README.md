@@ -143,6 +143,21 @@ For alternative deployment methods (*on-premise, testing only...*) or more infor
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+<!-- ROADMAP -->
+<!--
+## 🎯 Roadmap
+
+WRITE DOWN THE FEATURES WE **ALREADY** IMPLEMENTED. NOTHING SATISFYING LIKE A LIST WITH CHECKED BOXES.
+
+WE CAN ALSO RENAME THAT PART **KEY FEATURES**
+
+- [ ] Feature 1
+- [ ] Feature 2
+- [ ] Feature 3
+    - [ ] Nested Feature
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>-->
+
 <!-- GETTING HELP -->
 
 ## 🙋 Getting help
