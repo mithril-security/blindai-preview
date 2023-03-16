@@ -97,16 +97,14 @@ class Audio:
         onnx_file_path = torch_to_onnx(torch_model)
 
         # Get BlindAI connection object
-        with _get_connection(connection, tee) as connection:
+        with _get_connection(connection, tee) as conn:
             # Upload ONNX model to BlindAI server
-            response = connection.upload_model(
+            response = conn.upload_model(
                 onnx_file_path, model_name=model, optimize=True
             )
 
             # Run ONNX model with `input_array` on BlindAI server
-            res = connection.run_model(
-                model_id=response.model_id, input_tensors=input_mel
-            )
+            res = conn.run_model(model_id=response.model_id, input_tensors=input_mel)
 
             # Convert each output BlindAI Tensor object into PyTorch Tensor
             res = [t.as_torch() for t in res.output]  # type: ignore
