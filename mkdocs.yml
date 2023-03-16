@@ -56,7 +56,7 @@ nav:
 - Home: 'index.md' 
 - Getting Started: 
   - Why BlindAI: "docs/getting-started/why-blindai.md"
-  - Quick tour: "docs/getting-started/blindai_quicktour.ipynb"
+  - Quick tour: "docs/getting-started/quick-tour.ipynb"
   - Installation: "docs/getting-started/installation.md"
 - 'Main concepts':
   - 'docs/main-concepts/overview.md'
@@ -64,9 +64,6 @@ nav:
     - 'docs/main-concepts/privacy.md'
     - 'docs/main-concepts/attestation.md'
     - 'docs/main-concepts/tls.md'
-- 'Deployment':
-  - 'docs/cloud-deployment.md'
-  - 'docs/deploy-on-premise.md'
 
 - 'Advanced':
   - 'Build from sources':
