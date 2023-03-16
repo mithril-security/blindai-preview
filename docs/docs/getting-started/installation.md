@@ -198,7 +198,7 @@ Please make sure to have the `SGX+FLC` drivers (preferably with version **1.41**
 
 ✅ If you find the drivers named "enclave" and "provision" (or sgx\_enclave and sgx\_provision) in /dev/, you are good to go!
 
-If you have an Intel SGX-ready device with SGX2 but are missing the required drivers, you can install them by doing the following:
+❌ If you have an Intel SGX-ready device with SGX2 but are missing the required drivers, you can install them by doing the following:
 
 ```bash
 wget https://download.01.org/intel-sgx/sgx-linux/2.15.1/distro/ubuntu18.04-server/sgx_linux_x64_driver_1.41.bin

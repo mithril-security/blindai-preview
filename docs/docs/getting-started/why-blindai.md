@@ -3,7 +3,7 @@ ________________
 
 AI models are everywhere. Recent releases, like GPT4, have skyrocketed adoption and democratized their use in all industries. We believe this is great for progress, but that we need to be fast with developping solutions that protect confidential data when using those models. Take ChatGPT's example: thousands of employees used it - unrestricted - to help them in their tasks, feeding it company data that could then be viewed by any employee working on improving the next version of the model.
 
-This is why we made BlindAI: so AI models can be used while preserving users' data privacy and protecting the model's IP. To understand the advantages you'd gain in using us, here's a little tour of the current options used to deploy AI models.
+This is why we made BlindAI, so AI models can be used while preserving users' data privacy (and not putting the model at risk). To understand the advantages you'd gain in using us, here's a little tour of the current options used to deploy AI models.
 
 ## Don't choose between ease-of-use and privacy
  
