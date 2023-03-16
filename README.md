@@ -22,8 +22,7 @@
 
   <p align="center">
     <b>BlindAI</b> is an <b>AI inference server</b> with an <b>added privacy layer</b>, protecting the data sent to models.</p>
-
----------------------------------------------------------------
+___________________________________________________________
 
 <p align="center">
     <a href="https://blindai.mithrilsecurity.io/en/latest/"><strong>Explore the docs »</strong></a>
@@ -153,43 +152,7 @@ docker run --privileged \
 -v /var/run/aesmd/aesm.socket:/var/run/aesmd/aesm.socket mithrilsecuritysas/blindai-preview-server:latest
 ```
 
-For instructions on how to set up your Azure DCsv3 VM, alternative deployment methods or more information, visit [our installation page](https://github.com/mithril-security/blindai-preview/blob/ophelie-README-rewrite/docs/docs/getting-started/installation.md)
-
-#### On-premise deployment
-
-⚠️ Needs Intel SGX+FLC ⚠️
-
-**✅ Pros**
-
-- Secure. Hardware security guarantees protect your data and model from any third-party access.
-- Can be less costly than paying for access to VM.
-
-**❌ Cons:**
-
-- You must have an Intel SGX-ready device with `SGX+FLC` support.
-- BlindAI was created to run with SGX2, which has a better performance and much more memory available than SGX1. You could still deploy the server with SGX1, but the client will only be able to connect in `simulation` mode.
-- You need to install all the pre-requisites.
-
-You can check out our instructions for installing BlindAI for on-premise [here](https://github.com/mithril-security/blindai-preview/blob/ophelie-README-rewrite/docs/docs/deploy-on-premise.md) to check if your machine has SGX2 with SGX+FLC support.
-
-#### Testing BlindAI without hardware security guarantees
-
-🧪 For testing ONLY 🧪
-
-**✅ Pros**
-
-- Quick and easy.
-- Works on any device. Very few pre-requisites.
-- Demos available on BlindAI GitHub.
-
-**❌ Cons:**
-
-- This option does not offer the hardware security guarantees of Intel SGX. **It is not suitable for production.**
-
-If this is the right option for you, you can:
-
-- Check out our [quick tour notebook](#Quick tour). This will show you how you can install and use BlindAI's client and server testing packages.
-- Test your own Python scripts or notebooks using the `blindai_preview` PyPi packages with the `blindai_preview.testing` server.
+For instructions on how to set up your Azure DCsv3 VM, alternative deployment methods (on-premise, testing only...) or more information, visit [our installation page](https://github.com/mithril-security/blindai-preview/blob/ophelie-README-rewrite/docs/docs/getting-started/installation.md)
 
 If you have any trouble with these your test programs, compare your usage against our [example notebooks](link) or <a href="#-getting-help">contact us directly</a>!
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
