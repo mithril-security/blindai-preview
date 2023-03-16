@@ -26,7 +26,6 @@
 ---------------------------------------------------------------
 
 <p align="center">
-    <br />
     <a href="https://blindai.mithrilsecurity.io/en/latest/"><strong>Explore the docs »</strong></a>
     <br />
     <br />
