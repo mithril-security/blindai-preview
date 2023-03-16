@@ -2,7 +2,7 @@
 ________________________________________________________
 
 <font size="5"><span style="font-weight: 200">
-An AI model deployment solution which ensures users' data remains private every step of the way.
+An AI model deployment solution which ensures users' data remains private every step of the way.</font></span>
 
 ## What is BlindAI?
 ________________________________________________________
