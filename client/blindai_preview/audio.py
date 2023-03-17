@@ -1,10 +1,10 @@
 import whisper
-from typing import Optional
+from typing import Optional, Union
 from .utils import fetch_whisper_tiny_20_tokens
 from .client import BlindAiConnection, connect
 from transformers import WhisperProcessor
 import torch
-
+from ._preprocess_audio import load_audio
 
 DEFAULT_BLINDAI_ADDR = "https://mithrilsecurity/blindai/"
 DEFAULT_WHISPER_MODEL = "tiny.en"
@@ -13,7 +13,7 @@ DEFAULT_TEE = "sgx"
 DEFAULT_TRANSFORMER = f"openai/whisper-{DEFAULT_WHISPER_MODEL}"
 
 
-def _preprocess_audio(file) -> torch.Tensor:
+def _preprocess_audio(file: Union[str, bytes]) -> torch.Tensor:
     """
     Preprocess audio file to be used with Whisper model.
 
@@ -25,11 +25,8 @@ def _preprocess_audio(file) -> torch.Tensor:
         torch.Tensor:
             The preprocessed audio file
     """
-    # Convert audio into numpy array
-    audio = whisper.load_audio(file).flatten()
-
-    # Trim/pad audio to 30s with `pad_or_trim`
-    audio = whisper.pad_or_trim(audio)
+    # Load audio file
+    audio = load_audio(file).flatten()
 
     # Convert loaded audio to log_mel_spectrogram
     return whisper.log_mel_spectrogram(audio).unsqueeze(0)
@@ -60,7 +57,7 @@ class Audio:
     @classmethod
     def transcribe(
         cls,
-        file: str,
+        file: Union[str, bytes],
         model: str = DEFAULT_WHISPER_MODEL,
         connection: Optional["BlindAiConnection"] = None,
         tee: Optional[str] = DEFAULT_TEE,
@@ -70,8 +67,8 @@ class Audio:
 
         Args:
 
-            file: str
-                Audio file to transcribe.
+            file: str, bytes
+                Audio file to transcribe. It may also receive serialized bytes of wave file.
             model: str
                 The Whisper model. Defaults to "medium".
             connection: Optional[BlindAiConnection]
@@ -87,14 +84,11 @@ class Audio:
         if tee not in DEFAULT_TEE_OPTIONS:
             raise ValueError(f"tee must be one of {DEFAULT_TEE_OPTIONS}")
 
-        # Get `model` from OpenAI's Whisper service
-        torch_model = whisper.load_model(model)
-
         # Preprocess audio file
         input_mel = _preprocess_audio(file)
 
         # Convert model to ONNX with `torch_to_onnx`
-        onnx_file_path = fetch_whisper_tiny_20_tokens(torch_model)
+        onnx_file_path = fetch_whisper_tiny_20_tokens()
 
         # Get BlindAI connection object
         with _get_connection(connection, tee) as conn:
@@ -117,5 +111,8 @@ class Audio:
 
             # Use transform to decode tokens
             text = tokenizer.batch_decode(tokens, skip_special_tokens=True).pop()
+
+            # Delete model from BlindAI server
+            conn.delete_model(model_id=response.model_id)
 
             return text
