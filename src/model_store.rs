@@ -74,7 +74,7 @@ impl ModelStore {
                     InferenceModel::from_onnx_loaded(
                         Arc::clone(onnx),
                         model_id,
-                        model_name,
+                        model_name.clone(),
                         model_hash,
                     )
                 }
@@ -85,7 +85,7 @@ impl ModelStore {
                     let model = InferenceModel::load_model(
                         model_bytes,
                         model_id,
-                        model_name,
+                        model_name.clone(),
                         model_hash,
                         optimize,
                     )?;
@@ -110,10 +110,20 @@ impl ModelStore {
         Ok((model_id, model_hash))
     }
 
+    pub fn get_uuid_from_hash(&self, model_hash: &String) -> Option<Uuid> {
+        let read_guard = self.inner.read().unwrap();
+        let digest = ring::test::from_hex(model_hash).unwrap();
+        for val in read_guard.models_by_id.iter() {
+            if val.1.model_hash().as_ref() == &digest[..] {
+                return Some(val.0.to_owned());
+            }
+        }
+        None
+    }
+
     pub fn use_model<U>(&self, model_id: Uuid, fun: impl Fn(&InferenceModel) -> U) -> Option<U> {
         // take a read lock
         let read_guard = self.inner.read().unwrap();
-
         read_guard.models_by_id.get(&model_id).map(fun)
     }
 
