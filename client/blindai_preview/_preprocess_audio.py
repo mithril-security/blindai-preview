@@ -66,7 +66,7 @@ def load_audio(data: Union[str, bytes]) -> np.array:
         queue.put(out)
 
     conn1, conn2 = multiprocessing.Pipe(True)
-    queue = multiprocessing.Queue()
+    queue: multiprocessing.Queue = multiprocessing.Queue()
 
     # Transform data into bytes if it is a string
     if isinstance(data, str):

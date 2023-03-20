@@ -23,7 +23,7 @@ run *args:
     | jq -r 'select(.reason=="compiler-artifact" and .target.kind==["bin"]) | .executable'` 
 
   ftxsgx-elf2sgxs "$binpath" \
-    --heap-size 0x8FBA00000 \
+    --heap-size 0xFBA00000 \
     --ssaframesize 1 \
     --stack-size 0x20000 \
     --threads 20

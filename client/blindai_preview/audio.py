@@ -108,7 +108,4 @@ class Audio:
             # Use transform to decode tokens
             text = tokenizer.batch_decode(tokens, skip_special_tokens=True).pop()
 
-            # Delete model from BlindAI server
-            conn.delete_model(model_id=response.model_id)
-
             return text
