@@ -11,6 +11,7 @@ DEFAULT_WHISPER_MODEL = "tiny.en"
 DEFAULT_TEE_OPTIONS = ["sgx", "bento"]
 DEFAULT_TEE = "sgx"
 DEFAULT_TRANSFORMER = f"openai/whisper-{DEFAULT_WHISPER_MODEL}"
+DEFAULT_MODEL_ID = ""
 
 
 def _preprocess_audio(file: Union[str, bytes]) -> torch.Tensor:
@@ -92,13 +93,8 @@ class Audio:
 
         # Get BlindAI connection object
         with _get_connection(connection, tee) as conn:
-            # Upload ONNX model to BlindAI server
-            response = conn.upload_model(
-                onnx_file_path, model_name=model, optimize=True
-            )
-
             # Run ONNX model with `input_array` on BlindAI server
-            res = conn.run_model(model_id=response.model_id, input_tensors=input_mel)
+            res = conn.run_model(model_id=DEFAULT_MODEL_ID, input_tensors=input_mel)
 
             # Convert each output BlindAI Tensor object into PyTorch Tensor
             res = [t.as_torch() for t in res.output]  # type: ignore
