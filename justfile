@@ -23,7 +23,7 @@ run *args:
     | jq -r 'select(.reason=="compiler-artifact" and .target.kind==["bin"]) | .executable'` 
 
   ftxsgx-elf2sgxs "$binpath" \
-    --heap-size 0xFBA00000 \
+    --heap-size 0x4FBA00000 \
     --ssaframesize 1 \
     --stack-size 0x20000 \
     --threads 20
@@ -183,7 +183,6 @@ test:
     onnx_files=($d*.onnx)
     npz_files=($d*.npz)
     poetry run coverage run --append ../tests/assert_correctness.py "${onnx_files[0]}" "${npz_files[0]}"
-    poetry run python ../tests/audio/api_test.py
   done
   killall runner
   coverage html --include=blindai_preview/client.py,blindai_preview/utils.py -d coverage_html

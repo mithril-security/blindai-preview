@@ -136,7 +136,10 @@ dev-tests-sgx:
          --mount=type=bind-experimental,target=/dev/sgx/,source=/dev/sgx/  \
         ( cd /opt/intel/sgx-dcap-pccs && npm start pm2 ) & \
         just run --release & \ 
-        sleep 15 \
+        while [ -z "$(lsof -i | grep -E "9923|9924" | awk -F':' '{print $2}' | awk '{print $1}')" ]; \
+        do \
+            sleep 5; \
+        done \
         && cd tests \
         && bash run_all_end_to_end_tests.sh
 
@@ -318,7 +321,10 @@ test-release:
         --mount=type=bind-experimental,target=/dev/sgx/,source=/dev/sgx/  \
         ( cd /opt/intel/sgx-dcap-pccs && npm start pm2 ) & \
          ./runner blindai_server.sgxs & \
-         sleep 15 \
+        while [ -z "$(lsof -i | grep -E "9923|9924" | awk -F':' '{print $2}' | awk '{print $1}')" ]; \
+        do \
+            sleep 5; \
+        done \
         && cd tests \
         && bash run_all_end_to_end_tests.sh
 
