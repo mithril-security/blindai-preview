@@ -8,7 +8,7 @@ from ._preprocess_audio import load_audio
 
 DEFAULT_BLINDAI_ADDR = "https://mithrilsecurity/blindai/"
 DEFAULT_WHISPER_MODEL = "tiny.en"
-DEFAULT_TEE_OPTIONS = ["sgx", "bento"]
+DEFAULT_TEE_OPTIONS = ["sgx", "nitro"]
 DEFAULT_TEE = "sgx"
 DEFAULT_TRANSFORMER = f"openai/whisper-{DEFAULT_WHISPER_MODEL}"
 DEFAULT_MODEL_HASH = "ff63656d9b09514efbb38b4b69324280a86b55df5e3a2268cb79e812d8c7b863"
