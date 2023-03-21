@@ -166,7 +166,7 @@ fn main() -> Result<()> {
             };
         } else {
             let router = {
-                let enclave_cert_der = Arc::clone(&enclave_cert_der.clone());
+                let enclave_cert_der = Arc::clone(&enclave_cert_der);
                 move |request: &rouille::Request| {
                     rouille::router!(request,
                         (GET)(/) => {
