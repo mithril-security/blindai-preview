@@ -91,17 +91,15 @@ class Audio:
         # Preprocess audio file
         input_mel = _preprocess_audio(file)
 
-        # Convert model to ONNX with `torch_to_onnx`
-        onnx_file_path = fetch_whisper_tiny_20_tokens()
-
         # Get BlindAI connection object
         with _get_connection(connection, tee) as conn:
-
             # Temporary upload
-            model_id = conn.upload_model().model_id
+            # Convert model to ONNX with `torch_to_onnx`
+            onnx_file_path = fetch_whisper_tiny_20_tokens()
+            response = conn.upload_model(onnx_file_path)
 
             # Run ONNX model with `input_array` on BlindAI server
-            res = conn.run_model(model_id=DEFAULT_MODEL_HASH, input_tensors=input_mel)
+            res = conn.run_model(model_hash=DEFAULT_MODEL_HASH, input_tensors=input_mel)
 
             # Convert each output BlindAI Tensor object into PyTorch Tensor
             res = [t.as_torch() for t in res.output]  # type: ignore

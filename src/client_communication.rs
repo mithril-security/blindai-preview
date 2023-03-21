@@ -142,12 +142,16 @@ impl Exchanger {
 
         if run_model_body.model_id.is_empty() && run_model_body.model_hash.is_empty() {
             error!("Model_id and model_hash are empty");
-            return Err(Error::msg("You must provide at least one model_id or model_hash".to_string()));
+            return Err(Error::msg(
+                "You must provide at least one model_id or model_hash".to_string(),
+            ));
         }
 
         if !run_model_body.model_id.is_empty() && !run_model_body.model_hash.is_empty() {
             error!("Model_id and model_hash are NOT empty, cannot pick one over the other");
-            return Err(Error::msg("You cannot provide a model_id and a model_hash in the same time".to_string()));
+            return Err(Error::msg(
+                "You cannot provide a model_id and a model_hash in the same time".to_string(),
+            ));
         }
 
         if run_model_body.inputs.len() * size_of::<u8>() > max_input_size
@@ -156,27 +160,26 @@ impl Exchanger {
             return Err(Error::msg("Input too big".to_string()));
         }
 
-        let mut uuid = Uuid::default();
-
-        if !run_model_body.model_hash.is_empty() {
-            uuid = match self.model_store.get_uuid_from_hash(&run_model_body.model_hash) {
+        let uuid = if !run_model_body.model_hash.is_empty() {
+            match self
+                .model_store
+                .get_uuid_from_hash(&run_model_body.model_hash)
+            {
                 Some(uuid) => uuid,
                 None => {
                     error!("Hash not found");
                     return Err(Error::msg("Model doesn't exist".to_string()));
                 }
-            };
-        }
-
-        else {
-            uuid = match Uuid::from_str(&run_model_body.model_id) {
+            }
+        } else {
+            match Uuid::from_str(&run_model_body.model_id) {
                 Ok(uuid) => uuid,
                 Err(_) => {
                     error!("Error in uuid");
                     return Err(Error::msg("Model doesn't exist".to_string()));
                 }
-            };
-        }
+            }
+        };
 
         let res = self.model_store.use_model(uuid, |model| {
             // uncomment to run benches

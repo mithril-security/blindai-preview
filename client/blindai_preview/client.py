@@ -647,7 +647,9 @@ class BlindAiConnection(contextlib.AbstractContextManager):
         r = self._conn.post(f"{self._attested_url}/upload", data=bytes_data)
         r.raise_for_status()
         send_model_reply = SendModelReply(**cbor.loads(r.content))
-        ret = UploadResponse(model_id=send_model_reply.model_id, hash=send_model_reply.hash)
+        ret = UploadResponse(
+            model_id=send_model_reply.model_id, hash=send_model_reply.hash
+        )
         return ret
 
     def run_model(
@@ -687,11 +689,13 @@ class BlindAiConnection(contextlib.AbstractContextManager):
             RunModelResponse: The response object.
         """
         # Run Model Request and Response
-        
+
         if not model_id and not model_hash:
             raise ValueError("You must provide at least one model_id or model_hash")
         if model_id and model_hash:
-            raise ValueError("You cannot provide a model_id and a model_hash in the same time")
+            raise ValueError(
+                "You cannot provide a model_id and a model_hash in the same time"
+            )
 
         tensors = translate_tensors(input_tensors, dtypes, shapes)
         run_data = RunModel(model_hash=model_hash, model_id=model_id, inputs=tensors)
