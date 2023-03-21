@@ -1,5 +1,5 @@
 import os
-from blindai_preview import *
+from blindai_preview.core import *
 import onnxruntime as rt
 import numpy as np
 import sys
