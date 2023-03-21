@@ -4,10 +4,10 @@ import os
 # blindai code
 if os.environ.get("BLINDAI_SIMULATION_MODE") == "true":
     connection = blindai.connect(
-        addr="localhost", hazmat_http_on_untrusted_port=True, simulation_mode=True
+        addr="localhost", hazmat_http_on_unattested_port=True, simulation_mode=True
     )
 else:
-    connection = blindai.connect(addr="localhost", hazmat_http_on_untrusted_port=True)
+    connection = blindai.connect(addr="localhost", hazmat_http_on_unattested_port=True)
 
 # Download audio file
 output = os.path.join(os.path.dirname(__file__), "taunt.wav")

@@ -25,10 +25,10 @@ def get_inputs(inputs: dict):
 # blindai code
 if os.environ.get("BLINDAI_SIMULATION_MODE") == "true":
     client = connect(
-        addr="localhost", hazmat_http_on_untrusted_port=True, simulation_mode=True
+        addr="localhost", hazmat_http_on_unattested_port=True, simulation_mode=True
     )
 else:
-    client = connect(addr="localhost", hazmat_http_on_untrusted_port=True)
+    client = connect(addr="localhost", hazmat_http_on_unattested_port=True)
 
 response = client.upload_model(model=model_path)
 run_response = client.run_model(

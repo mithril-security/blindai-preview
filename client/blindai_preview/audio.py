@@ -52,7 +52,7 @@ def _get_connection(
     """
     if connection is None:
         addr = f"{DEFAULT_BLINDAI_ADDR}/{tee}"
-        connection = connect(addr)
+        connection = connect(addr, hazmat_http_on_unattested_port=True)
 
     return connection
 
