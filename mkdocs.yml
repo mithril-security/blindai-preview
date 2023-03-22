@@ -104,7 +104,7 @@ nav:
 # - BlindAI API VS BlindAI Core: 'quick presentation'
   - Quick tour: "docs/getting-started/quick-tour.ipynb"
 
-- Tutorials:
+- 📙 Tutorials:
 # - BlindAI API:
 #    - Whisper integration: 'docs/tutorials/api/whisper-audio.ipynb'
 #  - BlindAI Core:
